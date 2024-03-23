@@ -1,8 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Card, Col, Container, Form, FormLabel, Row } from 'react-bootstrap'
 import './Login.css'
+import { RegisterUser } from '../apicalls/User';
 
 const Signup = () => {
+
+    const [data, setData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        businessName: '',
+        businessType: ''
+
+    });
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
+    // Function to handle form submission
+    const handleSubmit =  async (event) => {
+        event.preventDefault();
+        console.log(data)
+         const response= await RegisterUser(data);
+        console.log(response)
+
+    }
+
+
+
     return (
         <div>
             <div className="new-wrapper">
@@ -19,45 +51,94 @@ const Signup = () => {
                                 <div class="service-card">
                                     <Card className='card576'>
                                         <h1 className='Signup2'>Let’s get started!</h1>
-                                        <Form className='form9180' >
+                                        <Form className='form9180' onSubmit={handleSubmit}>
 
                                             <Form.Group className="mb-4" controlId="formBasicname">
 
-                                                <Form.Control className=" FormControl3" type="text" maxLength={20} name="name" placeholder='Enter your first name' required />
+                                                <Form.Control
+                                                    className="FormControl3"
+                                                    type="text"
+                                                    maxLength={20}
+                                                    name="firstName" // Corrected name attribute to "firstName"
+                                                    placeholder='Enter your first name'
+                                                    required
+                                                    onChange={handleChange}
+                                                    value={data.firstName}
+                                                />
+
 
                                             </Form.Group>
 
                                             <Form.Group className="mb-4" controlId="formBasicname">
 
-                                                <Form.Control className=" FormControl3" type="text" maxLength={20} name="lastname" placeholder='Enter your last name' required />
+                                                <Form.Control className=" FormControl3" type="text" maxLength={20} name="lastName" placeholder='Enter your last name' required
+                                                    onChange={handleChange}
+                                                    value={data.lastName}
+
+
+                                                />
 
                                             </Form.Group>
 
                                             <Form.Group className="mb-4" controlId="formBasicname">
 
-                                                <Form.Control className=" FormControl3" type="email" maxLength={20} name="email" placeholder='Enter your Email Address' required />
+                                                <Form.Control
+                                                    className=" FormControl3"
+                                                    type="email"
+                                                    maxLength={20}
+                                                    name="email"
+                                                    placeholder='Enter your Email Address'
+                                                    required
+                                                    onChange={handleChange}
+                                                    value={data.email}
+                                                />
 
                                             </Form.Group>
                                             <Form.Group className="mb-4" controlId="formBasicname">
 
-                                                <Form.Control className=" FormControl3" type="password" maxLength={20} name="password" placeholder='Pick a password' required />
+                                                <Form.Control
+                                                    className=" FormControl3"
+                                                    type="password"
+                                                    maxLength={20}
+                                                    name="password"
+                                                    placeholder='Pick a password'
+                                                    required
+                                                    onChange={handleChange}
+                                                    value={data.password}
+                                                />
 
                                             </Form.Group>
                                             <Form.Group className="mb-4" controlId="formBasicname">
 
-                                                <Form.Control className=" FormControl3" type="text" maxLength={20} name="name" placeholder='Enter your business name ' required />
+                                                <Form.Control
+                                                    className=" FormControl3"
+                                                    type="text"
+                                                    maxLength={20}
+                                                    name="businessName"
+                                                    placeholder='Enter your business name '
+                                                    required
+                                                    onChange={handleChange}
+                                                    value={data.businessName}
+
+                                                />
 
                                             </Form.Group>
 
 
-                                            <Form.Select aria-label="Default select example FormControl3">
-                                                <option>Enter your business type</option>
+                                            <Form.Select
+                                                aria-label="Default select example"
+                                                className="FormControl3"
+                                                onChange={handleChange}
+                                                value={data.businessType}
+                                                name="businessType" // Add name attribute to ensure handleChange updates the correct field
+                                            >
+                                                <option disabled value="">Enter your business type</option> {/* Add disabled and empty value for placeholder */}
                                                 <option value="I am a Private Tutor">I am a Private Tutor</option>
-                                                <option value="I am a Tuition Center ">I am a Tuition Center </option>
-
+                                                <option value="I am a Tuition Center">I am a Tuition Center</option> {/* Removed extra space after "Center" */}
                                             </Form.Select>
 
-                                            <p className='ForgetPassword2' >I agree to the Terms of Service <b style={{ color: "black",fontWeight:"400" }}>and</b> Privacy Policy.</p>
+
+                                            <p className='ForgetPassword2' >I agree to the Terms of Service <b style={{ color: "black", fontWeight: "400" }}>and</b> Privacy Policy.</p>
 
 
 

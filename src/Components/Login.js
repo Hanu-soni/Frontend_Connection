@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import './Login.css';
+import  { LoginUser } from '../apicalls/User';
 
 const Login = () => {
     const [data, setData] = useState({
@@ -18,13 +19,14 @@ const Login = () => {
     };
 
     // Function to handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        //  perform login here using the data state
-        // console.log("Login data:", data);
-        
+    const handleSubmit= (event)=>{
+        event.preventDefault();
+        //console.log(data)
+        const response= LoginUser(data);
+        console.log(response)
+    }
 
-    };
+
 
     return (
         <div>
