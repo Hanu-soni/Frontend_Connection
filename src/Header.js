@@ -31,18 +31,18 @@ const Header = () => {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 <Nav className="justify-content-center flex-grow-1 pe-3 navlink2">
-                                    <Nav.Link className="navlink1" to="/">Home</Nav.Link>
-                                    <Nav.Link className="navlink1" to="/about">Programes </Nav.Link>
-                                    <Nav.Link className="navlink1" to="/about">Our Tutor </Nav.Link>
-                                    <Nav.Link className="navlink1" to="/about">About Us </Nav.Link>
-                                    <Nav.Link className="navlink1" to="/about">Contact Us </Nav.Link>
+                                    <NavLink className="navlink1" to="/home">Home</NavLink>
+                                    <NavLink className="navlink1" to="/about">Programes </NavLink>
+                                    <NavLink className="navlink1" to="/about">Our Tutor </NavLink>
+                                    <NavLink className="navlink1" to="/about">About Us </NavLink>
+                                    <NavLink className="navlink1" to="/about">Contact Us </NavLink>
 
                                 </Nav>
                                 <Form className="d-flex">
 
 
                                     <Button variant="" className='iconj'><CiSearch className='searchicon' /></Button>
-                                    <Button variant="" className='signup1'>Sign In</Button>
+                                    <Button href='Login' className='signup1'>Sign In</Button>
                                 </Form>
                             </Offcanvas.Body>
                         </Navbar.Offcanvas>
@@ -61,12 +61,12 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav text-white"  >
                         <Nav className="me-auto nav-links" >
-                        <Nav.Link className="navlink1" to="/">Home</Nav.Link>
-                                    <Nav.Link className="navlink1" to="/about">Programes </Nav.Link>
-                                    <Nav.Link className="navlink1" to="/about">Our Tutor </Nav.Link>
-                                    <Nav.Link className="navlink1" to="/about">About Us </Nav.Link>
-                                    <Nav.Link className="navlink1" to="/about">Contact Us </Nav.Link>
-                                    <Nav.Link className="navlink1" to="/about">Sign In </Nav.Link>
+                        <NavLink className="navlink1" to="/">Home</NavLink>
+                                    <NavLink className="navlink1" to="/about">Programes </NavLink>
+                                    <NavLink className="navlink1" to="/about">Our Tutor </NavLink>
+                                    <NavLink className="navlink1" to="/about">About Us </NavLink>
+                                    <NavLink className="navlink1" to="/about">Contact Us </NavLink>
+                                    <NavLink className="navlink1" to="/Login">Sign In </NavLink>
                                     
                         </Nav>
                     </Navbar.Collapse>
