@@ -1,24 +1,26 @@
-
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Components/Home';
-import Header from './Header';
-import Footer from './Footer';
+
 import About from './Components/About';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
+import Dashboard from './Dashboard';
+import DashboardHome from './Component/DashboardHome';
 
 function App() {
   return (
     <div className="App">
-      <Header />
+      
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path='/About' element={<About />} />
+        <Route path='/Login' element={<Login />} />
+        <Route path='/Signup' element={<Signup />} />
+        <Route path='/Dashboard' element={<Dashboard/>} />
+        <Route path='/DashboardHome' element={<DashboardHome/>} />
       </Routes>
-      <Footer />
+    
       
     </div>
   );

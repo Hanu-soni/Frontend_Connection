@@ -8,6 +8,7 @@ import { CiSearch } from "react-icons/ci";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './Header.css'
 import { NavLink } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <div>
@@ -31,6 +32,11 @@ const Header = () => {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 <Nav className="justify-content-center flex-grow-1 pe-3 navlink2">
+                                    <Link className="navlink1" to="/">Home</Link>
+                                    <Link className="navlink1" to="/about">Programes </Link>
+                                    <Link className="navlink1" to="/about">Our Tutor </Link>
+                                    <Link className="navlink1" to="/about">About Us </Link>
+                                    <Link className="navlink1" to="/about">Contact Us </Link>
                                     <NavLink className="navlink1" to="/home">Home</NavLink>
                                     <NavLink className="navlink1" to="/about">Programes </NavLink>
                                     <NavLink className="navlink1" to="/about">Our Tutor </NavLink>
@@ -42,6 +48,7 @@ const Header = () => {
 
 
                                     <Button variant="" className='iconj'><CiSearch className='searchicon' /></Button>
+                                    <Button href='Login' className='signup1'>Sign In</Button>
                                     <Button href='Login' className='signup1'>Sign In</Button>
                                 </Form>
                             </Offcanvas.Body>
@@ -55,12 +62,18 @@ const Header = () => {
 
             <Navbar bg="white" expand="md" className='fixed-top navu9 desktop22' style={{ height: "90px", color: "black" }}>
                 <Container>
-                    <NavLink to="/" className="text-decoration-none  mx-3" style={{ fontSize: "34px", fontFamily: "Italic" }}>
+                    <Link to="/" className="text-decoration-none  mx-3" style={{ fontSize: "34px", fontFamily: "Italic" }}>
                         <img src='./img/tutor.png' className='tutorimg1' />
-                    </NavLink>
+                    </Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav text-white"  >
                         <Nav className="me-auto nav-links" >
+                        <Link className="navlink1" to="/">Home</Link>
+                                    <Link className="navlink1" to="/about">Programes </Link>
+                                    <Link className="navlink1" to="/about">Our Tutor </Link>
+                                    <Link className="navlink1" to="/about">About Us </Link>
+                                    <Link className="navlink1" to="/about">Contact Us </Link>
+                                    <Link className="navlink1" to="/Login">Sign In </Link>
                         <NavLink className="navlink1" to="/">Home</NavLink>
                                     <NavLink className="navlink1" to="/about">Programes </NavLink>
                                     <NavLink className="navlink1" to="/about">Our Tutor </NavLink>
