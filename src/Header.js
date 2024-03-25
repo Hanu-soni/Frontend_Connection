@@ -9,7 +9,10 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import './Header.css'
 import { NavLink } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const Header = () => {
+
+    const navigate=useNavigate();
     return (
         <div>
 
@@ -48,8 +51,8 @@ const Header = () => {
 
 
                                     <Button variant="" className='iconj'><CiSearch className='searchicon' /></Button>
-                                    <Button href='Login' className='signup1'>Sign In</Button>
-                                    <Button href='Login' className='signup1'>Sign In</Button>
+                                    <Button onClick={()=>navigate('/Signup')} className='signup1'>Sign up</Button>
+                                    <Button onClick={()=>navigate('/Login')} className='signup1'>Sign In</Button>
                                 </Form>
                             </Offcanvas.Body>
                         </Navbar.Offcanvas>
