@@ -5,8 +5,7 @@ import './Sidebars.css'
 
 import { CiSquareChevLeft } from "react-icons/ci";
 import {
-  Sidebar,
-  
+  Sidebar, 
   Menu,
   MenuItem
   //useProSidebar

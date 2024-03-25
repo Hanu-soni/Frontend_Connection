@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import './Login.css';
 import  { LoginUser } from '../apicalls/User';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [data, setData] = useState({
         email: "",
         password: ""
     });
+    const navigate=useNavigate();
 
     // Function to handle input changes
     const handleChange = (e) => {
@@ -18,12 +21,22 @@ const Login = () => {
         }));
     };
 
+
+
     // Function to handle form submission
-    const handleSubmit= (event)=>{
+    const handleSubmit= async (event)=>{
         event.preventDefault();
         //console.log(data)
-        const response= LoginUser(data);
-        console.log(response)
+        const response= await LoginUser(data);
+        if(response.success===false){
+            // alert(response.message)
+            toast.info(response.message);
+        }
+        else{
+            toast.success(response.message);
+            navigate('/DashboardHome')
+        }
+         console.log(response)
     }
 
 
@@ -46,7 +59,6 @@ const Login = () => {
                                                 <Form.Control
                                                     className="FormControl3"
                                                     type="email"
-                                                    maxLength={20}
                                                     name="email"
                                                     placeholder='Email'
                                                     required
@@ -67,7 +79,7 @@ const Login = () => {
                                                 />
                                                 <a href='#' className='ForgetPassword'>Forget Password ?</a>
                                             </Form.Group>
-                                            <Button className='VOIR_LESPRODUITSbn9' type="submit">Sign in</Button>
+                                            <Button onClick={handleSubmit} className='VOIR_LESPRODUITSbn9' type="submit">Sign in</Button>
                                         </Form>
                                         <h5 className='notres'>Not Registered ?</h5>
                                         <a href='Signup' className='notres1'>Sign Up</a>

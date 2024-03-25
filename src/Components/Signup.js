@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Button, Card, Col, Container, Form, FormLabel, Row } from 'react-bootstrap'
 import './Login.css'
 import { RegisterUser } from '../apicalls/User';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
 
@@ -14,6 +16,7 @@ const Signup = () => {
         businessType: ''
 
     });
+    const navigate=useNavigate();
 
 
     const handleChange = (e) => {
@@ -27,14 +30,19 @@ const Signup = () => {
     // Function to handle form submission
     const handleSubmit =  async (event) => {
         event.preventDefault();
-        console.log(data)
+        //console.log(data)
          const response= await RegisterUser(data);
-        console.log(response)
+         if(response.success===false){
+             toast.error(response.message);
+         }
+         else if(response.success===true){
+            //console.log(response);
+            toast.success(response.message);
+            navigate('/Login');
+         }
+            //console.log(response)
 
     }
-
-
-
     return (
         <div>
             <div className="new-wrapper">
@@ -85,7 +93,7 @@ const Signup = () => {
                                                 <Form.Control
                                                     className=" FormControl3"
                                                     type="email"
-                                                    maxLength={20}
+                                                   
                                                     name="email"
                                                     placeholder='Enter your Email Address'
                                                     required
