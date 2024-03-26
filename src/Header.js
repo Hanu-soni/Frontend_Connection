@@ -35,11 +35,6 @@ const Header = () => {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 <Nav className="justify-content-center flex-grow-1 pe-3 navlink2">
-                                    <Link className="navlink1" to="/">Home</Link>
-                                    <Link className="navlink1" to="/about">Programes </Link>
-                                    <Link className="navlink1" to="/about">Our Tutor </Link>
-                                    <Link className="navlink1" to="/about">About Us </Link>
-                                    <Link className="navlink1" to="/about">Contact Us </Link>
                                     <NavLink className="navlink1" to="/home">Home</NavLink>
                                     <NavLink className="navlink1" to="/about">Programes </NavLink>
                                     <NavLink className="navlink1" to="/about">Our Tutor </NavLink>
@@ -52,6 +47,7 @@ const Header = () => {
 
                                     <Button variant="" className='iconj'><CiSearch className='searchicon' /></Button>
                                     <Button onClick={()=>navigate('/Signup')} className='signup1'>Sign up</Button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <Button onClick={()=>navigate('/Login')} className='signup1'>Sign In</Button>
                                 </Form>
                             </Offcanvas.Body>

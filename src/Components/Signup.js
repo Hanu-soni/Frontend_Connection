@@ -3,7 +3,7 @@ import { Button, Card, Col, Container, Form, FormLabel, Row } from 'react-bootst
 import './Login.css'
 import { RegisterUser } from '../apicalls/User';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
 
@@ -151,6 +151,8 @@ const Signup = () => {
 
 
                                             <Button className='VOIR_LESPRODUITSbn99 ' type="submit">Log in account</Button>
+                                            <p>already have an account?</p>
+                                            <Link to='/login'>Sign In</Link>
 
                                         </Form>
 

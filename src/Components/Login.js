@@ -3,7 +3,7 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import './Login.css';
 import  { LoginUser } from '../apicalls/User';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [data, setData] = useState({
@@ -82,7 +82,7 @@ const Login = () => {
                                             <Button onClick={handleSubmit} className='VOIR_LESPRODUITSbn9' type="submit">Sign in</Button>
                                         </Form>
                                         <h5 className='notres'>Not Registered ?</h5>
-                                        <a href='Signup' className='notres1'>Sign Up</a>
+                                        <Link to='/Signup'>Sign Up</Link>
                                     </Card>
                                 </div>
                             </div>
