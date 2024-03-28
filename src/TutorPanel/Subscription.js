@@ -16,13 +16,13 @@ const Subscription = () => {
     <div>
       <div className='desktop13'>
         <nav className="navbar navbar-expand-lg navbar-light bg-light debhh fixed-top" >
-          <a className="navbar-brand" href="#">Home</a>
+          <a className="navbar-brand" >Subscription</a>
 
           <CiShare2 className='share1' /> <IoIosNotificationsOutline className='share1' />
           <span className='tst'>TS</span>
 
 
-          <Dropdown>
+          {/* <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               <FaBars className='share3' />
             </Dropdown.Toggle>
@@ -32,7 +32,7 @@ const Subscription = () => {
                     ,fontSize:"18px"}}>Subscription</Link>
 
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown> */}
 
 
 
@@ -42,10 +42,10 @@ const Subscription = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
             <li class="nav-item">
-                  <Link to="/" className="nav-link nav-link1">Home</Link>
+                  <Link to="/TutorHome" className="nav-link nav-link1">Home</Link>
                 </li>
                 <li class="nav-item">
-                  <Link to="/" className="nav-link nav-link1">Student</Link>
+                  <Link to="/Student" className="nav-link nav-link1">Student</Link>
                 </li>
                 <li class="nav-item">
                   <Link to="/" className="nav-link nav-link1">Calendar</Link>
@@ -81,13 +81,13 @@ const Subscription = () => {
             <div class="sidebar-sticky">
               <ul class="nav flex-column text-white">
                 <li class="nav-item">
-                  <Link to="/" className="navlinkjh nav-link mb-4"> <img src='./img/tutordash.png' className="logoimgy " /><span className='tutorl0go'>Tutor Octopus</span></Link>
+                  <Link to="/TutorHome" className="navlinkjh nav-link mb-4"> <img src='./img/tutordash.png' className="logoimgy " /><span className='tutorl0go'>Tutor Octopus</span></Link>
                 </li>
                 <li class="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/home.png" className="logoimgy1 " />Home</Link>
+                  <Link to="/TutorHome" className="navlinkjh nav-link"><img src="./img/home.png" className="logoimgy1 " />Home</Link>
                 </li>
                 <li class="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/student1.png" className="logoimgy1 " />Student</Link>
+                  <Link to="/Student" className="navlinkjh nav-link"><img src="./img/student1.png" className="logoimgy1 " />Student</Link>
                 </li>
                 <li class="nav-item">
                   <Link to="/" className="navlinkjh nav-link"> <img src="./img/Calendar.png" className="logoimgy1 " />Calendar</Link>
@@ -130,7 +130,7 @@ const Subscription = () => {
                     {/* <img src='./img/Typescript_logo_2020.png' width={30}/> */}
                     <span className='tst'>TS</span>
                   </Navbar.Text>
-                  <Dropdown>
+                  {/* <Dropdown>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                       <FaBars className='share3' />
                     </Dropdown.Toggle>
@@ -140,7 +140,7 @@ const Subscription = () => {
                     ,fontSize:"18px"}}>Subscription</Link>
 
                     </Dropdown.Menu>
-                  </Dropdown>
+                  </Dropdown> */}
 
                 </Navbar.Collapse>
               </Container>

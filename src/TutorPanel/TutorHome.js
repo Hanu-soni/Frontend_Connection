@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row, Modal, Button } from 'react-bootstrap'
 
 import { Dropdown, Navbar } from 'react-bootstrap'
 
@@ -12,39 +12,63 @@ import { FaBars } from 'react-icons/fa'
 
 import './Dash.css'
 import App1 from '../App1';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const TutorHome = () => {
+const TutorHome = ({ userData }) => {
 
-  const location = useLocation();
-    // Accessing the data passed during navigation
-    const userData= location.state;
-    console.log(userData);
+
+
+  // const location = useLocation();
+  // // Accessing the data passed during navigation
+  // const userData = location.state;
+  // const firstName = userData && userData.firstName ? userData.firstName : '';
+  // const lastName = userData && userData.lastName ? userData.lastName : '';
+  //console.log(userData);
+  // console.log(userData.name[0])
+  //  const IconName = userData && userData.name && userData.name.length > 0 ? userData.name[0] : '';
+  const navigate=useNavigate();
+  const [showModalLogout, setShowModalLogout] = useState(false);
+
+  const handleLogout = () => {
+    setShowModalLogout(true);
+  };
+
+  const handleClose = () => {
+    setShowModalLogout(false);
+  };
+
+  const handleConfirmLogout = () => {
+    // Handle logout here
+    setShowModalLogout(false);
+    sessionStorage.removeItem('token');
+    navigate('/Login')
+    
+  };
 
 
   return (
     <div>
       <div className='desktop13'>
         <nav className="navbar navbar-expand-lg navbar-light bg-light debhh fixed-top" >
-          <a className="navbar-brand" href="#">Home</a>
+          <a className="navbar-brand">Home</a>
 
           <CiShare2 className='share1' /> <IoIosNotificationsOutline className='share1' />
-          <span className='tst'>TS</span>
+          <span className='tst'>{userData.firstName[0]}</span>
 
 
-          <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              <FaBars className='share3' />
-            </Dropdown.Toggle>
+          {/* <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            <FaBars className='share3' />
+          </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Link to="/" style={{
-                color: "black", marginLeft: "20px", textDecoration: "none"
-                , fontSize: "18px"
-              }}>Subscription</Link>
+          <Dropdown.Menu>
+            <Link to="/" style={{
+              color: "black", marginLeft: "20px", textDecoration: "none"
+              , fontSize: "18px"
+            }}>Subscription</Link>
 
-            </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown.Menu>
+        </Dropdown> */}
 
 
 
@@ -53,34 +77,34 @@ const TutorHome = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-           
-                <li className="nav-item">
-                  <Link to="/" className="nav-link nav-link1">Student</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/" className="nav-link nav-link1">Calendar</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/" className="nav-link nav-link1"> Online Material</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/" className="nav-link nav-link1">Expenses & Revenue</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/" className="nav-link nav-link1">Quiz</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/" className="nav-link nav-link1">Exam Features</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/" className="nav-link nav-link1">Announcements</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/" className="nav-link nav-link1"> Website</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/" className="nav-link nav-link1">Business Report</Link>
-                </li>
+
+              <li className="nav-item">
+                <Link to="/Student" className="nav-link nav-link1">Student</Link>
+              </li>
+              <li className="nav-item">
+                <p to="/" className="nav-link nav-link1">Calendar</p>
+              </li>
+              <li className="nav-item">
+                <p to="/" className="nav-link nav-link1"> Online Material</p>
+              </li>
+              <li className="nav-item">
+                <p to="/" className="nav-link nav-link1">Expenses & Revenue</p>
+              </li>
+              <li className="nav-item">
+                <p to="/" className="nav-link nav-link1">Quiz</p>
+              </li>
+              <li className="nav-item">
+                <p to="/" className="nav-link nav-link1">Exam Features</p>
+              </li>
+              <li className="nav-item">
+                <p to="/" className="nav-link nav-link1">Announcements</p>
+              </li>
+              <li className="nav-item">
+                <p to="/" className="nav-link nav-link1"> Website</p>
+              </li>
+              <li className="nav-item">
+                <p to="/" className="nav-link nav-link1">Business Report</p>
+              </li>
             </ul>
           </div>
         </nav>
@@ -91,38 +115,57 @@ const TutorHome = () => {
             <div className="sidebar-sticky">
               <ul className="nav flex-column text-white">
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link mb-4"> <img src='./img/tutordash.png' className="logoimgy " /><span className='tutorl0go'>Tutor Octopus</span></Link>
+                  <p className="navlinkjh nav-link mb-4"> <img src='./img/tutordash.png' className="logoimgy " /><span className='tutorl0go'>Tutor Octopus</span></p>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/home.png" className="logoimgy1 " />Home</Link>
+                  {/* //need to change to link */}
+                  <Link to='/TutorHome' className="navlinkjh nav-link"><img src="./img/home.png" className="logoimgy1 " />Home</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/student1.png" className="logoimgy1 " />Student</Link>
+                  {/* //need to change to link */}
+                  <Link to="/Student" className="navlinkjh nav-link"><img src="./img/student1.png" className="logoimgy1 " />Student</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"> <img src="./img/Calendar.png" className="logoimgy1 " />Calendar</Link>
+                  <p to="#" className="navlinkjh nav-link"> <img src="./img/Calendar.png" className="logoimgy1 " />Calendar</p>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/OnlineMaterial.png" className="logoimgy1 " /> Online Material</Link>
+                  <p to="#" className="navlinkjh nav-link"><img src="./img/OnlineMaterial.png" className="logoimgy1 " /> Online Material</p>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/Expenses.png" className="logoimgy1 " />Expenses & Revenue</Link>
+                  <p to="#" className="navlinkjh nav-link"><img src="./img/Expenses.png" className="logoimgy1 " />Expenses & Revenue</p>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/Quiz.png" className="logoimgy1 " />Quiz</Link>
+                  <p to="#" className="navlinkjh nav-link"><img src="./img/Quiz.png" className="logoimgy1 " />Quiz</p>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/ExamFeatures.png" className="logoimgy1 " />Exam Features</Link>
+                  <p to="#" className="navlinkjh nav-link"><img src="./img/ExamFeatures.png" className="logoimgy1 " />Exam Features</p>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/Announcements.png" className="logoimgy1 " />Announcements</Link>
+                  <p to="#" className="navlinkjh nav-link"><img src="./img/Announcements.png" className="logoimgy1 " />Announcements</p>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/Website.png" className="logoimgy1 " /> Website</Link>
+                  <p to="#" className="navlinkjh nav-link"><img src="./img/Website.png" className="logoimgy1 " /> Website</p>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="navlinkjh nav-link"><img src="./img/BusinessReport.png" className="logoimgy1 " />Business Report</Link>
+                  <p to="#" className="navlinkjh nav-link"><img src="./img/BusinessReport.png" className="logoimgy1 " />Business Report</p>
                 </li>
+                <li className="nav-item">
+                  <button onClick={handleLogout} className="navlinkjh nav-link"><img src="./img/BusinessReport.png" className="logoimgy1 " />Log-Out</button>
+                </li>
+                <Modal show={showModalLogout} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Logout</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>Are you sure you want to log out?</Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      No
+                    </Button>
+                    <Button variant="primary" onClick={handleConfirmLogout}>
+                      Yes
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
               </ul>
             </div>
           </nav>
@@ -136,23 +179,23 @@ const TutorHome = () => {
 
                   <Navbar.Text>
                     <CiShare2 className='share1' /> <IoIosNotificationsOutline className='share1' />
-                    <span className='tst'>TS</span>
+                    <span className='tst'>{userData.firstName[0] + userData.lastName[0]}</span>
 
                   </Navbar.Text>
 
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      <FaBars className='share3' />
-                    </Dropdown.Toggle>
+                  {/* <Dropdown>
+                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <FaBars className='share3' />
+                  </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      <Link to="/" style={{
-                        color: "black", marginLeft: "20px", textDecoration: "none"
-                        , fontSize: "18px"
-                      }}>Subscription</Link>
+                  <Dropdown.Menu>
+                    <Link to="/" style={{
+                      color: "black", marginLeft: "20px", textDecoration: "none"
+                      , fontSize: "18px"
+                    }}>Subscription</Link>
 
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  </Dropdown.Menu>
+                </Dropdown> */}
 
                 </Navbar.Collapse>
 
@@ -161,7 +204,7 @@ const TutorHome = () => {
             </Navbar>
 
             <div className="dashboard-header px-md-4">
-              <h1 className="h2">Lets get Started, {userData.user}</h1>
+              <h4 className="">Lets get Started, {userData.firstName}</h4>
 
 
 
@@ -171,11 +214,11 @@ const TutorHome = () => {
                   <div className="container bnnbcon scrollb">
                     <div className="progress-container ">
                       <div className="progress" id="progress"></div>
-                      <div ><img src='./img/createaccount.png' className="circle active" width={90} /> Create Account</div>
+                      <div ><img src='./img/createaccount.png' className="circle1 active" width={0} /> <span className='create5'>Create Account</span></div>
 
-                      <div ><img src='./img/student1.png' className="circle" width={90} style={{ width: "80px", padding: "px" }} />  Add Student</div>
-                      <div ><img src='./img/Calendar.png' className="circle " width={90} />Schedule Event</div>
-                      <div ><img src='./img/img7.png' className="circle " width={90} /> You have got it</div>
+                      <div ><img src='./img/des1.png' className="circle nn" width={90} />  <span className='create5'>Add Student</span> </div>
+                      <div ><img src='./img/des2.png' className="circle " width={90} /> <span className='create5'>Schedule Event</span> </div>
+                      <div ><img src='./img/des3.png' className="circle " width={90} /> <span className='create5'> You have got it</span> </div>
 
                     </div>
 
@@ -252,6 +295,7 @@ const TutorHome = () => {
       </div>
 
     </div>
+
   )
 }
 

@@ -5,17 +5,17 @@ import Header from '../Header'
 import Footer from '../Footer'
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
-import  { LoginUser } from '../apicalls/User';
+import { LoginUser } from '../apicalls/User';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
 
     const [data, setData] = useState({
         email: "",
         password: ""
     });
-    const[loading,setloading]=useState(false);
-    
-    const navigate=useNavigate();
+    const [loading, setloading] = useState(false);
+
+    const navigate = useNavigate();
 
     // Function to handle input changes
     const handleChange = (e) => {
@@ -29,20 +29,32 @@ const Login = () => {
 
 
     // Function to handle form submission
-    const handleSubmit= async (event)=>{
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(data)
-        const response= await LoginUser(data);
-        if(response.success===false){
-            //  alert(response.message)
-            toast.info(response.message);
+        setloading(true);
+        console.log(loading)
+        const response = await LoginUser(data);
+
+        if (response) {
+            console.log(response.message)
+            setloading(false)
+            if (response.success === false) {
+                //  alert(response.message)
+                toast.info(response.message);
+            }
+            else {
+                toast.success(response.message);
+                // navigate('/TutorHome',{state:response.data})
+                sessionStorage.setItem('token', response.data.token);
+                onLogin(response.data);
+                navigate('/TutorHome')
+
+                // alert(response.message)
+            }
         }
-        else{
-            toast.success(response.message);
-            navigate('/TutorHome',{state:response.data})
-            // alert(response.message)
-        }
-        // console.log(response)
+
+         
     }
 
     return (
@@ -66,34 +78,43 @@ const Login = () => {
                                 <div class="service-card2">
                                     <Card className='card576'>
                                         <h1 className='Signup2'>Let’s get started!</h1>
-                                        <Form className='form9180' onSubmit={handleSubmit} >
+                                        {loading ? (
+                                            <div class="spinner-border" role="status">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        ) : (
+                                            <Form className='form9180' onSubmit={handleSubmit} >
 
-                                            <Form.Group className="mb-4" controlId="formBasicEmail">
+                                                <Form.Group className="mb-4" controlId="formBasicEmail">
 
-                                                <Form.Control className=" FormControl3" type="email" name="email" placeholder='Email' required
-                                                onChange={handleChange}
-                                                
-                                                />
+                                                    <Form.Control className=" FormControl3" type="email" name="email" placeholder='Email' required
+                                                        onChange={handleChange}
 
-                                            </Form.Group>
+                                                    />
 
-                                            <Form.Group className="mb-4" controlId="formBasicEmail">
+                                                </Form.Group>
 
-                                                <Form.Control className="no-outline FormControl3" type="password" placeholder='Password' 
-                                                     onChange={handleChange}
-                                                    name="password"
-                                                    required />
-                                                      <Link to="#" className='ForgetPassword'>Forget Password ?</Link>
-                                               
+                                                <Form.Group className="mb-4" controlId="formBasicEmail">
 
-                                            </Form.Group>
+                                                    <Form.Control className="no-outline FormControl3" type="password" placeholder='Password'
+                                                        onChange={handleChange}
+                                                        name="password"
+                                                        required />
+                                                    <Link to="#" className='ForgetPassword'>Forget Password ?</Link>
 
-                                            <Button className='VOIR_LESPRODUITSbn9 ' type="submit">Sign in</Button>
 
-                                        </Form>
+                                                </Form.Group>
+
+                                                <Button className='VOIR_LESPRODUITSbn9 ' type="submit">Sign in</Button>
+
+                                            </Form>)}
+                                        {/* {
+                                            loading===true &&
+                                            <p>loading...</p>
+                                        } */}
                                         <h5 className='notres'>Not Registered ?</h5>
                                         <Link to="/signup" className='notres1'>Sign Up</Link>
-                                        
+
                                     </Card>
                                     <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
                                 </div>
@@ -124,7 +145,7 @@ const Login = () => {
                                     <Form.Control type="text" className='form1' placeholder='Enter e-mail Address' />
 
                                     <Button variant="" className='btn809' type="button">
-                                    Subscribe Now
+                                        Subscribe Now
                                     </Button>
 
                                 </div>
@@ -137,7 +158,7 @@ const Login = () => {
 
                 </Container>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 }

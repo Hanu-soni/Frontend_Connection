@@ -18,7 +18,8 @@ const Signup = () => {
         businessType: ''
 
     });
-    const navigate=useNavigate();
+    const navigate = useNavigate();
+    const [loading, setloading] = useState(false);
 
 
     const handleChange = (e) => {
@@ -30,27 +31,28 @@ const Signup = () => {
     };
 
     // Function to handle form submission
-    const handleSubmit =  async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(data)
-         const response= await RegisterUser(data);
-         if(response.success===false){
+        setloading(true);
+        const response = await RegisterUser(data);
+        if (response.success === false) {
             //  toast.error(response.message);
-             alert(response.message)
-         }
-         else if(response.success===true){
+            alert(response.message)
+        }
+        else if (response.success === true) {
             //console.log(response);
             toast.success(response.message);
             // alert(response.message)
             navigate('/Login');
-         }
-            console.log(response)
+        }
+        console.log(response)
 
     }
 
     return (
         <div>
-            <Header/>
+            <Header />
             <div className="new-wrapper">
                 <h1 className='Signup1'>Sign in as a Tutor</h1>
                 <p className='lets'>Lets Start the Journey </p>
@@ -69,68 +71,86 @@ const Signup = () => {
                                 <div class="service-card2">
                                     <Card className='card576'>
                                         <h1 className='Signup2'>Let’s get started!</h1>
-                                        <Form className='form9180'  onSubmit={handleSubmit}>
+                                        {loading ? (
+                                            <div class="spinner-border" role="status">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        ) : (
+                                            <Form className='form9180' onSubmit={handleSubmit}>
 
-                                            <Form.Group className="mb-4" controlId="formBasicname">
+                                                <Form.Group className="mb-4" controlId="formBasicname">
 
-                                                <Form.Control className=" FormControl3" type="text"  name="firstName" placeholder='Enter your first name' required
-                                                onChange={handleChange}
-                                                
-                                                />
+                                                    <Form.Control className=" FormControl3" type="text" name="firstName" placeholder='Enter your first name' required
+                                                        onChange={handleChange}
 
-
-                                            </Form.Group>
-
-                                            <Form.Group className="mb-4" controlId="formBasicname">
-
-                                                <Form.Control className=" FormControl3" type="text"  name="lastName" placeholder='Enter your last name' 
-                                                 onChange={handleChange}
-                                                required />
-
-                                            </Form.Group>
-
-                                            <Form.Group className="mb-4" controlId="formBasicname">
-
-                                                <Form.Control className=" FormControl3" type="email"  name="email" placeholder='Enter your Email Address'
-                                                 onChange={handleChange}
-                                                required />
-
-                                            </Form.Group>
-                                            <Form.Group className="mb-4" controlId="formBasicname">
-
-                                                <Form.Control className=" FormControl3" type="password"  name="password" placeholder='Pick a password' required />
-
-                                            </Form.Group>
-                                            <Form.Group className="mb-4" controlId="formBasicname">
-
-                                                <Form.Control className=" FormControl3" type="text"  name="businessName" placeholder='Enter your business name '
-                                                onChange={handleChange}
-                                                required />
-
-                                            </Form.Group>
+                                                    />
 
 
-                                            <Form.Select
-                                                aria-label="Default select example"
-                                                className="FormControl3"
-                                                onChange={handleChange}
-                                                value={data.businessType}
-                                                name="businessType" // Add name attribute to ensure handleChange updates the correct field
-                                            >
-                                                <option disabled value="">Enter your business type</option> {/* Add disabled and empty value for placeholder */}
-                                                <option value="I am a Private Tutor">I am a Private Tutor</option>
-                                                <option value="I am a Tuition Center">I am a Tuition Center</option> {/* Removed extra space after "Center" */}
-                                            </Form.Select>
+                                                </Form.Group>
+
+                                                <Form.Group className="mb-4" controlId="formBasicname">
+
+                                                    <Form.Control className=" FormControl3" type="text" name="lastName" placeholder='Enter your last name'
+                                                        onChange={handleChange}
+                                                        required />
+
+                                                </Form.Group>
+
+                                                <Form.Group className="mb-4" controlId="formBasicname">
+
+                                                    <Form.Control className=" FormControl3" type="email" name="email" placeholder='Enter your Email Address'
+                                                        onChange={handleChange}
+                                                        required />
+
+                                                </Form.Group>
+                                                <Form.Group className="mb-4" controlId="formBasicname">
+
+                                                    <Form.Control className=" FormControl3" type="password" name="password" placeholder='Pick a password' required />
+
+                                                </Form.Group>
+                                                <Form.Group className="mb-4" controlId="formBasicname">
+
+                                                    <Form.Control className=" FormControl3" type="text" name="businessName" placeholder='Enter your business name '
+                                                        onChange={handleChange}
+                                                        required />
+
+                                                </Form.Group>
+
+
+                                                <Form.Select
+                                                    aria-label="Default select example"
+                                                    className="FormControl3"
+                                                    onChange={handleChange}
+                                                    value={data.businessType}
+                                                    name="businessType" // Add name attribute to ensure handleChange updates the correct field
+                                                >
+                                                    <option disabled value="">Enter your business type</option> {/* Add disabled and empty value for placeholder */}
+                                                    <option value="I am a Private Tutor">I am a Private Tutor</option>
+                                                    <option value="I am a Tuition Center">I am a Tuition Center</option> {/* Removed extra space after "Center" */}
+                                                </Form.Select>
+
+
+                                                <Row className='my-3'>
+                                                    <Col sm={1}>
+                                                        <Form.Check type="checkbox" />
+                                                    </Col>
+                                                    <Col sm={11}>
+                                                        <span className='ForgetPassword2' >  I agree to the Terms of Service <b style={{ color: "black", fontWeight: "400" }}>and</b> Privacy Policy.</span>
+
+
+                                                    </Col>
+                                                </Row>
 
 
 
-                                            <p className='ForgetPassword2' >I agree to the Terms of Service <b style={{ color: "black",fontWeight:"400" }}>and</b> Privacy Policy.</p>
+                                                <Button className='VOIR_LESPRODUITSbn99 ' type="submit">Create account</Button>
 
+                                            </Form>
 
+                                        )
 
-                                            <Button className='VOIR_LESPRODUITSbn99 ' type="submit">Log in account</Button>
+                                        }
 
-                                        </Form>
 
                                     </Card>
                                     <br></br> <br></br> <br></br>
@@ -175,7 +195,7 @@ const Signup = () => {
 
                 </Container>
             </div>
-           <Footer/>
+            <Footer />
         </div>
     )
 }
