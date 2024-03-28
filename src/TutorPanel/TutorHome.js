@@ -26,7 +26,7 @@ const TutorHome = ({ userData }) => {
   //console.log(userData);
   // console.log(userData.name[0])
   //  const IconName = userData && userData.name && userData.name.length > 0 ? userData.name[0] : '';
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [showModalLogout, setShowModalLogout] = useState(false);
 
   const handleLogout = () => {
@@ -42,8 +42,12 @@ const TutorHome = ({ userData }) => {
     setShowModalLogout(false);
     sessionStorage.removeItem('token');
     navigate('/Login')
-    
+
   };
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString('en-US');
+  //console.log(formattedDate);
+
 
 
   return (
@@ -278,7 +282,7 @@ const TutorHome = ({ userData }) => {
               <hr></hr>
               <div>
                 <img src='./img/calendar.png' className='calender5' />
-                <p className='text-center my-4' style={{ color: "black", fontWeight: "700" }}>There's nothing on your schedule for 28-02-2024</p>
+                <p className='text-center my-4' style={{ color: "black", fontWeight: "700" }}>There's nothing on your schedule for {formattedDate}</p>
               </div>
 
 

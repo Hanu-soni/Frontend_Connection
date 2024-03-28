@@ -43,14 +43,22 @@ const Login = ({ onLogin }) => {
                 //  alert(response.message)
                 toast.info(response.message);
             }
-            else {
-                toast.success(response.message);
+            else if(response.success===true && response.data.role==="I am a Private Tutor") {
+                toast.success(response.message+" "+response.data.role);
                 // navigate('/TutorHome',{state:response.data})
                 sessionStorage.setItem('token', response.data.token);
                 onLogin(response.data);
                 navigate('/TutorHome')
 
                 // alert(response.message)
+            }
+            else{
+                toast.success(response.message+" "+response.data.role);
+                // navigate('/TutorHome',{state:response.data})
+                sessionStorage.setItem('token', response.data.token);
+                onLogin(response.data);
+                navigate('/BusinessTutor')
+
             }
         }
 

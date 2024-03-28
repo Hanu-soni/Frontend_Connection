@@ -18,6 +18,7 @@ import { useState } from 'react';
 import AddNewStudent from './TutorPanel/AddNewStudent';
 import OnlineResources from './TutorPanel/OnlineResources';
 import UploadFiles from './TutorPanel/UploadFiles';
+import BusinessTutor from './BusinessTutor/BusinessTutor';
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
          <Route path='/AddNewStudent' element={<AddNewStudent/>} />
          <Route path='/OnlineResources' element={<OnlineResources/>}/>
          <Route path='/UploadFiles' element={<UploadFiles/>}/>
+         <Route path='/BusinessTutor' element={<BusinessTutor/>}/>
 
       </Routes>
       

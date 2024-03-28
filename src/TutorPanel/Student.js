@@ -169,7 +169,7 @@ const Student = () => {
                                                         </Dropdown.Toggle>
 
                                                         <Dropdown.Menu className='menu87'>
-                                                            <Link to="/" style={{
+                                                            <Link to="/AddNewStudent" style={{
                                                                 color: "black", marginLeft: "10px", textDecoration: "none"
                                                                 , fontSize: "16px"
                                                             }}>Add New Student</Link>
