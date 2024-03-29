@@ -7,147 +7,28 @@ import { FaBars } from 'react-icons/fa6'
 import './Subscription.css'
 import { useState } from 'react'
 import './Student.css'
-const Student = () => {
+import MobilemenuNavbar from './SideNavbar/MobilemenuNavbar'
+import Sidenavbar from './SideNavbar/Sidenavbar'
+import TopBar from './SideNavbar/TopBar'
+
+const Student = ({userData}) => {
     const [key, setKey] = useState('home');
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    console.log(userData)
     return (
         <div>
-            <div className='desktop13'>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light debhh fixed-top" >
-                    <a className="navbar-brand" >Student</a>
+            <MobilemenuNavbar userData={userData} />
 
-                    <CiShare2 className='share1' /> <IoIosNotificationsOutline className='share1' />
-                    <span className='tst'>TS</span>
-
-
-                    {/* <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <FaBars className='share3' />
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Link to="/" style={{
-                                color: "black", marginLeft: "20px", textDecoration: "none"
-                                , fontSize: "18px"
-                            }}>Subscription</Link>
-
-                        </Dropdown.Menu>
-                    </Dropdown> */}
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
-                            <li class="nav-item">
-                                <Link to="/TutorHome" className="nav-link nav-link1">Home</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link to="/Student" className="nav-link nav-link1">Student</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link to="/Calendar" className="nav-link nav-link1">Calendar</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link to="/" className="nav-link nav-link1"> Online Material</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link to="/" className="nav-link nav-link1">Expenses & Revenue</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link to="/" className="nav-link nav-link1">Quiz</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link to="/" className="nav-link nav-link1">Exam Features</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link to="/" className="nav-link nav-link1">Announcements</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link to="/" className="nav-link nav-link1"> Website</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link to="/" className="nav-link nav-link1">Business Report</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
             <div class="container-fluid">
                 <div class="row">
                     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                        <div class="sidebar-sticky">
-                            <ul class="nav flex-column text-white">
-                                <li className="nav-item">
-                                    <Link to="/TutorHome" className="navlinkjh nav-link mb-4"> <img src='./img/tutordash.png' className="logoimgy " /><span className='tutorl0go'>Tutor Octopus</span></Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/TutorHome" className="navlinkjh nav-link"><img src="./img/home.png" className="logoimgy1 " />Home</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/Student" className="navlinkjh nav-link"><img src="./img/student1.png" className="logoimgy1 " />Student</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link to="/Calendar" className="navlinkjh nav-link"> <img src="./img/Calendar.png" className="logoimgy1 " />Calendar</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link to="/" className="navlinkjh nav-link"><img src="./img/OnlineMaterial.png" className="logoimgy1 " /> Online Material</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link to="/" className="navlinkjh nav-link"><img src="./img/Expenses.png" className="logoimgy1 " />Expenses & Revenue</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link to="/" className="navlinkjh nav-link"><img src="./img/Quiz.png" className="logoimgy1 " />Quiz</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link to="/" className="navlinkjh nav-link"><img src="./img/ExamFeatures.png" className="logoimgy1 " />Exam Features</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link to="/" className="navlinkjh nav-link"><img src="./img/Announcements.png" className="logoimgy1 " />Announcements</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link to="/" className="navlinkjh nav-link"><img src="./img/Website.png" className="logoimgy1 " /> Website</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link to="/" className="navlinkjh nav-link"><img src="./img/BusinessReport.png" className="logoimgy1 " />Business Report</Link>
-                                </li>
-                            </ul>
-                        </div>
+                        <Sidenavbar />
                     </nav>
-
                     <main role="main" class="col-md-9 col-lg-10">
-                        <Navbar className="bg-body-tertiaryb desktop1">
-                            <Container>
-                                <Navbar.Brand className='subscrip'>Student</Navbar.Brand>
-                                <Navbar.Toggle />
-                                <Navbar.Collapse className="justify-content-end">
-
-                                    <Navbar.Text>
-                                        <CiShare2 className='share1' /> <IoIosNotificationsOutline className='share1' />
-                                        {/* <SiTypescript className='share2' /> */}
-                                        {/* <img src='./img/Typescript_logo_2020.png' width={30}/> */}
-                                        <span className='tst'>TS</span>
-                                    </Navbar.Text>
-                                    {/* <Dropdown>
-                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                            <FaBars className='share3' />
-                                        </Dropdown.Toggle>
-
-                                        <Dropdown.Menu>
-                                            <Link to="/" style={{
-                                                color: "black", marginLeft: "20px", textDecoration: "none"
-                                                , fontSize: "18px"
-                                            }}>Subscription</Link>
-
-                                        </Dropdown.Menu>
-                                    </Dropdown> */}
-
-                                </Navbar.Collapse>
-                            </Container>
-                        </Navbar>
+                        <TopBar userData={userData} />
                         <div class="dashboard-header px-md-4">
                             {/* <h1 class="h2">Dashboard</h1> */}
 
@@ -175,7 +56,7 @@ const Student = () => {
                                                             }}>Add New Student</Link>
                                                         </Dropdown.Menu>
                                                     </Dropdown></article>
-                                                    <article>   <Dropdown>
+                                                    {/* <article>   <Dropdown>
                                                         <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg1'>
                                                             <span className='adggsh'> Messaging <IoMdArrowDropdown className="IoMdArrowDropdown" style={{ fontSize: "26px" }} /></span>
                                                         </Dropdown.Toggle>
@@ -186,7 +67,7 @@ const Student = () => {
                                                                 , fontSize: "16px"
                                                             }}>Add New Student</Link>
                                                         </Dropdown.Menu>
-                                                    </Dropdown></article>
+                                                    </Dropdown></article> */}
                                                     <article>   <Dropdown>
                                                         <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg2'>
                                                             <span className='adggsh'> Import Student <IoMdArrowDropdown className="IoMdArrowDropdown" style={{ fontSize: "26px" }} /></span>
@@ -273,7 +154,7 @@ const Student = () => {
                                                     </Dropdown.Toggle>
 
                                                     <Dropdown.Menu className='menu87'>
-                                                        <Link to="/" style={{
+                                                        <Link to="/AddNewStudent" style={{
                                                             color: "black", marginLeft: "10px", textDecoration: "none"
                                                             , fontSize: "16px"
                                                         }}>Add New Student</Link>
@@ -289,20 +170,20 @@ const Student = () => {
                                     <div >
                                         <Card className='addnewcard'>
                                             <Card.Header className='header56'>
-                                            <main class="manu">
+                                                <main class="manu">
                                                     <article>  <Dropdown>
                                                         <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg'>
                                                             <span className='adggsh'>  Add New <IoMdArrowDropdown className="IoMdArrowDropdown1" style={{ fontSize: "26px" }} /></span>
                                                         </Dropdown.Toggle>
 
                                                         <Dropdown.Menu className='menu87'>
-                                                            <Link to="/" style={{
+                                                            <Link to="/AddNewStudent" style={{
                                                                 color: "black", marginLeft: "10px", textDecoration: "none"
                                                                 , fontSize: "16px"
                                                             }}>Add New Student</Link>
                                                         </Dropdown.Menu>
                                                     </Dropdown></article>
-                                                    <article>   <Dropdown>
+                                                    {/* <article>   <Dropdown>
                                                         <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg1'>
                                                             <span className='adggsh'> Messaging <IoMdArrowDropdown className="IoMdArrowDropdown" style={{ fontSize: "26px" }} /></span>
                                                         </Dropdown.Toggle>
@@ -313,7 +194,7 @@ const Student = () => {
                                                                 , fontSize: "16px"
                                                             }}>Add New Student</Link>
                                                         </Dropdown.Menu>
-                                                    </Dropdown></article>
+                                                    </Dropdown></article> */}
                                                     <article>  </article>
 
 
@@ -328,7 +209,7 @@ const Student = () => {
                                                         <span className='adggsh'>Add New <IoMdArrowDropdown className="IoMdArrowDropdown1" style={{ fontSize: "26px" }} /></span>
                                                     </Dropdown.Toggle>
                                                     <Dropdown.Menu className='menu87'>
-                                                        <Link to="/" style={{
+                                                        <Link to="/AddNewStudent" style={{
                                                             color: "black", marginLeft: "10px", textDecoration: "none"
                                                             , fontSize: "16px"
                                                         }}>Add New Student</Link>

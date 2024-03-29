@@ -39,7 +39,7 @@ const AddNewStudent = () => {
             <div className='backgroundy'>
                 <Container>
                     <div className='content7'>
-                        <Link to='/TutorHome' style={{ fontSize: "24px", fontWeight: "600" }}><IoIosArrowBack />  Back to Students</Link>
+                        <Link to='/Home' style={{ fontSize: "24px", fontWeight: "600" }}><IoIosArrowBack />  Back to Students</Link>
                         <h3 style={{ fontWeight: "700" }}  className="my-4">Add New Student</h3>
                     </div>
 

@@ -1,7 +1,6 @@
 
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Home from './Components/Home';
 
 // import About from './Components/Features';
 import Login from './Components/Login';
@@ -9,7 +8,7 @@ import Signup from './Components/Signup';
 import Subscription from './TutorPanel/Subscription';
 
 import Testings from './TutorPanel/Testings';
-import TutorHome from './TutorPanel/TutorHome';
+import Home from './TutorPanel/Home';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Student from './TutorPanel/Student';
@@ -19,6 +18,13 @@ import AddNewStudent from './TutorPanel/AddNewStudent';
 import OnlineResources from './TutorPanel/OnlineResources';
 import UploadFiles from './TutorPanel/UploadFiles';
 import BusinessTutor from './BusinessTutor/BusinessTutor';
+import Student_Redirect from './TutorPanel/Student_Redirect/Student_Redirect';
+import Expenses_Revenue from './TutorPanel/Expenses_Revenue/Expenses_Revenue';
+import ExamFeatures from './TutorPanel/ExamFeatures/ExamFeatures';
+import TopBar from './TutorPanel/SideNavbar/TopBar';
+import Landing from './Components/Landing';
+import Quiz from './TutorPanel/Quiz/Quiz';
+
 
 function App() {
 
@@ -39,21 +45,34 @@ function App() {
     <div className="App">
 
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Landing />} />
         {/* <Route path='/About' element={<About />} /> */}
         <Route path='/Login' element={<Login onLogin={handleLogin}/>} />
         <Route path='/Signup' element={<Signup />} />
         <Route path='/Subscription' element={<Subscription />} />
 
         <Route path='/Testings' element={<Testings />} />
-       {userData && <Route path='/TutorHome'  element={<TutorHome userData={userData} />} />}
-        <Route path='/Student' element={<Student/>} />
+        {/* <div>
+        <topnavbar/>
+        <Routes>....</Routes>
+        </div> */}
+       {userData && <Route path='/Home'  element={<Home userData={userData} />} />}
+        {/* <Route path='/TutorHome'  element={<TutorHome />} /> */}
+        {userData &&<Route path='/Student' element={<Student userData={userData}/>} />}
         {/* <Route path='/Calendar' element={<Calendar/>} /> */}
          <Route path='/AddNewStudent' element={<AddNewStudent/>} />
-         <Route path='/OnlineResources' element={<OnlineResources/>}/>
+         {userData &&<Route path='/OnlineResources' element={<OnlineResources userData={userData}/>} />}
          <Route path='/UploadFiles' element={<UploadFiles/>}/>
+         {  <Route path='/TopBar' element={<TopBar/>}/>}
+        
+          
+         
          <Route path='/BusinessTutor' element={<BusinessTutor/>}/>
-
+         <Route path='/Student_Redirect' element={<Student_Redirect/>}/>
+         {userData &&  <Route path='/Expenses_Revenue' element={<Expenses_Revenue userData={userData}/>}/>}
+         {userData &&  <Route path='/ExamFeatures' element={<ExamFeatures userData={userData}/>}/>}
+         {userData &&  <Route path='/Quiz' element={<Quiz userData={userData}/>}/>}
+          
       </Routes>
       
       <ToastContainer/>

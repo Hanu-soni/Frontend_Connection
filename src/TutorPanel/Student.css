@@ -317,6 +317,13 @@ article {
     padding: 5px;
     color: #fff;
 }
+.subscribe{
+    background: rgba(17, 119, 254, 1);
+    border-radius: 30px;
+    color: white;
+    padding: 5px 8px ;
+    font-weight: 700;
+}
 
 article:nth-child(odd) {}
 

@@ -48,7 +48,7 @@ const Login = ({ onLogin }) => {
                 // navigate('/TutorHome',{state:response.data})
                 sessionStorage.setItem('token', response.data.token);
                 onLogin(response.data);
-                navigate('/TutorHome')
+                navigate('/Home')
 
                 // alert(response.message)
             }

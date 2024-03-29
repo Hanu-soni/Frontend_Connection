@@ -37,8 +37,8 @@ const Signup = () => {
         setloading(true);
         const response = await RegisterUser(data);
         if (response.success === false) {
-            //  toast.error(response.message);
-            alert(response.message)
+              toast.error(response.message);
+            //alert(response.message)
         }
         else if (response.success === true) {
             //console.log(response);
@@ -105,7 +105,9 @@ const Signup = () => {
                                                 </Form.Group>
                                                 <Form.Group className="mb-4" controlId="formBasicname">
 
-                                                    <Form.Control className=" FormControl3" type="password" name="password" placeholder='Pick a password' required />
+                                                    <Form.Control className=" FormControl3" type="password" name="password" placeholder='Pick a password' required
+                                                    onChange={handleChange}
+                                                    />
 
                                                 </Form.Group>
                                                 <Form.Group className="mb-4" controlId="formBasicname">

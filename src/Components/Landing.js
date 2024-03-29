@@ -10,8 +10,12 @@ import Cardsliders from './Cardsliders';
 import ExpertTutors from './ExpertTutors';
 import Header from '../Header';
 import Footer from '../Footer';
+import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
+const Landing = () => {
+    const navigate=useNavigate();
+
+    
 
     return (
         <>
@@ -26,7 +30,7 @@ const Home = () => {
                                     <img src='./img/line2.png' className='lines1' /> <h1 className='explore'>Explore the world of<br></br> Teaching</h1>
                                     <p className='p1'>Now you can easily deepen your chosen so that you can get the tutor you want.  </p>
                                     <Stack direction="horizontal" gap={3} className='stakc'>
-                                        <div className="p-2"><Button variant="" className='getstart'>Get started </Button></div>
+                                        <div className="p-2"><Button onClick={()=>navigate('/Signup')} variant="" className='getstart'>Get started </Button></div>
                                         <div className="p-2"><Button variant="" className='getstart1'>Explore more</Button></div>
 
                                     </Stack>
@@ -380,4 +384,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Landing
