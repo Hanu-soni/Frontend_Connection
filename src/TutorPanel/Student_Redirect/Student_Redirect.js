@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Button, Container, Form, Navbar, Stack } from 'react-bootstrap'
 import { CiShare2 } from 'react-icons/ci'
 import { IoIosNotificationsOutline } from 'react-icons/io'
@@ -8,19 +8,20 @@ import { GoPencil } from "react-icons/go";
 import MobilemenuNavbar from '../SideNavbar/MobilemenuNavbar'
 import Sidenavbar from '../SideNavbar/Sidenavbar'
 import TopBar from '../SideNavbar/TopBar'
-const Student_Redirect = () => {
+const Student_Redirect = ({userData}) => {
+    
 
 
     return (
         <div>
-            <MobilemenuNavbar/>
+            <MobilemenuNavbar userData={userData}/>
       <div class="container-fluid">
         <div class="row">
           <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <Sidenavbar/>
           </nav>
           <main role="main" class="col-md-9 col-lg-10">
-            <TopBar />
+            <TopBar userData={userData} />
                         <div className="dashboard-header px-md-4">
                             {/* <h1 className="h2">Dashboard</h1> */}
 

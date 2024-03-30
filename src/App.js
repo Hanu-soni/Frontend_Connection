@@ -68,7 +68,7 @@ function App() {
           
          
          <Route path='/BusinessTutor' element={<BusinessTutor/>}/>
-         <Route path='/Student_Redirect' element={<Student_Redirect/>}/>
+         {userData &&<Route path='/Student_Redirect' element={<Student_Redirect userData={userData}/>}/>}
          {userData &&  <Route path='/Expenses_Revenue' element={<Expenses_Revenue userData={userData}/>}/>}
          {userData &&  <Route path='/ExamFeatures' element={<ExamFeatures userData={userData}/>}/>}
          {userData &&  <Route path='/Quiz' element={<Quiz userData={userData}/>}/>}
