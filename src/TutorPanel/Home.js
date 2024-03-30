@@ -66,7 +66,7 @@ const Home = ({ userData }) => {
            <TopBar userData={userData}/>
 
             <div className="dashboard-header px-md-4">
-              <h4 className="">Lets get Started, {userData.firstName}</h4>
+              <h4 className="">Lets get Started BUDDY, {userData.firstName}</h4>
 
 
 
