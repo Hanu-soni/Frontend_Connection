@@ -151,7 +151,9 @@ const AddNewStudent = () => {
                         <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label><b>Email Address</b></Form.Label>
-                                <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} />
+                                <Form.Control type="email" name="email" value={formData.email} onChange={handleChange}
+                                required
+                                />
 
                             </Form.Group>
                         </div>
@@ -170,7 +172,9 @@ const AddNewStudent = () => {
 
                             </Form.Group>
                             <Form.Group className="" controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="SMS Capable" name="smsCapable" checked={formData.smsCapable} onChange={handleChange} />
+                                <Form.Check type="checkbox" label="SMS Capable" name="smsCapable" checked={formData.smsCapable} onChange={handleChange}
+                                required
+                                />
                             </Form.Group>
 
                         </div>
@@ -425,6 +429,8 @@ const AddNewStudent = () => {
                                     name="lessonLength"
                                     value={formData.lessonLength}
                                     onChange={handleChange}
+                                    required
+
                                 />
                                 <span style={{ float: "right", margin: "-30px 40px 0px 0px" }}> minutes</span>
 
@@ -494,7 +500,7 @@ const AddNewStudent = () => {
                         <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-3 p">
 
 
-                            <h5>Note BUDDY <span style={{ fontWeight: "400", fontSize: "16px" }}>Optional BUDDY</span></h5>
+                            <h5>Note  <span style={{ fontWeight: "400", fontSize: "16px" }}>Optional </span></h5>
                             <p>Use this area for any private notes you wish to keep.</p>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
 
@@ -502,6 +508,7 @@ const AddNewStudent = () => {
                                     onChange={handleChange}
                                     name="notes"
                                     value={formData.notes}
+                                    
 
 
                                 />

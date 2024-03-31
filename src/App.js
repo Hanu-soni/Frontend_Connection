@@ -49,7 +49,7 @@ function App() {
         {/* <Route path='/About' element={<About />} /> */}
         <Route path='/Login' element={<Login onLogin={handleLogin}/>} />
         <Route path='/Signup' element={<Signup />} />
-        <Route path='/Subscription' element={<Subscription />} />
+        {userData && <Route path='/Subscription'  element={<Subscription userData={userData}/> } />}
 
         <Route path='/Testings' element={<Testings />} />
         {/* <div>

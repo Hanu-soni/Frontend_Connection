@@ -33,11 +33,11 @@ const Header = () => {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 <Nav className="justify-content-center flex-grow-1 pe-3 navlink2">
-                                    <Link className="navlink2" to="/">Home</Link>
-                                    <Link className="navlink2" to="/">Programes </Link>
-                                    <Link className="navlink2" to="/">Our Tutors </Link>
-                                    <Link className="navlink2" to="/">About Us </Link>
-                                    <Link className="navlink2" to="/">Contact Us </Link>
+                                    <a className="navlink2" href="#Home">Home</a>
+                                    <a className="navlink2" href="#Programes">Programes </a>
+                                    <a className="navlink2" href="#OurTutors">Our Tutors </a>
+                                    <a className="navlink2" href="#AboutUs">About Us </a>
+                                    <a className="navlink2" href="#ContactUs">Contact Us </a>
 
                                 </Nav>
                                 <Form className="d-flex">

@@ -14,17 +14,17 @@ import App1 from '../App1'
 import MobilemenuNavbar from './SideNavbar/MobilemenuNavbar'
 import Sidenavbar from './SideNavbar/Sidenavbar'
 import TopBar from './SideNavbar/TopBar'
-const Subscription = () => {
+const Subscription = ({userData}) => {
   return (
     <div>
-     <MobilemenuNavbar/>
+     <MobilemenuNavbar userData={userData}/>
       <div class="container-fluid">
         <div class="row">
           <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <Sidenavbar/>
           </nav>
           <main role="main" class="col-md-9 col-lg-10">
-            <TopBar />
+            <TopBar userData={userData}/>
             <div class="dashboard-header px-md-4">
               {/* <h1 class="h2">Dashboard</h1> */}
               <p style={{ textAlign: "center" }}>Switch the toggle to change between Monthly and Annually </p>

@@ -22,7 +22,7 @@ const Landing = () => {
             <Header />
             <div>
                 <div style={{ background: "#fff8f8" }} className='bg1'>
-                    <div class="container">
+                    <div  class="container" id="Home">
                         <div class="row">
 
                             <div class="col-xs-12 col-sm-6">
@@ -31,7 +31,7 @@ const Landing = () => {
                                     <p className='p1'>Now you can easily deepen your chosen so that you can get the tutor you want.  </p>
                                     <Stack direction="horizontal" gap={3} className='stakc'>
                                         <div className="p-2"><Button onClick={()=>navigate('/Signup')} variant="" className='getstart'>Get started </Button></div>
-                                        <div className="p-2"><Button variant="" className='getstart1'>Explore more</Button></div>
+                                        <div className="p-2"><a href="#Programes"><Button  variant="" className='getstart1'>Explore more</Button></a></div>
 
                                     </Stack>
 
@@ -101,7 +101,7 @@ const Landing = () => {
                                     not simply random text. It has roots in a piece of classical
                                     Latin literature from 45 BC, making it over 2000 years old.
                                     Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, </p>
-                                <Button variant="" className='getstart my-4'>Learn More </Button>
+                                <a href="#FreeUnlimited"><Button variant="" className='getstart my-4'>Learn More </Button></a>
                             </div>
 
                         </div>
@@ -113,7 +113,7 @@ const Landing = () => {
 
 
                     <Container>
-                        <div className='center4 my-4'>
+                        <div className='center4 my-4' id="Programes">
                             <img src='./img/line2.png' className="lines12" />  <h1 className='explore7'>Explore Our Course Categories</h1>
                         </div>
                         <br></br>
@@ -154,9 +154,9 @@ const Landing = () => {
                     </Container>
                 </div>
                 <div style={{ background: "#fff8f8" }} className='bg2'>
-                    <Container>
+                    <Container id="FreeUnlimited">
 
-                        <div className='center4'>
+                        <div  className='center4'>
                             <img src='./img/line2.png' className="lines12" />  <h1 className='explore7'>Free Unlimited Live Classes</h1>
                         </div>
                         <div class="container">
@@ -165,7 +165,7 @@ const Landing = () => {
                                 <div class="col-xs-12 col-sm-6">
                                     <div class="box1">
                                         <p className='p2'>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, </p>
-                                        <Button variant="" className='getstart my-4'>Learn More </Button>
+                                        <a href="#iframe"><Button variant="" className='getstart my-4'>Learn More </Button></a>
 
                                     </div>
                                 </div>
@@ -185,7 +185,7 @@ const Landing = () => {
                     <div class="container" >
                         <div class="row">
 
-                            <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div id="AboutUs" class="col-xs-12 col-sm-6 col-md-3">
                                 <div class="box1">
                                     <FaUserGraduate className='student' />
                                     <h5 className='result1'>EXCELLENT <br></br>REAL RESULTS</h5>
@@ -279,7 +279,7 @@ const Landing = () => {
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="">
                                     <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Kch8n4tcOZQ" allowfullscreen></iframe>
+                                        <iframe id="iframe" class="embed-responsive-item" src="https://www.youtube.com/embed/Kch8n4tcOZQ" allowfullscreen></iframe>
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@ const Landing = () => {
                 </div>
                 <div style={{ background: "#fff8f8" }} className='goldmedal bnm'>
                     <Container>
-                        <div className='center4 my-5'>
+                        <div id="OurTutors" className='center4 my-5'>
                             <img src='./img/line2.png' className="lines12" />  <h1 className='explore7'>   Meet with Our Expert Tutors</h1>
                         </div>
 
@@ -315,7 +315,7 @@ const Landing = () => {
                             <div class="col-xs-12 col-sm-6">
                                 <div class="box1">
 
-                                    <h5 className='contactv'> Contact Us</h5>
+                                    <h5  id="ContactUs" className='contactv'> Contact Us</h5>
 
                                     <ExpertTutors />
                                 </div>

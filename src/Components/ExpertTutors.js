@@ -5,9 +5,28 @@ import React from 'react'
 
 
 import { Button, Container, Form, FormLabel } from 'react-bootstrap'
+import emailjs from 'emailjs-com';
 
 import './ExpertTutors.css'
 const ExpertTutors = () => {
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("reahced",e.target);
+    
+        emailjs.sendForm('service_4u9dvfl', 'template_0712s27', e.target, '_2i1ByHz0nbbdHL0O')
+          .then((result) => {
+            console.log(result.text);
+            // Add any success message or redirection logic here
+          }, (error) => {
+            console.log(error.text);
+            // Handle error
+          });
+      };
+
+
+
 
     // const [lastname, setlastname] = useState('');
 
@@ -125,17 +144,17 @@ const ExpertTutors = () => {
         setValues({ ...values, [name]: value })
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
 
-        const isValid = validateAll()
+    //     const isValid = validateAll()
 
-        if (!isValid) {
-            return false
-        }
+    //     if (!isValid) {
+    //         return false
+    //     }
 
-        // alert(JSON.stringify(values))
-    }
+    //     // alert(JSON.stringify(values))
+    // }
 
     const { name, email, lastname, msg } = values
 
@@ -162,7 +181,7 @@ const ExpertTutors = () => {
 
                         <Form.Group className="mb-4" controlId="formBasicEmail">
                             <FormLabel className="fomlable1">First Name</FormLabel>
-                            <Form.Control className="no-outline FormControl2" type="text" maxLength={20}
+                            <Form.Control className="no-outline FormControl2" type="text" 
                                 name="name"
                                 onChange={handleChange}
                                 onBlur={validateOne} />
@@ -188,7 +207,7 @@ const ExpertTutors = () => {
 
                         <Form.Group className="mb-4" controlId="formBasicEmail">
                             <FormLabel className="fomlable1">Email Id</FormLabel>
-                            <Form.Control className="FormControl2" type="email" maxLength={20} name="email"
+                            <Form.Control className="FormControl2" type="email"  name="email"
 
                                 onChange={handleChange}
                                 onBlur={validateOne} />
