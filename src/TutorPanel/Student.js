@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button, Card, Col, Container, Dropdown, Form, Modal, Nav, Navbar, Row, Tab, Tabs } from 'react-bootstrap'
 import { CiShare2 } from 'react-icons/ci'
 import { IoIosNotificationsOutline, IoMdArrowDropdown } from 'react-icons/io'
 
 import { FaBars } from 'react-icons/fa6'
 import './Subscription.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Student.css'
 import MobilemenuNavbar from './SideNavbar/MobilemenuNavbar'
 import Sidenavbar from './SideNavbar/Sidenavbar'
@@ -18,16 +18,27 @@ const Student = ({userData}) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     console.log(userData)
+
+    const navigate=useNavigate();
+    useEffect(()=>{
+      if(!sessionStorage.getItem('token')){
+        alert('YOU ARE NOT LOGGED IN! KINDLY LOGIN! CLICK OK BUTTON 2 TIMES');
+        console.log("check")
+        navigate('/Login')
+        console.log("check")
+      }
+    },
+      [])
     return (
         <div>
             <MobilemenuNavbar userData={userData} />
 
             <div class="container-fluid">
                 <div class="row">
-                    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <nav class="col-md-3 d-none d-md-block bg-light sidebar">
                         <Sidenavbar />
                     </nav>
-                    <main role="main" class="col-md-9 col-lg-10">
+                    <main role="main" class="col-md-8 col-lg-9 sidebar5">
                         <TopBar userData={userData} />
                         <div class="dashboard-header px-md-4">
                             {/* <h1 class="h2">Dashboard</h1> */}

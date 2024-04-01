@@ -1,14 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Navbar } from 'react-bootstrap'
 import { CiShare2 } from 'react-icons/ci'
 import { IoIosNotificationsOutline } from 'react-icons/io'
 import './Topbar.css'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 // import Top from './Top'
 // import Home from '../Home'
 
 const TopBar = ({userData}) => {
+
+
+
   //PANKAJ--->PAN---(0,3)
+  const navigate=useNavigate();
+  useEffect(()=>{
+    if(!sessionStorage.getItem('token')){
+      alert('YOU ARE NOT LOGGED IN! KINDLY LOGIN! CLICK OK BUTTON 2 TIMES');
+      console.log("check")
+      navigate('/Login')
+      console.log("check")
+      
+    }
+
+  },[])
 
   const location=useLocation();
   console.log(location);

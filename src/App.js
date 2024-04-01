@@ -1,6 +1,6 @@
 
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 // import About from './Components/Features';
 import Login from './Components/Login';
@@ -12,7 +12,7 @@ import Home from './TutorPanel/Home';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Student from './TutorPanel/Student';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import Calendar from './TutorPanel/Calendar';
 import AddNewStudent from './TutorPanel/AddNewStudent';
 import OnlineResources from './TutorPanel/OnlineResources';
@@ -24,6 +24,7 @@ import ExamFeatures from './TutorPanel/ExamFeatures/ExamFeatures';
 import TopBar from './TutorPanel/SideNavbar/TopBar';
 import Landing from './Components/Landing';
 import Quiz from './TutorPanel/Quiz/Quiz';
+import { BrowserRouter } from 'react-router-dom';
 
 
 function App() {
@@ -41,39 +42,57 @@ function App() {
   const handleLogin = (data) => {
       setUserData(data);
   };
+  // const Tutor_auth_path=['Home','Quiz','Subscription','OnlineResources','Expenses_Revenue','ExamFeatures'];
+  // const location=useLocation().pathname;
+  // if(Tutor_auth_path.includes(location)){
+   
+  // }
+ 
+
+
   return (
     <div className="App">
 
+      <BrowserRouter>
       <Routes>
         <Route path='/' element={<Landing />} />
         {/* <Route path='/About' element={<About />} /> */}
         <Route path='/Login' element={<Login onLogin={handleLogin}/>} />
         <Route path='/Signup' element={<Signup />} />
         {userData && <Route path='/Subscription'  element={<Subscription userData={userData}/> } />}
+        {userData &&<Route path='/Student_Redirect' element={<Student_Redirect userData={userData}/>}/>}
+         {userData &&  <Route path='/Expenses_Revenue' element={<Expenses_Revenue userData={userData}/>}/>}
+         {userData &&  <Route path='/ExamFeatures' element={<ExamFeatures userData={userData}/>}/>}
+         {userData &&  <Route path='/Quiz' element={<Quiz userData={userData}/>}/>}
+         {userData && <Route path='/Home'  element={<Home userData={userData} />} />}
+        {/* <Route path='/TutorHome'  element={<TutorHome />} /> */}
+          {userData &&<Route path='/Student' element={<Student userData={userData}/>} />}
+        {/* <Route path='/Calendar' element={<Calendar/>} /> */}
+         <Route path='/AddNewStudent' element={<AddNewStudent/>} />
+          {userData &&<Route path='/OnlineResources' element={<OnlineResources userData={userData}/>} />}
+           <Route path='/UploadFiles' element={<UploadFiles/>}/>
+            {<Route path='/TopBar' element={<TopBar/>}/>}
 
         <Route path='/Testings' element={<Testings />} />
         {/* <div>
         <topnavbar/>
         <Routes>....</Routes>
         </div> */}
-       {userData && <Route path='/Home'  element={<Home userData={userData} />} />}
-        {/* <Route path='/TutorHome'  element={<TutorHome />} /> */}
-        {userData &&<Route path='/Student' element={<Student userData={userData}/>} />}
-        {/* <Route path='/Calendar' element={<Calendar/>} /> */}
-         <Route path='/AddNewStudent' element={<AddNewStudent/>} />
-         {userData &&<Route path='/OnlineResources' element={<OnlineResources userData={userData}/>} />}
-         <Route path='/UploadFiles' element={<UploadFiles/>}/>
-         {  <Route path='/TopBar' element={<TopBar/>}/>}
+          
         
           
          
          <Route path='/BusinessTutor' element={<BusinessTutor/>}/>
-         {userData &&<Route path='/Student_Redirect' element={<Student_Redirect userData={userData}/>}/>}
-         {userData &&  <Route path='/Expenses_Revenue' element={<Expenses_Revenue userData={userData}/>}/>}
-         {userData &&  <Route path='/ExamFeatures' element={<ExamFeatures userData={userData}/>}/>}
-         {userData &&  <Route path='/Quiz' element={<Quiz userData={userData}/>}/>}
+        
           
       </Routes>
+      
+      
+      
+      
+      
+      
+      </BrowserRouter>
       
       <ToastContainer/>
 

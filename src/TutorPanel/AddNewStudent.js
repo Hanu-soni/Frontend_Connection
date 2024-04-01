@@ -189,6 +189,9 @@ const AddNewStudent = () => {
                                 <Button onClick={() => handleAdd()} className="addbtn">+ Show additional details</Button>
 
 
+
+
+
                                 {val.map((data, i) => {
                                     return (
                                         <div>
@@ -202,6 +205,7 @@ const AddNewStudent = () => {
                                                             onChange={handleChange}
                                                             required
                                                         >
+                                                             <option value=" 30">Select from below</option>
                                                             <option value='male'  >Male</option>
                                                             <option value="female">Female</option>
                                                         </Form.Select>
@@ -481,10 +485,10 @@ const AddNewStudent = () => {
                                 name="price"
                                 onChange={handleChange}
                                 required
-
+                                placeholder="Select from below"
 
                             >
-                                <option value=" 30">₹ 30.00 Per Lesson</option>
+                                <option value=" 30">Select from below</option>
                                 <option value="100">₹ 100.00 Per Lesson</option>
                                 <option value="200">₹ 200.00 Per Lesson</option>
 

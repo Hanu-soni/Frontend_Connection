@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -8,8 +8,13 @@ import { CiSearch } from "react-icons/ci";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './Header.css'
 import { NavLink } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 const Header = () => {
+
+    const location=useLocation().pathname;
+    console.log(location);
+    
+
     return (
         <div>
 
@@ -33,19 +38,36 @@ const Header = () => {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 <Nav className="justify-content-center flex-grow-1 pe-3 navlink2">
-                                    <a className="navlink2" href="#Home">Home</a>
-                                    <a className="navlink2" href="#Programes">Programes </a>
-                                    <a className="navlink2" href="#OurTutors">Our Tutors </a>
-                                    <a className="navlink2" href="#AboutUs">About Us </a>
-                                    <a className="navlink2" href="#ContactUs">Contact Us </a>
+                                    <a style={location=='/Login'||location==='/signup'?({display:"none"}):({display:""})} className="navlink2" href="#Home">Home</a>
+                                    <a style={location=='/Login'||location==='/signup'?({display:"none"}):({display:""})} className="navlink2" href="#Programes">Programes </a>
+                                    <a style={location=='/Login'||location==='/signup'?({display:"none"}):({display:""})} className="navlink2" href="#OurTutors">Our Tutors </a>
+                                    <a style={location=='/Login'||location==='/signup'?({display:"none"}):({display:""})} className="navlink2" href="#AboutUs">About Us </a>
+                                    <a style={location=='/Login'||location==='/signup'?({display:"none"}):({display:""})} className="navlink2" href="#ContactUs">Contact Us </a>
+                                   
 
                                 </Nav>
-                                <Form className="d-flex">
+                                <div className="d-flex">
 
 
-                                    <Button variant="" className='iconj'><CiSearch className='searchicon' /></Button>
-                                    <Button className='signup1'> <Link className="navlink200" to="/Login" style={{color:"black"}}>Sign In</Link> </Button>
-                                </Form>
+                                <div class="search-box">
+                                        <button class="btn-search"><i class="fas fa-search"></i></button>
+                                        <input type="text" class="input-search" placeholder="Type to Search..." />
+                                </div>
+                                    
+
+                                {
+                                    location==='/'?
+                                    (""):
+                                    (<Link className="navlink200" to="/" style={{color:"black"}}><Button className='signup1'> Back to Home</Button></Link> 
+                                    
+                                    )
+                                    
+                                    }
+                                    &nbsp;&nbsp;&nbsp;
+                                    <a style={location==='/signup'||location==='/Login'?({display:"none"}):({color:"black"})} className="navlink200" href="/Login" ><Button className='signup1'> Sign In</Button></a> 
+
+
+                                </div>
                             </Offcanvas.Body>
                         </Navbar.Offcanvas>
                     </Container>
@@ -64,7 +86,7 @@ const Header = () => {
                     <Navbar.Collapse id="basic-navbar-nav text-white bn"  >
                         <Nav className="me-auto nav-links" >
                         <Link className="navlink2" to="/">Home</Link>
-                                    <Link className="navlink2" to="/">Programes </Link>
+                                    <Link className="navlink2" to="#Programes">Programes </Link>
                                     <Link className="navlink2" to="/">Our Tutors </Link>
                                     <Link className="navlink2" to="/"> Us </Link>
                                     <Link className="navlink2" to="/">Contact Us </Link>

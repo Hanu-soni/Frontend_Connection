@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 
 import { Card, Container, Dropdown, Form, Navbar, Stack } from 'react-bootstrap'
@@ -7,16 +7,28 @@ import MobilemenuNavbar from '../SideNavbar/MobilemenuNavbar'
 import Sidenavbar from '../SideNavbar/Sidenavbar'
 import '../OnlineResources.css'
 import './Quiz.css'
+import { useNavigate } from 'react-router-dom'
 const Quiz = ({userData}) => {
+//     const navigate=useNavigate();
+//   useEffect(()=>{
+//     if(!sessionStorage.getItem('token')){
+//       alert('YOU ARE NOT LOGGED IN! KINDLY LOGIN! CLICK OK BUTTON 2 TIMES');
+//       console.log("check")
+//       navigate('/Login')
+//       console.log("check")
+      
+//     }
+
+//   },[])
     return (
         <div>
             <MobilemenuNavbar userData={userData} />
             <div class="container-fluid">
                 <div class="row">
-                    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <nav class="col-md-3 d-none d-md-block bg-light sidebar">
                         <Sidenavbar />
                     </nav>
-                    <main role="main" class="col-md-9 col-lg-10">
+                    <main role="main" class="col-md-8 col-lg-9 sidebar5">
                         <TopBar userData={userData} />
                         <div class="dashboard-header px-md-4" style={{ padding: "0px 0px 70px 0px" }}>
                             {/* <h1 class="h2">Dashboard</h1> */}

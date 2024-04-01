@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Button, Card, Col, Container, Form, FormLabel, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Form, FormLabel, Modal, Row } from 'react-bootstrap'
 import './Login.css'
 import Header from '../Header';
 import Footer from '../Footer';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { RegisterUser } from '../apicalls/User';
+import Lazyloading from '../BackendComp/Lazy';
 
 const Signup = () => {
 
@@ -15,7 +16,8 @@ const Signup = () => {
         email: '',
         password: '',
         businessName: '',
-        businessType: ''
+        businessType: '',
+
 
     });
     const navigate = useNavigate();
@@ -29,16 +31,31 @@ const Signup = () => {
             [name]: value
         }));
     };
+    const [isChecked, setIsChecked] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
+    const handleCheckboxChange = (e) => {
+        setIsChecked(e.target.checked);
+    };
 
     // Function to handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(data)
+        //console.log(data)
+        if (!isChecked) {
+            setShowModal(true); // Display modal if checkbox is not checked
+            return; // Stop further execution
+        }
         setloading(true);
+        
+        
+       
         const response = await RegisterUser(data);
         if (response.success === false) {
-              toast.error(response.message);
+            toast.error(response.message);
             //alert(response.message)
+            console.log("check_issue_57_signup")
+            navigate('/signup')
         }
         else if (response.success === true) {
             //console.log(response);
@@ -47,6 +64,7 @@ const Signup = () => {
             navigate('/Login');
         }
         console.log(response)
+       
 
     }
 
@@ -54,7 +72,7 @@ const Signup = () => {
         <div>
             <Header />
             <div className="new-wrapper">
-                <h1 className='Signup1'>Sign in as a Tutor</h1>
+                <h1  className='Signup1' id="SignIn">Sign in as a Tutor</h1>
                 <p className='lets'>Lets Start the Journey </p>
                 <section id="advertisers" class="advertisers-service-sec pt-5 pb-5 mb-5" style={{
                     backgroundImage:
@@ -72,9 +90,7 @@ const Signup = () => {
                                     <Card className='card576'>
                                         <h1 className='Signup2'>Let’s get started!</h1>
                                         {loading ? (
-                                            <div class="spinner-border" role="status">
-                                                <span class="sr-only"></span>
-                                            </div>
+                                            <Lazyloading/>
                                         ) : (
                                             <Form className='form9180' onSubmit={handleSubmit}>
 
@@ -106,7 +122,7 @@ const Signup = () => {
                                                 <Form.Group className="mb-4" controlId="formBasicname">
 
                                                     <Form.Control className=" FormControl3" type="password" name="password" placeholder='Pick a password' required
-                                                    onChange={handleChange}
+                                                        onChange={handleChange}
                                                     />
 
                                                 </Form.Group>
@@ -134,7 +150,23 @@ const Signup = () => {
 
                                                 <Row className='my-3'>
                                                     <Col sm={1}>
-                                                        <Form.Check type="checkbox" />
+                                                        <Form.Check
+                                                            type="checkbox"
+                                                            
+                                                            checked={isChecked}
+                                                            onChange={handleCheckboxChange}
+                                                        />
+                                                        <Modal show={showModal} onHide={() => setShowModal(false)}>
+                                                            <Modal.Header closeButton>
+                                                                <Modal.Title>Alert</Modal.Title>
+                                                            </Modal.Header>
+                                                            <Modal.Body>Please agree to the Terms of Service and Privacy Policy.</Modal.Body>
+                                                            <Modal.Footer>
+                                                                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                                                    Close
+                                                                </Button>
+                                                            </Modal.Footer>
+                                                        </Modal>
                                                     </Col>
                                                     <Col sm={11}>
                                                         <span className='ForgetPassword2' >  I agree to the Terms of Service <b style={{ color: "black", fontWeight: "400" }}>and</b> Privacy Policy.</span>

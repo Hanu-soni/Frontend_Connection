@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { CiShare2 } from 'react-icons/ci'
 import { IoIosNotificationsOutline, IoMdArrowDropdown } from 'react-icons/io'
@@ -8,19 +8,32 @@ import './OnlineResources.css'
 import MobilemenuNavbar from './SideNavbar/MobilemenuNavbar'
 import Sidenavbar from './SideNavbar/Sidenavbar'
 import TopBar from './SideNavbar/TopBar'
+import { useEffect } from 'react'
 
 
 const OnlineResources = ({userData}) => {
+
+    const navigate=useNavigate();
+  useEffect(()=>{
+    if(!sessionStorage.getItem('token')){
+      alert('YOU ARE NOT LOGGED IN! KINDLY LOGIN! CLICK OK BUTTON 2 TIMES');
+      console.log("check")
+      navigate('/Login')
+      console.log("check")
+      
+    }
+
+  },[])
     console.log(userData);
     return (
         <div>
            <MobilemenuNavbar userData={userData} />
       <div class="container-fluid">
         <div class="row">
-          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <nav class="col-md-3 d-none d-md-block bg-light sidebar">
             <Sidenavbar/>
           </nav>
-          <main role="main" class="col-md-9 col-lg-10">
+          <main role="main" class="col-md-8 col-lg-9 sidebar5">
             <TopBar userData={userData} />
                         <div class="dashboard-header px-md-4" > 
                             {/* <h1 class="h2">Dashboard</h1> */}
@@ -36,7 +49,7 @@ const OnlineResources = ({userData}) => {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu className='menu87'>
-                                            <Link to="/" style={{
+                                            <Link to="/AddNewStudent" style={{
                                                 color: "black", marginLeft: "10px", textDecoration: "none"
                                                 , fontSize: "16px"
                                             }}>Add New Student</Link>

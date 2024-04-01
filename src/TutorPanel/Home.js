@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import { Col, Container, Row, Modal, Button } from 'react-bootstrap'
@@ -17,7 +17,23 @@ import Sidenavbar from './SideNavbar/Sidenavbar';
 import TopBar from './SideNavbar/TopBar';
 import MobilemenuNavbar from './SideNavbar/MobilemenuNavbar';
 
+
 const Home = ({ userData }) => {
+
+  const navigate=useNavigate();
+  useEffect(()=>{
+    if(!sessionStorage.getItem('token')){
+      //alert('YOU ARE NOT LOGGED IN! KINDLY LOGIN! CLICK OK BUTTON 2 TIMES');
+      //console.log("check")
+      navigate('/Login')
+      //console.log("check")
+      
+    }
+
+  },[])
+    
+  
+  
 
 
 

@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Form, FormLabel, Row } from 'react-bootstrap'
 import './Login.css'
 import Header from '../Header'
 import Footer from '../Footer'
 import { toast } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LoginUser } from '../apicalls/User';
 
 const Login = ({ onLogin }) => {
@@ -65,11 +65,19 @@ const Login = ({ onLogin }) => {
          
     }
 
+
+    
+    useEffect(()=>{
+        sessionStorage.removeItem('token')
+    },[])
+
+
+
     return (
         <div>
             <Header />
             <div className="new-wrapper">
-                <h1 className='Signup1'>Sign in as a Tutor</h1>
+                <h1  className='Signup1'>Sign in as a Tutor</h1>
                 <p className='lets'>Lets Start the Journey </p>
                 <section id="advertisers" class="advertisers-service-sec pt-5 pb-5  mb-5" style={{
                     backgroundImage:
@@ -108,12 +116,13 @@ const Login = ({ onLogin }) => {
                                                         onChange={handleChange}
                                                         name="password"
                                                         required />
-                                                    <Link to="#" className='ForgetPassword'>Forget Password ?</Link>
+                                                    {/* <Button onClick={()=>setModal(true)} className='ForgetPassword'>Forget Password ?</Button> */}
+                                                    <Link  className='ForgetPassword'>Forget Password ?</Link>
 
 
                                                 </Form.Group>
 
-                                                <Button className='VOIR_LESPRODUITSbn9 ' type="submit">Sign in</Button>
+                                                <Button  className='VOIR_LESPRODUITSbn9 ' type="submit">Sign in</Button>
 
                                             </Form>)}
                                         {/* {

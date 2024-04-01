@@ -20,10 +20,10 @@ const Subscription = ({userData}) => {
      <MobilemenuNavbar userData={userData}/>
       <div class="container-fluid">
         <div class="row">
-          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <nav class="col-md-3 d-none d-md-block bg-light sidebar">
             <Sidenavbar/>
           </nav>
-          <main role="main" class="col-md-9 col-lg-10">
+          <main role="main" class="col-md-8 col-lg-9 sidebar5">
             <TopBar userData={userData}/>
             <div class="dashboard-header px-md-4">
               {/* <h1 class="h2">Dashboard</h1> */}

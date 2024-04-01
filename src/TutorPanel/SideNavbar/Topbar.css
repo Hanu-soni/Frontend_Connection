@@ -5,3 +5,11 @@
     font-weight: 700;
     color: white;
 }
+
+nav.col-md-3.d-none.d-md-block.bg-light.sidebar {
+    width: 21% !important;
+}
+
+main.col-md-8.col-lg-9.sidebar5 {
+    width: 79% !important;
+}
