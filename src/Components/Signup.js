@@ -51,11 +51,13 @@ const Signup = () => {
         
        
         const response = await RegisterUser(data);
+      if(response){
+        setloading(false);
         if (response.success === false) {
             toast.error(response.message);
             //alert(response.message)
-            console.log("check_issue_57_signup")
-            navigate('/signup')
+           // console.log("check_issue_57_signup")
+            // navigate('/signup')
         }
         else if (response.success === true) {
             //console.log(response);
@@ -63,6 +65,7 @@ const Signup = () => {
             // alert(response.message)
             navigate('/Login');
         }
+      }
         console.log(response)
        
 
