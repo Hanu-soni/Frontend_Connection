@@ -78,7 +78,7 @@ const AddNewStudent = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        //console.log(data)
+        console.log(formData)
         setloading(true);
         console.log(loading)
         const response = await AddNewStudentRouter(formData);
@@ -95,7 +95,7 @@ const AddNewStudent = () => {
                 // navigate('/TutorHome',{state:response.data})
                 // sessionStorage.setItem('token', response.data.token);
                 // onLogin(response.data);
-                 navigate('/Student_Redirect')
+                 navigate('/Profile')
 
                 // alert(response.message)
             }
