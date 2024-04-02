@@ -64,8 +64,11 @@ const Header = () => {
                                     
                                     }
                                     &nbsp;&nbsp;&nbsp;
-                                    <a style={location==='/signup'||location==='/Login'?({display:"none"}):({color:"black"})} className="navlink200" href="/Login" ><Button className='signup1'> Sign In</Button></a> 
+                                    {/* <Link   className="navlink200 signup1" to="/Login" > Sign In</Link>  */}
 
+                                    <Button style={location==='/signup'||location==='/Login'?({display:"none"}):({color:"black"})} className='signup1'> 
+                                    <Link className="navlink200 " to="/Login" >Sign In</Link>
+                                     </Button>
 
                                 </div>
                             </Offcanvas.Body>

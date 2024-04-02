@@ -64,7 +64,7 @@ const MobilemenuNavbar = ({userData}) => {
                                 <Link to="/ExamFeatures" className="nav-link nav-link1">Exam Features</Link>
                             </li>
                             <li class="nav-item">
-                                <Link to="#" className="nav-link nav-link1">Announcements</Link>
+                                <Link to="/Announcements" className="nav-link nav-link1">Announcements</Link>
                             </li>
                             <li class="nav-item">
                                 <Link to="#"className="nav-link nav-link1"> Website</Link>

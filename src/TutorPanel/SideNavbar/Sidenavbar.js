@@ -50,7 +50,7 @@ const Sidenavbar = () => {
                         <Link to="/ExamFeatures" className="navlinkjh nav-link"><img src="./img/ExamFeatures.png" className="logoimgy1 " />Exam Features</Link>
                     </li>
                     <li class="nav-item">
-                        <Link to="#" className="navlinkjh nav-link"><img src="./img/Announcements.png" className="logoimgy1 " />Announcements</Link>
+                        <Link to="/Announcements" className="navlinkjh nav-link"><img src="./img/Announcements.png" className="logoimgy1 " />Announcements</Link>
                     </li>
                     <li class="nav-item">
                         <Link to="#" className="navlinkjh nav-link"><img src="./img/Website.png" className="logoimgy1 " /> Website</Link>

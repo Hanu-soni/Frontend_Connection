@@ -25,6 +25,7 @@ import TopBar from './TutorPanel/SideNavbar/TopBar';
 import Landing from './Components/Landing';
 import Quiz from './TutorPanel/Quiz/Quiz';
 import { BrowserRouter } from 'react-router-dom';
+import Announcements from './TutorPanel/Announcements/Announcements';
 
 
 function App() {
@@ -65,6 +66,8 @@ function App() {
          {userData &&  <Route path='/ExamFeatures' element={<ExamFeatures userData={userData}/>}/>}
          {userData &&  <Route path='/Quiz' element={<Quiz userData={userData}/>}/>}
          {userData && <Route path='/Home'  element={<Home userData={userData} />} />}
+         {userData && <Route path='/Announcements' element={<Announcements userData={userData} />} />}
+
         {/* <Route path='/TutorHome'  element={<TutorHome />} /> */}
           {userData &&<Route path='/Student' element={<Student userData={userData}/>} />}
         {/* <Route path='/Calendar' element={<Calendar/>} /> */}

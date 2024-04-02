@@ -220,7 +220,29 @@ input#formBasicEmail,
         align-items: center !important;
         margin-bottom: 10px;
     }
-
+    .addnewcard1{
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+        margin: 30px 10px 0px 10px !important;
+        padding: 90px 10px 90px 10px !important;
+        border: none;
+        border-radius: 20px;
+    }
+    /* .addstutnet3 {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 30% !important;
+        margin-bottom: 30px;
+    } */
+    
+    
+    .addnewcard {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+        margin: 30px 10px 0px 10px !important;
+        padding: 0px 0px 20px 0px;
+        border: none;
+        border-radius: 20px;
+    }
     button#dropdown-basic.addnewdg {
 
         padding: 7px 30px 7px 55px;
@@ -328,23 +350,3 @@ article {
 article:nth-child(odd) {}
 
 article:nth-child(even) {}
-
-/* Making it Responsive using CSS Media Rules*/
-
-/* 
-@media screen and (min-width: 640px){
-
-	.col-md-4{
-	width: 33.33333%;
-}
-	
-}
-
-@media screen and (min-width: 960px){
-
-	.col-md-4{
-        width: 33.33333%;
-    }
-	
-
-} */
