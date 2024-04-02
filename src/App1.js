@@ -30,14 +30,14 @@ function App1() {
                 <div className="pricing-cards">
 
                     <PricingCard
-                        img="/img/priceimage.png"
+                        img="/img/img-1.png"
                         price={selectMonthly ? "00 RS." : "188.9"}
                         storage="Free"
                         users="http://localhost:3000/loginhttp://localhost:3000/login"
                         sendUp="Free"
                     />
                     <PricingCard
-                         img="/img/priceimage.png"
+                         img="/img/img-2.png"
                         price={selectMonthly ? "5000 RS." : "349.9"}
                         storage="Pay fee in easy (interest free) instalments. You can choose
                         from monthly / quarterly payment options."
@@ -46,14 +46,14 @@ function App1() {
                         color="rgba(106, 170, 254, 1)"
                     />
                     <PricingCard
-                         img="/img/priceimage.png"
+                         img="/img/img-3.png"
                         price={selectMonthly ? "10,000 RS." : "499.9"}
                         storage="Silver"
                         users="http://localhost:3000/loginhttp://localhost:3000/login"
                         sendUp="Upgrade"
                     />
                     <PricingCard
-                         img="/img/priceimage.png"
+                         img="/img/img-4.png"
                         price={selectMonthly ? "15,000 RS.." : "499.9"}
                         storage="Gold"
                         users="http://localhost:3000/loginhttp://localhost:3000/login"

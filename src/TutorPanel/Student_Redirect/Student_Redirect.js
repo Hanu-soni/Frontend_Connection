@@ -31,11 +31,11 @@ const Student_Redirect = ({userData}) => {
 
                                 <div className="wrapperb wrap89">
                                     <div className="card4cardf">
-                                        <h3 className="card-title4 text-center">TS</h3>
-                                        <h4 className='text-center'>Tushar Sharma</h4>
-                                        <p className="card-content4 text-center">tusharsharma@gmail.com</p>
+                                        <h3 className="card-title4 text-center">{userData.firstName[0]+userData.lastName[0]}</h3>
+                                        <h4 className='text-center'>{userData.firstName+" "+userData.lastName}</h4>
+                                        <p className="card-content4 text-center">{userData.user}</p>
 
-                                        <Button className='logoutbutton'>Log out of all devices</Button>
+                                       <Link to='/Login'> <Button  className='logoutbutton'>Log out of all devices</Button></Link>
                                         <Button className='logoutbutton1'>Change Password</Button>
                                     </div>
                                     <div className="card4cardf">

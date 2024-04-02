@@ -215,7 +215,7 @@ const AddNewStudent = () => {
                                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                                         <Form.Label>Date of Birth</Form.Label>
                                                         <Form.Control
-                                                            type="text"
+                                                            type="date"
                                                             name="dob"
                                                             value={formData.dob}
                                                             onChange={handleChange}
@@ -381,16 +381,27 @@ const AddNewStudent = () => {
                             </Form.Group> */}
 
                             <h5>Preferences</h5>
-                            <Form.Group className="mb-" controlId="formBasicCheckbox">
-                                <Form.Check
-                                    type="checkbox"
-                                    label="Send email lessons reminders"
-                                    checked={formData.preference}
-                                    onChange={handleChange}
-                                    name="preference"
-                                />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+
+                            {
+                                ["Send SMS lessons reminders","Send Email lessons reminders"].map((item)=>(
+                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                    <Form.Check
+                                        inline
+                                        type="radio"
+                                        label={item}
+                                        checked={formData.preference===item}
+                                        onChange={handleChange}
+                                        name="preference"
+                                        id={`inline-${item}`}
+                                        value={item}
+                                    />
+                                    <p style={{ fontSize: "14px", marginLeft: "25px" }}>Will only be sent if SMS messaging is allowed</p>
+                                </Form.Group>
+
+                                ))
+                            }
+                            
+                            {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                 <Form.Check
                                     type="checkbox"
                                     label="Send SMS lessons reminders"
@@ -399,7 +410,7 @@ const AddNewStudent = () => {
                                     name="preference"
                                 />
                                 <p style={{ fontSize: "14px", marginLeft: "25px" }}>Will only be sent if SMS messaging is allowed</p>
-                            </Form.Group>
+                            </Form.Group> */}
 
                         </div>
                         <hr></hr>
@@ -454,7 +465,11 @@ const AddNewStudent = () => {
                             <h5>Default Billing</h5>
                             <div className='p-2'>
                                 {
-                                    ["1", "2", "3", "4"].map((item) => (
+                                    ["Dont automatically create any calender generated changes",
+                                    "Student Pays based on number of lessons",
+                                    "Student pays the same amount each month",
+                                    "Student pays an hourly rate"
+                                    ].map((item) => (
                                         <Form.Group className=" "
                                             controlId="formBasicCheckbox">
                                             <Form.Check
@@ -523,7 +538,7 @@ const AddNewStudent = () => {
                     <div className="mbsc-row">
                         <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-3">
                             <div className="mbsc-button-group-block ">
-                                <Button color="success" className="grnext1">Cancel</Button>
+                                <Button onClick={()=>navigate('/Student')} color="success" className="grnext1">Cancel</Button>
                                 <Button type="submit" color="success" className="grnext">Next <GrNext
                                     style={{ color: "white" }} /></Button>
                             </div>

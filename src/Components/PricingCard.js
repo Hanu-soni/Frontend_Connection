@@ -6,7 +6,7 @@ const PricingCard = ({ img, price, users, sendUp, color }) => {
     <div className="PricingCard">
       <header>
       <button className="card-btn"><a href={users} style={{color:"black"}}>{sendUp}</a></button>
-        <p className="card-img my-4"> <img src={img}  width={60}/></p>
+        <p className="card-img my-4"> <img src={img}  width={55}/></p>
         <h1 className="card-price">{price}</h1>
       </header>
       {/* features here */}

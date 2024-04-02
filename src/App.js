@@ -26,6 +26,9 @@ import Landing from './Components/Landing';
 import Quiz from './TutorPanel/Quiz/Quiz';
 import { BrowserRouter } from 'react-router-dom';
 import Announcements from './TutorPanel/Announcements/Announcements';
+import Website from './TutorPanel/Announcements/Website';
+import Business_Report from './TutorPanel/Business_Report/Business_Report';
+import Event_Calendar from './TutorPanel/Event_Calendar/Event_Calendar';
 
 
 function App() {
@@ -61,12 +64,15 @@ function App() {
         <Route path='/Login' element={<Login onLogin={handleLogin}/>} />
         <Route path='/Signup' element={<Signup />} />
         {userData && <Route path='/Subscription'  element={<Subscription userData={userData}/> } />}
-        {userData &&<Route path='/Student_Redirect' element={<Student_Redirect userData={userData}/>}/>}
+        {userData &&<Route path='/Profile' element={<Student_Redirect userData={userData}/>}/>}
          {userData &&  <Route path='/Expenses_Revenue' element={<Expenses_Revenue userData={userData}/>}/>}
          {userData &&  <Route path='/ExamFeatures' element={<ExamFeatures userData={userData}/>}/>}
          {userData &&  <Route path='/Quiz' element={<Quiz userData={userData}/>}/>}
          {userData && <Route path='/Home'  element={<Home userData={userData} />} />}
          {userData && <Route path='/Announcements' element={<Announcements userData={userData} />} />}
+         {userData && <Route path='/Website' element={<Website userData={userData} />} />}
+        {userData && <Route path='/Business_Report' element={<Business_Report userData={userData} />} />}
+        {userData && <Route path='/Event_Calendar' element={<Event_Calendar userData={userData}/>} />}
 
         {/* <Route path='/TutorHome'  element={<TutorHome />} /> */}
           {userData &&<Route path='/Student' element={<Student userData={userData}/>} />}

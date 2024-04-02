@@ -35,7 +35,7 @@ const Sidenavbar = () => {
                         <Link to="/Student" className="navlinkjh nav-link"><img src="./img/student1.png" className="logoimgy1 " />Student</Link>
                     </li>
                     <li class="nav-item">
-                        <Link to="#" className="navlinkjh nav-link"> <img src="./img/Calendar.png" className="logoimgy1 " />Calendar</Link>
+                        <Link to="/Event_Calendar" className="navlinkjh nav-link"> <img src="./img/Calendar.png" className="logoimgy1 " />Calendar</Link>
                     </li>
                     <li class="nav-item">
                         <Link to="/OnlineResources" className="navlinkjh nav-link"><img src="./img/OnlineMaterial.png" className="logoimgy1 " /> Online Material</Link>
@@ -53,10 +53,10 @@ const Sidenavbar = () => {
                         <Link to="/Announcements" className="navlinkjh nav-link"><img src="./img/Announcements.png" className="logoimgy1 " />Announcements</Link>
                     </li>
                     <li class="nav-item">
-                        <Link to="#" className="navlinkjh nav-link"><img src="./img/Website.png" className="logoimgy1 " /> Website</Link>
+                        <Link to="/Website" className="navlinkjh nav-link"><img src="./img/Website.png" className="logoimgy1 " /> Website</Link>
                     </li>
                     <li class="nav-item">
-                        <Link to="#" className="navlinkjh nav-link"><img src="./img/BusinessReport.png" className="logoimgy1 " />Business Report</Link>
+                        <Link to="/Business_Report" className="navlinkjh nav-link"><img src="./img/BusinessReport.png" className="logoimgy1 " />Business Report</Link>
                     </li>
                     <li className="nav-item">
                   <button onClick={handleLogout} className="navlinkjh nav-link"><img src="./img/BusinessReport.png" className="logoimgy1 " />Log-Out</button>

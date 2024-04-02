@@ -31,7 +31,7 @@ const MobilemenuNavbar = ({userData}) => {
                     <a className="navbar-brand" >{location.pathname.substring(1)}</a>
 
                     <CiShare2 className='share1' /> <IoIosNotificationsOutline className='share1' />
-                    {/* <span className='tst'>{userData.firstName[0]}</span> */}
+                    <Link to='/Profile'><span className='tst'>{userData.firstName[0]}</span></Link>
 
 
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@ const MobilemenuNavbar = ({userData}) => {
                                 <Link to="/Student" className="nav-link nav-link1">Student</Link>
                             </li>
                             <li class="nav-item">
-                                <Link to="#" className="nav-link nav-link1">Calendar</Link>
+                                <Link to="/Event_Calendar" className="nav-link nav-link1">Calendar</Link>
                             </li>
                             <li class="nav-item">
                                 <Link to="/OnlineResources" className="nav-link nav-link1"> Online Material</Link>
@@ -67,10 +67,10 @@ const MobilemenuNavbar = ({userData}) => {
                                 <Link to="/Announcements" className="nav-link nav-link1">Announcements</Link>
                             </li>
                             <li class="nav-item">
-                                <Link to="#"className="nav-link nav-link1"> Website</Link>
+                                <Link to="/Website"className="nav-link nav-link1"> Website</Link>
                             </li>
                             <li class="nav-item">
-                                <Link to="#" className="nav-link nav-link1">Business Report</Link>
+                                <Link to="/Business_Report" className="nav-link nav-link1">Business Report</Link>
                             </li>
                             <li className="nav-item">
                   <button onClick={handleLogout} className="nav-link nav-link1">Log-Out</button>

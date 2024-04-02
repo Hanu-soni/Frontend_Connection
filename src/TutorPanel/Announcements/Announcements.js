@@ -1,50 +1,172 @@
+import { Button, Card, Col, Container, Dropdown, Form, Modal } from 'react-bootstrap'
+import { IoMdArrowDropdown } from 'react-icons/io'
 
-import { Link } from 'react-router-dom'
-
-
-import {IoMdArrowDropdown } from 'react-icons/io'
-import { Card, Dropdown} from 'react-bootstrap'
-
+import { FaBars } from 'react-icons/fa6'
+import '../Subscription.css'
+import { useState } from 'react'
+import '../Student.css'
 import MobilemenuNavbar from '../SideNavbar/MobilemenuNavbar'
 import Sidenavbar from '../SideNavbar/Sidenavbar'
 import TopBar from '../SideNavbar/TopBar'
+import { AnnouncementUser } from '../../apicalls/User'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+
+const Announcements = ({ userData }) => {
+    const [key, setKey] = useState('home');
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    console.log(userData)
 
 
-const Announcements = ({userData}) => {
-    console.log(userData);
+
+    const [data, setData] = useState({
+        subject: "",
+        description: "",
+        _id:userData.id
+    });
+
+
+    const [loading, setloading] = useState(false);
+    const navigate=useNavigate();
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log(data)
+        setloading(true);
+        console.log(loading)
+        const response = await AnnouncementUser(data);
+
+        if (response) {
+            console.log(response)
+            setloading(false)
+            if (response.success === false) {
+                //  alert(response.message)
+                toast.info(response.message);
+            }
+            else if(response.success===true) {
+                toast.success(response.message);
+                handleClose()
+                // navigate('/TutorHome',{state:response.data})
+                // sessionStorage.setItem('token', response.data.token);
+                // onLogin(response.data);
+                // navigate('/Student_Redirect')
+
+                // alert(response.message)
+            }
+            
+           
+        }
+
+         
+    }
+
+
+
+
+
+
+
     return (
         <div>
-           <MobilemenuNavbar userData={userData} />
-      <div class="container-fluid">
-        <div class="row">
-          <nav class="col-md-3 d-none d-md-block bg-light sidebar">
-            <Sidenavbar/>
-          </nav>
-          <main role="main" class="col-md-8 col-lg-9 sidebar5">
-            <TopBar userData={userData} />
-                        <div class="dashboard-header px-md-4" > 
+            <MobilemenuNavbar userData={userData} />
+
+            <div class="container-fluid">
+                <div class="row">
+                    <nav class="col-md-3 d-none d-md-block bg-light sidebar">
+                        <Sidenavbar />
+                    </nav>
+                    <main role="main" class="col-md-8 col-lg-9 sidebar5">
+                        <TopBar userData={userData} />
+                        <div class="dashboard-header px-md-4">
                             {/* <h1 class="h2">Dashboard</h1> */}
-                            <Card className='addnewcard1'>
+
+
+
+                            <Card className='addnewcard'>
 
                                 <Card.Body className='addstutnet1'>
-                                    <img src='./img/sound.png' className='addstutnet3' />
-                                    <h5 className='text-center mb-4 ' style={{ marginTop: "-20px" }}>You don't have any Announcements</h5>
-                                   
+                                    <img src='./img/Announcements.png' className='addstutnet3 my-5' />
+                                    <h5 className='text-center mb-4' style={{ marginTop: "-20px" }}>You don't have any Announcements</h5>
+
+
                                     <Dropdown>
-                                        <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg8 addnewdg11 '>
-                                            <span className='adggsh '>Add Announcements  <IoMdArrowDropdown className="IoMdArrowDropdown1" style={{ fontSize: "26px" }} /></span>
+                                        <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg8 addnewdg11'>
+                                            <span className='adggsh'> Add Announcements <IoMdArrowDropdown className="IoMdArrowDropdown" style={{ fontSize: "26px" }} /></span>
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu className='menu87'>
-                                            <Link to="/" style={{
-                                                color: "black", marginLeft: "10px", textDecoration: "none"
-                                                , fontSize: "16px"
-                                            }}>Add Announcements</Link>
+                                            <Button variant="" onClick={handleShow} style={{ border: "none" }}>
+                                                Add Announcements
+                                            </Button>
+
                                         </Dropdown.Menu>
                                     </Dropdown>
+                                    <br></br><br></br>
                                 </Card.Body>
                             </Card>
 
+
+
+
+
+                            <Modal show={show} onHide={handleClose} animation={false}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title><h5>Add Announcements</h5></Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Form onSubmit={handleSubmit}>
+                                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                                            <Form.Label>Subject</Form.Label>
+                                            <Form.Control
+                                             type="text" 
+                                             className='forn89' 
+                                             required maxLength={40}
+                                             name='subject'
+                                             onChange={handleChange}
+                                             />
+
+                                        </Form.Group>
+
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                            <Form.Label>Descriptions</Form.Label>
+                                            <Form.Control
+                                             as="textarea"
+                                              rows={3} 
+                                              style={{ borderRadius: "30px" }} 
+                                              required
+                                               maxLength={90}
+                                               name='description'
+                                                onChange={handleChange}
+                                               
+                                               
+                                               />
+                                        </Form.Group>
+                                        <div className='floah'>
+                                            <Button type='submit' variant="" className='btnhj' >
+                                                Save
+                                            </Button>
+                                            {/* <Button variant="secondary" className='btnh1j'>
+                                                Cancel
+                                            </Button> */}
+                                        </div>
+
+                                    </Form></Modal.Body>
+
+                            </Modal>
                         </div>
 
 
@@ -58,6 +180,9 @@ const Announcements = ({userData}) => {
         </div>
     )
 }
+
+
+
 
 export default Announcements
 

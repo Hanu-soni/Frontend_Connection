@@ -61,7 +61,7 @@ const Student = ({userData}) => {
                                                         </Dropdown.Toggle>
 
                                                         <Dropdown.Menu className='menu87'>
-                                                            <Link to="/AddNewStudent" style={{
+                                                            <Link  to="/AddNewStudent" style={{
                                                                 color: "black", marginLeft: "10px", textDecoration: "none"
                                                                 , fontSize: "16px"
                                                             }}>Add New Student</Link>

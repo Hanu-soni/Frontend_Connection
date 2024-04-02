@@ -31,3 +31,19 @@ export const RegisterUser=async (user)=>{
     }
  
  };
+
+
+
+ export const AnnouncementUser=async (user)=>{
+     console.log(user)
+     try{
+          const response=await axios.post(`${baseurl}/teacher/announcement`,user);
+          return response.data;
+     }
+     catch(error)
+     {
+          return error.response.data;
+     }
+  
+  };
+

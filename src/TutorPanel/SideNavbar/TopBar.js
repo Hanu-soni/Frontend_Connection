@@ -43,7 +43,7 @@ const TopBar = ({userData}) => {
             <Navbar.Text>
               <CiShare2 className='share1' /> <IoIosNotificationsOutline className='share1' />
 
-              <span className='tst'>{userData.firstName[0]+userData.lastName[0]}</span>
+              <Link to='/Profile'><span className='tst'>{userData.firstName[0]+userData.lastName[0]}</span></Link>
             </Navbar.Text>
 
             <Link to='/Subscription' className='Subscribe'>Subscribe </Link>
