@@ -80,7 +80,7 @@ const Header = () => {
             <Navbar bg="white" expand="md" className='fixed-top navu9 desktop22' style={{ height: "90px", color: "black" }}>
                 <Container>
                     <Link to="/" className="text-decoration-none  mx-3" style={{ fontSize: "34px", fontFamily: "Italic" }}>
-                        <img src='./img/Tutor-1.png' className='tutorimg1' />
+                        <img src='./img/tutor.png' className='tutorimg1' />
                     </Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav text-white bn"  >
