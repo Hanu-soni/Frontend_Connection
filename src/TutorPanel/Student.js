@@ -10,6 +10,7 @@ import './Student.css'
 import MobilemenuNavbar from './SideNavbar/MobilemenuNavbar'
 import Sidenavbar from './SideNavbar/Sidenavbar'
 import TopBar from './SideNavbar/TopBar'
+import StudentList from './StudentList/StudentList'
 
 const Student = ({userData}) => {
     const [key, setKey] = useState('home');
@@ -155,7 +156,7 @@ const Student = ({userData}) => {
                                                 </div> */}
 
                                             </Card.Header>
-                                            <Card.Body className='addstutnet1'>
+                                            {/* <Card.Body className='addstutnet1'>
                                                 <img src='./img/addstutent.png' className='addstutnet' />
                                                 <h5 className='text-center ' style={{ marginTop: "-20px" }}>You don't have any students yet</h5>
                                                 <p className='text-center'>Add your students so you can take their attendance, and more.</p>
@@ -171,7 +172,8 @@ const Student = ({userData}) => {
                                                         }}>Add New Student</Link>
                                                     </Dropdown.Menu>
                                                 </Dropdown>
-                                            </Card.Body>
+                                            </Card.Body> */}
+                                            <StudentList/>
                                         </Card>
 
 

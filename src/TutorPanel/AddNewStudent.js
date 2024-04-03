@@ -98,7 +98,7 @@ const AddNewStudent = ({userData}) => {
                 // navigate('/TutorHome',{state:response.data})
                 // sessionStorage.setItem('token', response.data.token);
                 // onLogin(response.data);
-                 navigate('/StudentList')
+                 navigate('/Student')
 
                 // alert(response.message)
             }

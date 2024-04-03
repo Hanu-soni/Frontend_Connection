@@ -159,15 +159,7 @@ const StudentList = ({userData}) => {
 
     return (
         <div>
-             <MobilemenuNavbar userData={userData} />
-            <div class="container-fluid">
-                <div class="row">
-                    <nav class="col-md-3 d-none d-md-block bg-light sidebar">
-                        <Sidenavbar />
-                    </nav>
-                    <main role="main" class="col-md-8 col-lg-9 sidebar5">
-                        <TopBar userData={userData} />
-                        <div class="dashboard-header px-md-4" style={{ padding: "0px 0px 70px 0px" }}>
+             
             
                         <Container >
                             <Row>
@@ -306,16 +298,11 @@ const StudentList = ({userData}) => {
                             </Row>
                         </Container>
                        
-                        </div>
+                        
 
 
 
-                    </main>
-                </div>
-
-
-
-            </div>
+            
         </div>
                 
     )
