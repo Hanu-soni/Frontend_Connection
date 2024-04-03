@@ -1,0 +1,44 @@
+th.th78 {
+    color: black !important;
+    font-size: 17px !important;
+    padding: 15px 6px 15px 6px !important;
+  }
+  .rowparpage{
+    border: none !important;
+    padding: 10px 6px 10px 6px!important;
+    margin: 0px 0px 0px 10px ;
+  }
+  .rowparpage:hover{
+    border: none !important;
+    padding: 10px 6px 10px 6px!important;
+    margin: 0px 0px 0px 10px ;
+  }
+  .tbbgu{
+    background-color: #B9E6C9 !important;
+    padding: 10px;
+    border-radius: 30px;
+  }
+  .connector{
+    margin-inline-end: auto !important;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+ 
+  .bbrow{
+    background-color: #1177FE;
+    color: white !important;
+  }
+  
+  @media (max-width: 480px) {
+    .tbbgu{
+      background-color: #B9E6C9 !important;
+      padding: 0px;
+      width: 30%;
+      font-size: 13px;
+      border-radius: 30px;
+    }
+  }

@@ -9,7 +9,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { AddNewStudentRouter } from '../apicalls/Student';
 import Lazyloading from '../BackendComp/Lazy'
 import { toast } from 'react-toastify';
-const AddNewStudent = () => {
+const AddNewStudent = ({userData}) => {
     // const [phone, setPhone] = useState('');
 
     // const [showhide, setShowhide] = useState('');
@@ -19,6 +19,7 @@ const AddNewStudent = () => {
     //     setShowhide(getuser);
 
     // }
+    //console.log(data)
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -41,7 +42,8 @@ const AddNewStudent = () => {
         lessonCategory: "",
         billing: "",
         price: "",
-        notes: ""
+        notes: "",
+        managedBy:userData.id
     });
 
     const [val, setVal] = useState([]);
@@ -91,11 +93,12 @@ const AddNewStudent = () => {
                 toast.info(response.message);
             }
             else if(response.success===true) {
+                console.log("coming here")
                 toast.success(response.message);
                 // navigate('/TutorHome',{state:response.data})
                 // sessionStorage.setItem('token', response.data.token);
                 // onLogin(response.data);
-                 navigate('/Profile')
+                 navigate('/StudentList')
 
                 // alert(response.message)
             }
@@ -271,9 +274,9 @@ const AddNewStudent = () => {
                             </Form.Group> */}
 
                             <h5>This student’s family is a/an</h5>
-
+                            <div className="d-flex flex-row">
                             {['New Family', 'Existing Family'].map((type) => (
-                                <div key={type} className="mb-3 p-2">
+                                <div key={type} className="mb-3 p-2 d-flex">
                                     <Row>
                                         <Col sm={3} className="nbhgdyfsf">
                                             <Form.Check
@@ -287,11 +290,14 @@ const AddNewStudent = () => {
                                                 className={`grou${type === 'New Family' ? '6' : '7'}`}
                                                 value={type}
                                             />
-                                            <p style={{ fontSize: "15px" }}>Creates a new account in Families & invoices</p>
+                                            
                                         </Col>
                                     </Row>
                                 </div>
                             ))}
+                            </div>
+                            <p style={{ fontSize: "15px" }}>Creates a new account in Families & invoices</p>
+
 
                         </div>
 
@@ -539,7 +545,7 @@ const AddNewStudent = () => {
                         <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-3">
                             <div className="mbsc-button-group-block ">
                                 <Button onClick={()=>navigate('/Student')} color="success" className="grnext1">Cancel</Button>
-                                <Button type="submit" color="success" className="grnext">Next <GrNext
+                                <Button type="submit" color="success" className="grnext">Save <GrNext
                                     style={{ color: "white" }} /></Button>
                             </div>
                         </div>

@@ -29,6 +29,7 @@ import Announcements from './TutorPanel/Announcements/Announcements';
 import Website from './TutorPanel/Announcements/Website';
 import Business_Report from './TutorPanel/Business_Report/Business_Report';
 import Event_Calendar from './TutorPanel/Event_Calendar/Event_Calendar';
+import StudentList from './TutorPanel/StudentList/StudentList';
 
 
 function App() {
@@ -77,7 +78,7 @@ function App() {
         {/* <Route path='/TutorHome'  element={<TutorHome />} /> */}
           {userData &&<Route path='/Student' element={<Student userData={userData}/>} />}
         {/* <Route path='/Calendar' element={<Calendar/>} /> */}
-         <Route path='/AddNewStudent' element={<AddNewStudent/>} />
+        {userData && <Route path='/AddNewStudent' element={<AddNewStudent userData={userData}/>} />}
           {userData &&<Route path='/OnlineResources' element={<OnlineResources userData={userData}/>} />}
            <Route path='/UploadFiles' element={<UploadFiles/>}/>
             {<Route path='/TopBar' element={<TopBar/>}/>}
@@ -92,6 +93,7 @@ function App() {
           
          
          <Route path='/BusinessTutor' element={<BusinessTutor/>}/>
+        {userData && <Route path='/StudentList' element ={<StudentList userData={userData}/>}/>}
         
           
       </Routes>
