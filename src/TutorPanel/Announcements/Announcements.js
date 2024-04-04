@@ -39,6 +39,9 @@ const Announcements = ({ userData }) => {
     });
 
 
+    const [buttonAnnouncement,setbuttonAnnouncement]=useState(true);
+
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setData(prevData => ({
@@ -69,7 +72,7 @@ const Announcements = ({ userData }) => {
                 //     subject:response.data.subject,
                 //     description:response.data.description
                 // })
-                handleGetAnnouncement(event);
+                 handleGetAnnouncement(event);
 
                
                 // sessionStorage.setItem('subject',response.data.subject)
@@ -91,23 +94,22 @@ const Announcements = ({ userData }) => {
 
     const handleGetAnnouncement=async(event)=>{
         event.preventDefault();
-        let data={_id:userData.id}
-        let res=await getAnnouncementUser(data);
-        console.log(res)
+        setbuttonAnnouncement(false)
+        // let data={id:userData.id}
+        const response = await getAnnouncementUser(userData.id);
+        console.log(response)
         setAnnouncementData({
-            subject:res.data.subject,
-            description:res.data.description     
+            subject:response.data.subject,
+            description:response.data.description     
         })
 
     }
 
+  
+
     // useEffect(() => {
-    //     const fetchData = async () => {
-    //         await handleGetAnnouncement(event);
-    //     };
-    
-    //     fetchData();
-    // }, []); // Add dependencies if needed
+    //     handleGetAnnouncement
+    // }, []); 
 
 
 
@@ -152,7 +154,10 @@ const Announcements = ({ userData }) => {
                                     <br></br><br></br>
                                 </Card.Body> */}
 
-                                <table class="table">
+                                {buttonAnnouncement===true ?
+                                (<Button style={{width:"15rem"}} className='btnhj' onClick={handleGetAnnouncement}>Show Announcement</Button>):
+                                (
+                                    <table class="table">
                                     <thead>
                                         <tr>
                                             <th scope="col">Sl.no</th>
@@ -177,6 +182,10 @@ const Announcements = ({ userData }) => {
                                         
                                     </tbody>
                                 </table>
+
+                                )
+                                }
+                               
                             </Card>
 
 

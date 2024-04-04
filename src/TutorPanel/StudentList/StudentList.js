@@ -25,6 +25,7 @@ import { RiDeleteBin5Line } from 'react-icons/ri';
 import { Col, Container, Nav, Row, Stack, Pagination, Form, Modal, Button } from 'react-bootstrap'
 import { DeleteStudentRouter } from '../../apicalls/Student';
 import Lazyloading from '../../BackendComp/Lazy';
+import { PhoneInput } from 'react-international-phone';
 const StudentList = ({ userData }) => {
 
 
@@ -72,7 +73,7 @@ const StudentList = ({ userData }) => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [loading,setloading]=useState(false);
+    const [loading, setloading] = useState(false);
 
     const handleItemsPerPageChange = (selectedValue) => {
         setItemsPerPage(selectedValue);
@@ -83,21 +84,34 @@ const StudentList = ({ userData }) => {
         // setloading(true);
         // console.log(loading)
         //const data=
+
         let emaildata = { email: recieve }
         const response = await DeleteStudentRouter(emaildata);
         if (response.success === true) {
-            alert(response.deletedStudent.email + "  is deleted successfully")
+            //alert(response.deletedStudent.email + "  is deleted successfully")
             getProduct()
+            setShowModalLogout(false)
         }
         //console.log()
 
     }
 
-    useEffect(()=>{
+
+    const [showModalLogout, setShowModalLogout] = useState(false);
+    const handleShowdeleteStudent = (id) => {
+        sessionStorage.setItem('id',id)
+        setShowModalLogout(true);
+    };
+
+    const handleClosedeleteStudent = () => {
+        setShowModalLogout(false);
+    };
+
+    useEffect(() => {
         setloading(true);
 
 
-    },[])
+    }, [])
 
 
 
@@ -119,10 +133,10 @@ const StudentList = ({ userData }) => {
     }, []);
 
 
-    const handleSubmit=()=>{
+    const handleSubmit = () => {
         console.log("I will work on it")
     }
-    const handleChange=()=>{
+    const handleChange = () => {
         console.log("I will work on it")
     }
 
@@ -217,7 +231,7 @@ const StudentList = ({ userData }) => {
                         </Stack>
 
 
-                        <Stack direction="horizontal" gap={3} className='row56 bbrow'  >
+                        {/* <Stack direction="horizontal" gap={3} className='row56 bbrow'  >
                             <div> <Dropdown className="">
                                 <Dropdown.Toggle variant="" id="dropdown-basic" className='filter45 text-white'>
                                     Montrer :  {itemsPerPage}
@@ -229,11 +243,11 @@ const StudentList = ({ userData }) => {
                                     <Dropdown.Item onClick={() => handleItemsPerPageChange(15)}>15</Dropdown.Item>
                                     <Dropdown.Item onClick={() => handleItemsPerPageChange(20)}>20</Dropdown.Item>
                                     <Dropdown.Item onClick={() => handleItemsPerPageChange(25)}>25</Dropdown.Item>
-                                    {/* Add more options as needed */}
+                                    Add more options as needed
                                 </Dropdown.Menu>
                             </Dropdown></div>
 
-                            {/* <div className="p-2"><Row>
+                            <div className="p-2"><Row>
                                             <Col> <Form.Control
                                                 type="text"
                                                 placeholder="Rechercher"
@@ -243,10 +257,10 @@ const StudentList = ({ userData }) => {
                                             <Col>
                                                 <CiSearch className='reacherch561' style={{ color: "black" }} />
                                             </Col>
-                                        </Row></div> */}
+                                        </Row></div>
 
 
-                        </Stack>
+                        </Stack> */}
 
 
 
@@ -271,65 +285,142 @@ const StudentList = ({ userData }) => {
                                     </tr>
                                 </thead>
                                 {
-                                    data.length===0?(
+                                    data.length === 0 ? (
                                         <center>
-                                            <Lazyloading/>
+                                            <Lazyloading />
                                         </center>
-                                    ):(
+                                    ) : (
                                         <tbody>
 
-                                        {paginatedData.map((value, index) => {
-    
-                                            return (
-    
-                                                <tr key={value._id}>
-    
-                                                    <td>{index + 1 + (currentPage - 1) * 10}</td>
-                                                    <td>{value.firstName}</td>
-                                                    <td>{value.lastName}</td>
-                                                    <td >{value.email}</td>
-                                                    <td>{value.gender}</td>
-    
-                                                    <td >
-                                                        <button onClick={handleShow} className="btn btn-" >
-                                                            <FaRegEdit />
-                                                        </button>
-                                                        <button onClick={() => handleDeleteStudent(value.email)} className="btn btn-" >
-                                                            <RiDeleteBin5Line />
-                                                        </button>
-                                                    </td>
-    
-    
-                                                </tr>
-    
-    
-                                            )
-                                        })
-    
-                                        }
-    
-    
-                                    </tbody>
+                                            {paginatedData.map((value, index) => {
+
+                                                return (
+
+                                                    <tr key={index}>
+
+                                                        <td>{index + 1 + (currentPage - 1) * 10}</td>
+                                                        <td>{value.firstName}</td>
+                                                        <td>{value.lastName}</td>
+                                                        <td >{value.email}</td>
+                                                        <td>{value.gender}</td>
+
+                                                        <td >
+                                                            <button onClick={handleShow} className="btn btn-" >
+                                                                <FaRegEdit />
+                                                            </button>
+                                                            {/* <button onClick={() => handleDeleteStudent(value.email)} className="btn btn-" > */}
+                                                            <button onClick={()=>handleShowdeleteStudent(value.email)}>
+                                                                <RiDeleteBin5Line />
+                                                            </button>
+                                                        </td>
 
 
-                                    ) 
+                                                    </tr>
+
+
+                                                )
+                                            })
+
+                                            }
+
+
+                                        </tbody>
+
+
+                                    )
                                 }
-                               
+
                             </table>
                         </div>
 
-                        {/* Modal for editing page */}
-                        {/* <Modal show={show} onHide={handleClose} animation={false}>
+                        <Modal show={showModalLogout} onHide={handleClosedeleteStudent}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Delete this student</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Are you sure you want to delete this student?</Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClosedeleteStudent}>
+                                    No
+                                </Button>
+                                <Button variant="primary" onClick={()=>handleDeleteStudent(sessionStorage.getItem('id'))}>
+                                    Yes
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+
+                        <Modal show={show} onHide={handleClose} animation={false}>
                             <Modal.Header closeButton>
                                 <Modal.Title><h5>Edit Student Details</h5></Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
 
+                                <Form>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Price</Form.Label>
+                                    <Form.Select
+                                        aria-label="Default select example"
+                                        style={{ borderRadius: "30px" }}
+                                        // value={formData.price}
+                                        name="price"
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Select from below"
+
+                                    >
+                                        <option value=" 30">Select from below</option>
+                                        <option value="100">₹ 100.00 Per Lesson</option>
+                                        <option value="200">₹ 200.00 Per Lesson</option>
+
+                                    </Form.Select>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Mobile Number</Form.Label>
+                                        <PhoneInput
+                                            defaultCountry="in"
+                                            // value={formData.mobileNumber}
+                                            onChange={(value) => handleChange({ target: { name: 'mobileNumber', value } })}
+                                            name='mobileNumber'
+                                            type='text'
+                                            required
+                                        />
 
 
+                                    </Form.Group>
+                                    <Form.Group className="mb-4" controlId="formBasicEmail">
+                                        <Form.Label>Batch</Form.Label>
+                                        <Form.Select aria-label="Default select example" style={{ borderRadius: "30px" }}
+                                            // value={formData.batch}
+                                            name="batch"
+                                            onChange={handleChange}
+
+                                        >
+                                            <option value=" 30">Select from Batch</option>
+
+                                            <option value='Batch-1'  >Batch-1</option>
+                                            <option value="Batch-2">Batch-2</option>
+                                        </Form.Select>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                            <Form.Label>Lesson</Form.Label>
+                                            <Form.Select aria-label="Default select example"
+                                                style={{ borderRadius: "30px" }}
+                                                // value={formData.lessonCategory}
+                                                name="lessonCategory"
+                                                onChange={(e) => handleChange(e)}
+                                                required
+                                            >
+                                                <option>Select Lesson</option>
+                                                <option value="Lesson-1">Lesson-1</option>
+                                                <option value="Lesson-2">Lesson-2</option>
+                                                <option value="Lesson-3">Lesson-3</option>
+                                            </Form.Select>
+
+                                        </Form.Group>
+                                        <Button type="submit" color="success" className="grnext8">Save</Button>
+                                </Form>
                             </Modal.Body>
 
-                        </Modal> */}
+                        </Modal>
 
 
                         <Stack direction="horizontal" gap={3} className='row56'>
