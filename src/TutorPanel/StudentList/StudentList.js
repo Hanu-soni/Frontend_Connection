@@ -319,50 +319,17 @@ const StudentList = ({ userData }) => {
                         </div>
 
                         {/* Modal for editing page */}
-                        <Modal show={show} onHide={handleClose} animation={false}>
+                        {/* <Modal show={show} onHide={handleClose} animation={false}>
                             <Modal.Header closeButton>
-                                <Modal.Title><h5>Add Announcements</h5></Modal.Title>
+                                <Modal.Title><h5>Edit Student Details</h5></Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form onSubmit={handleSubmit}>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>Subject</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            className='forn89'
-                                            required maxLength={40}
-                                            name='subject'
-                                            onChange={handleChange}
-                                        />
-
-                                    </Form.Group>
-
-                                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                        <Form.Label>Descriptions</Form.Label>
-                                        <Form.Control
-                                            as="textarea"
-                                            rows={3}
-                                            style={{ borderRadius: "30px" }}
-                                            required
-                                            maxLength={90}
-                                            name='description'
-                                            onChange={handleChange}
 
 
-                                        />
-                                    </Form.Group>
-                                    <div className='floah'>
-                                        <Button type='submit' variant="" className='btnhj' >
-                                            Save
-                                        </Button>
-                                        {/* <Button variant="secondary" className='btnh1j'>
-                                                Cancel
-                                            </Button> */}
-                                    </div>
 
-                                </Form></Modal.Body>
+                            </Modal.Body>
 
-                        </Modal>
+                        </Modal> */}
 
 
                         <Stack direction="horizontal" gap={3} className='row56'>

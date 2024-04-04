@@ -69,7 +69,7 @@ const Announcements = ({ userData }) => {
                 //     subject:response.data.subject,
                 //     description:response.data.description
                 // })
-                getAnnouncementUser();
+                handleGetAnnouncement(event);
 
                
                 // sessionStorage.setItem('subject',response.data.subject)
@@ -89,26 +89,25 @@ const Announcements = ({ userData }) => {
 
     }
 
-    // const handleGetAnnouncement=async(event)=>{
-    //     event.preventDefault();
-    //     let data={id:userData.id}
-    //     let response=await getAnnouncementUser(data);
-    //     setAnnouncementData({
-    //         ann
-            
-    //     })
+    const handleGetAnnouncement=async(event)=>{
+        event.preventDefault();
+        let data={_id:userData.id}
+        let res=await getAnnouncementUser(data);
+        console.log(res)
+        setAnnouncementData({
+            subject:res.data.subject,
+            description:res.data.description     
+        })
 
-    // }
+    }
 
-    // useEffect(()=>{
-    //     setAnnouncementData(
-    //         {
-    //             subject:sessionStorage.getItem('subject'),
-    //             description:sessionStorage.getItem('description'),
-    //         }
-    //     )
-    // })
-
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         await handleGetAnnouncement(event);
+    //     };
+    
+    //     fetchData();
+    // }, []); // Add dependencies if needed
 
 
 

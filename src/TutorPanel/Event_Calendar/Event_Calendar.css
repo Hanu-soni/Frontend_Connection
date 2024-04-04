@@ -1,7 +1,7 @@
 .addnewcard09 {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
     margin: 30px 0px 0px 0px;
-    padding: 0px 0px 10px 0px;
+    padding: 0px 0px 120px 0px;
     margin: 0px 40px 0px 40px;
     border: none;
     background-color:
@@ -9,24 +9,47 @@
     border-radius: 20px;
 }
 
+.selectmonthb {
+    background-color: transparent;
+    border-radius: 30px;
+    padding: 5px 20px 5px 20px;
+}
 
 .rbc-event {
-    /* height: 90px !important; */
-  
+
+
     background-color: #fc030394 !important;
     border: 0px;
     margin: -40px 0px 0px 4px !important;
     color: black !important;
-    /* width: 111px !important; */
+
 
     padding: 20px 6px 0px 6px !important;
     border-radius: 0px !important;
 }
+
 .rbc-event {
     height: 80px !important;
 }
 
+.bthnui {
+    background-color: #1177FE;
+    border: none;
+    color: white;
+    margin: 5px;
+    padding: 5px 20px 5px 20px;
+    border-radius: 30px;
+}
 
+.rbc-day-bg.rbc-today {
+    background: rgba(255, 0, 0, 0.345) !important;
+}
+
+
+.modal-footer {
+
+    border-top: var(--bs-modal-footer-border-width) solid #dee2e600;
+}
 
 .rbc-day-bg+.rbc-day-bg {
     border-left: 1px solid #dddddd00;
@@ -66,12 +89,20 @@
     padding: 10px;
 }
 
+.bnhhcol {
+    margin-left: auto;
+    display: block;
+    margin-right: auto;
+    align-items: center;
+    width: 0%;
+}
 
+.rbc-btn-group {
+    display: inline-block;
+    white-space: nowrap;
+    display: none;
+}
 
-/* 
-.rbc-off-range-bg {
-    background: #e6e6e6;
-} */
 
 .rbc-header {
     overflow: hidden;
@@ -79,7 +110,86 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     padding: 5px 3px 25px 3px;
-  background-color: white;
-  height: 40px;
+    background-color: white;
+    height: 40px;
     margin: 5px;
+}
+.boxnm{
+    height: 80px;
+    background-color: white;
+    padding: 10px 20px 10px 20px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    
+}
+.selecthh:focus-visible {
+    outline:none;
+    border:none;
+  }
+
+@media (max-width: 480px) {
+    .rbc-calendar {
+       
+        margin: 0px !important;
+    }
+    
+    .addnewcard09 {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    
+        padding: 0px 0px 150px 0px !important;
+        margin: 0px 10px 0px 10px !important;
+        border: none;
+        background-color: #F5E7D4;
+        border-radius: 20px;
+    }
+    .col-xs-12.col-sm-4.mnnnn {
+        width: 100% !important;
+    }
+    .boxnm{
+        height: 80px;
+        background-color: white;
+        padding: 10px 20px 10px 20px;
+        margin-left: 0px !important;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        
+    }
+    .col-xs-12.col-sm-5.bbbcol {
+        width: 50% !important;
+    }
+    .container.p-2.rougw{
+        margin: 0px !important;
+    }
+    
+}
+@media (max-width: 768px) {
+    .container.p-2.rougw{
+        margin: 0px !important;
+    }
+    .addnewcard09 {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    
+        padding: 0px 0px 150px 0px !important;
+        margin: 0px 10px 0px 10px !important;
+        border: none;
+        background-color: #F5E7D4;
+        border-radius: 20px;
+    }
+    .col-xs-12.col-sm-4.mnnnn {
+        width: 70%;
+    }
+    .row.broeur8 {
+        display: grid;
+    }
+    .bnhhcol {
+       margin: 0px 0px 10px 0px;
+        width: 2% ;
+    }
+    .rbc-calendar {
+       
+        margin: 0px !important;
+    }
+    
+    
 }

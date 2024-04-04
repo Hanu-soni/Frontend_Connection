@@ -195,13 +195,13 @@ const AddNewStudent = ({userData}) => {
 
 
 
-                                {val.map((data, i) => {
+                                {/* {val.map((data, i) => {
                                     return (
                                         <div>
                                             <div className="mbsc-row row my-3">
                                                 <div className=" mbsc-col-4 col-sm-4 mbsc-col-md-3 mbsc-col-lg-3 ">
                                                     <Form.Group className="mb-4" controlId="formBasicEmail">
-                                                        <Form.Label>Gender</Form.Label>
+                                                        <Form.Label>Batch</Form.Label>
                                                         <Form.Select aria-label="Default select example" style={{ borderRadius: "30px" }}
                                                             value={formData.gender}
                                                             name="gender"
@@ -213,6 +213,24 @@ const AddNewStudent = ({userData}) => {
                                                             <option value="female">Female</option>
                                                         </Form.Select>
                                                     </Form.Group>
+                                                    {
+                                ["Batch-A","Batch-B"].map((item)=>(
+                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                    <Form.Check
+                                        inline
+                                        type="radio"
+                                        label={item}
+                                        checked={formData.preference===item}
+                                        onChange={handleChange}
+                                        name="preference"
+                                        id={`inline-${item}`}
+                                        value={item}
+                                    />
+                                    <p style={{ fontSize: "14px", marginLeft: "25px" }}>Will only be sent if SMS messaging is allowed</p>
+                                </Form.Group>
+
+                                ))
+                            }
                                                 </div>
                                                 <div className=" mbsc-col-4 col-sm-4 mbsc-col-md-3 mbsc-col-lg-3 ">
                                                     <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -238,7 +256,7 @@ const AddNewStudent = ({userData}) => {
 
                                         </div>
                                     )
-                                })}
+                                })} */}
 
 
                             </div>

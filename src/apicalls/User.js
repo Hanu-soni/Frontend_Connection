@@ -48,11 +48,10 @@ export const RegisterUser=async (user)=>{
   };
 
 
-export const getAnnouncementUser=async (id)=>{
-
-
+export const getAnnouncementUser=async (_id)=>{
      try{
-          const response=await axios.get(`${baseurl}/teacher/announcement`,id);
+          //console.log(id)
+          const response=await axios.get(`${baseurl}/announcement/read`,_id);
           return response.data;
      }
      catch(error)
