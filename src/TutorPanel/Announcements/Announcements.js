@@ -8,7 +8,7 @@ import '../Student.css'
 import MobilemenuNavbar from '../SideNavbar/MobilemenuNavbar'
 import Sidenavbar from '../SideNavbar/Sidenavbar'
 import TopBar from '../SideNavbar/TopBar'
-import { AnnouncementUser } from '../../apicalls/User'
+import { AnnouncementUser, getAnnouncementUser } from '../../apicalls/User'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 
@@ -65,10 +65,13 @@ const Announcements = ({ userData }) => {
             }
             else if (response.success === true) {
                 toast.success(response.message);
-                setAnnouncementData({
-                    subject:response.data.subject,
-                    description:response.data.description
-                })
+                // setAnnouncementData({
+                //     subject:response.data.subject,
+                //     description:response.data.description
+                // })
+                getAnnouncementUser();
+
+               
                 // sessionStorage.setItem('subject',response.data.subject)
                 // sessionStorage.setItem('description',response.data.description)
                 handleClose()
@@ -86,6 +89,16 @@ const Announcements = ({ userData }) => {
 
     }
 
+    // const handleGetAnnouncement=async(event)=>{
+    //     event.preventDefault();
+    //     let data={id:userData.id}
+    //     let response=await getAnnouncementUser(data);
+    //     setAnnouncementData({
+    //         ann
+            
+    //     })
+
+    // }
 
     // useEffect(()=>{
     //     setAnnouncementData(
