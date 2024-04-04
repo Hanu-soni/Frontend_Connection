@@ -47,3 +47,18 @@ export const RegisterUser=async (user)=>{
   
   };
 
+
+export const getAnnouncementUser=async (id)=>{
+
+
+     try{
+          const response=await axios.get(`${baseurl}/teacher/announcement`,id);
+          return response.data;
+     }
+     catch(error)
+     {
+          return error.response.data;
+     }
+
+}
+

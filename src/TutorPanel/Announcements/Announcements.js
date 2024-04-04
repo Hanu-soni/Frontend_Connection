@@ -3,7 +3,7 @@ import { IoMdArrowDropdown } from 'react-icons/io'
 
 import { FaBars } from 'react-icons/fa6'
 import '../Subscription.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../Student.css'
 import MobilemenuNavbar from '../SideNavbar/MobilemenuNavbar'
 import Sidenavbar from '../SideNavbar/Sidenavbar'
@@ -25,12 +25,18 @@ const Announcements = ({ userData }) => {
     const [data, setData] = useState({
         subject: "",
         description: "",
-        _id:userData.id
+        _id: userData.id
     });
 
 
     const [loading, setloading] = useState(false);
-    const navigate=useNavigate();
+    const navigate = useNavigate();
+
+
+    const[AnnouncementData,setAnnouncementData]=useState({
+        subject:[],
+        description:[]
+    });
 
 
     const handleChange = (e) => {
@@ -57,8 +63,14 @@ const Announcements = ({ userData }) => {
                 //  alert(response.message)
                 toast.info(response.message);
             }
-            else if(response.success===true) {
+            else if (response.success === true) {
                 toast.success(response.message);
+                setAnnouncementData({
+                    subject:response.data.subject,
+                    description:response.data.description
+                })
+                // sessionStorage.setItem('subject',response.data.subject)
+                // sessionStorage.setItem('description',response.data.description)
                 handleClose()
                 // navigate('/TutorHome',{state:response.data})
                 // sessionStorage.setItem('token', response.data.token);
@@ -67,12 +79,22 @@ const Announcements = ({ userData }) => {
 
                 // alert(response.message)
             }
-            
-           
+
+
         }
 
-         
+
     }
+
+
+    // useEffect(()=>{
+    //     setAnnouncementData(
+    //         {
+    //             subject:sessionStorage.getItem('subject'),
+    //             description:sessionStorage.getItem('description'),
+    //         }
+    //     )
+    // })
 
 
 
@@ -94,29 +116,55 @@ const Announcements = ({ userData }) => {
                         <div class="dashboard-header px-md-4">
                             {/* <h1 class="h2">Dashboard</h1> */}
 
+                            <Dropdown>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg8 addnewdg11'>
+                                    <span className='adggsh'> Add Announcements <IoMdArrowDropdown className="IoMdArrowDropdown" style={{ fontSize: "26px" }} /></span>
+                                </Dropdown.Toggle>
 
+                                <Dropdown.Menu className='menu87'>
+                                    <Button variant="" onClick={handleShow} style={{ border: "none" }}>
+                                        Add Announcements
+                                    </Button>
+
+                                </Dropdown.Menu>
+                            </Dropdown>
 
                             <Card className='addnewcard'>
 
-                                <Card.Body className='addstutnet1'>
+                                {/* <Card.Body className='addstutnet1'>
                                     <img src='./img/Announcements.png' className='addstutnet3 my-5' />
                                     <h5 className='text-center mb-4' style={{ marginTop: "-20px" }}>You don't have any Announcements</h5>
 
 
-                                    <Dropdown>
-                                        <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg8 addnewdg11'>
-                                            <span className='adggsh'> Add Announcements <IoMdArrowDropdown className="IoMdArrowDropdown" style={{ fontSize: "26px" }} /></span>
-                                        </Dropdown.Toggle>
-
-                                        <Dropdown.Menu className='menu87'>
-                                            <Button variant="" onClick={handleShow} style={{ border: "none" }}>
-                                                Add Announcements
-                                            </Button>
-
-                                        </Dropdown.Menu>
-                                    </Dropdown>
+                                    
                                     <br></br><br></br>
-                                </Card.Body>
+                                </Card.Body> */}
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Sl.no</th>
+                                            <th scope="col">Subject</th>
+                                            <th scope="col">Description</th>
+                                            {/* <th scope="col">Handle</th> */}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                        AnnouncementData.subject.map((item,index)=>(
+                                            <tr className=''>
+                                                <td>{index+1}</td>
+                                                <td>{AnnouncementData.subject[index]}</td>
+                                                <td>{AnnouncementData.description[index]}</td>
+                                            </tr>
+                                            
+                                        ))
+
+                                        }
+                                        
+                                        
+                                    </tbody>
+                                </table>
                             </Card>
 
 
@@ -132,28 +180,28 @@ const Announcements = ({ userData }) => {
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label>Subject</Form.Label>
                                             <Form.Control
-                                             type="text" 
-                                             className='forn89' 
-                                             required maxLength={40}
-                                             name='subject'
-                                             onChange={handleChange}
-                                             />
+                                                type="text"
+                                                className='forn89'
+                                                required maxLength={40}
+                                                name='subject'
+                                                onChange={handleChange}
+                                            />
 
                                         </Form.Group>
 
                                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                             <Form.Label>Descriptions</Form.Label>
                                             <Form.Control
-                                             as="textarea"
-                                              rows={3} 
-                                              style={{ borderRadius: "30px" }} 
-                                              required
-                                               maxLength={90}
-                                               name='description'
+                                                as="textarea"
+                                                rows={3}
+                                                style={{ borderRadius: "30px" }}
+                                                required
+                                                maxLength={90}
+                                                name='description'
                                                 onChange={handleChange}
-                                               
-                                               
-                                               />
+
+
+                                            />
                                         </Form.Group>
                                         <div className='floah'>
                                             <Button type='submit' variant="" className='btnhj' >
@@ -164,7 +212,8 @@ const Announcements = ({ userData }) => {
                                             </Button> */}
                                         </div>
 
-                                    </Form></Modal.Body>
+                                    </Form>
+                                    </Modal.Body>
 
                             </Modal>
                         </div>

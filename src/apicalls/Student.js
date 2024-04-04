@@ -15,3 +15,22 @@ export const AddNewStudentRouter=async (studentData)=>{
   }
 
 };
+
+
+export const DeleteStudentRouter=async (data)=>{
+     
+   try{
+          console.log(data);
+        const response=await axios.post(`${baseurl}/student/delete`,data);
+        console.log(response);
+        return response.data;
+   }
+   catch(error)
+   {
+        return error.message;
+   }
+ 
+ };
+
+
+
