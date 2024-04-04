@@ -22,10 +22,12 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 
 
-import { Col, Container, Nav, Row, Stack, Pagination, Form, Modal, Button } from 'react-bootstrap'
+import { Col, Container, Nav, Row, Stack, Pagination, Form, Modal, Button, Card } from 'react-bootstrap'
 import { DeleteStudentRouter } from '../../apicalls/Student';
 import Lazyloading from '../../BackendComp/Lazy';
 import { PhoneInput } from 'react-international-phone';
+import { IoMdArrowDropdown } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 const StudentList = ({ userData }) => {
 
 
@@ -270,68 +272,65 @@ const StudentList = ({ userData }) => {
 
 
                         <div style={{ overflowX: "auto" }}>
-                            <table className="table table-striped">
-                                <thead className='head56'>
-                                    <tr className='head56'>
+    {
+        data.length === 0 ? (
+            // Rendered when data is empty
+            <Card.Body className='addstutnet1'>
+                <img src='./img/addstutent.png' className='addstutnet' />
+                <h5 className='text-center ' style={{ marginTop: "-20px" }}>You don't have any students yet</h5>
+                <p className='text-center'>Add your students so you can take their attendance, and more.</p>
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg8 addnewdg11'>
+                        <span className='adggshnn'>Add New <IoMdArrowDropdown className="IoMdArrowDropdown1" style={{ fontSize: "26px" }} /></span>
+                    </Dropdown.Toggle>
 
-                                        <th className='th78'>Sl no.</th>
-                                        <th className='th78'>FirstName</th>
-                                        <th className='th78'>LastName</th>
-                                        <th className='th78'> Email</th>
-                                        <th className='th78'>Gender</th>
+                    <Dropdown.Menu className='menu87'>
+                        <Link to="/AddNewStudent" style={{
+                            color: "black", marginLeft: "10px", textDecoration: "none"
+                            , fontSize: "16px"
+                        }}>Add New Student</Link>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Card.Body>
+        ) : (
+            // Rendered when data is not empty
+            <table className="table table-striped">
+                <thead className='head56'>
+                    <tr className='head56'>
+                        <th className='th78'>Sl no.</th>
+                        <th className='th78'>FirstName</th>
+                        <th className='th78'>LastName</th>
+                        <th className='th78'>Email</th>
+                        <th className='th78'>Batch</th>
+                        <th className='th78'>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        paginatedData.map((value, index) => (
+                            <tr key={index}>
+                                <td>{index + 1 + (currentPage - 1) * 10}</td>
+                                <td>{value.firstName}</td>
+                                <td>{value.lastName}</td>
+                                <td>{value.email}</td>
+                                <td>{value.batch}</td>
+                                <td>
+                                    <button onClick={handleShow} className="btn btn-" >
+                                        <FaRegEdit />
+                                    </button>
+                                    <button onClick={() => handleShowdeleteStudent(value.email)}>
+                                        <RiDeleteBin5Line />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        )
+    }
+</div>
 
-
-                                        <th className='th78'>Action</th>
-                                    </tr>
-                                </thead>
-                                {
-                                    data.length === 0 ? (
-                                        <center>
-                                            <Lazyloading />
-                                        </center>
-                                    ) : (
-                                        <tbody>
-
-                                            {paginatedData.map((value, index) => {
-
-                                                return (
-
-                                                    <tr key={index}>
-
-                                                        <td>{index + 1 + (currentPage - 1) * 10}</td>
-                                                        <td>{value.firstName}</td>
-                                                        <td>{value.lastName}</td>
-                                                        <td >{value.email}</td>
-                                                        <td>{value.gender}</td>
-
-                                                        <td >
-                                                            <button onClick={handleShow} className="btn btn-" >
-                                                                <FaRegEdit />
-                                                            </button>
-                                                            {/* <button onClick={() => handleDeleteStudent(value.email)} className="btn btn-" > */}
-                                                            <button onClick={()=>handleShowdeleteStudent(value.email)}>
-                                                                <RiDeleteBin5Line />
-                                                            </button>
-                                                        </td>
-
-
-                                                    </tr>
-
-
-                                                )
-                                            })
-
-                                            }
-
-
-                                        </tbody>
-
-
-                                    )
-                                }
-
-                            </table>
-                        </div>
 
                         <Modal show={showModalLogout} onHide={handleClosedeleteStudent}>
                             <Modal.Header closeButton>

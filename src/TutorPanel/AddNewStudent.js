@@ -30,10 +30,8 @@ const AddNewStudent = ({ userData }) => {
         mobileNumber: "",
         smsCapable: "",
         batch: "",
-        dob: "",
         studentStatus: "",
         //studentType:studentType,
-        familyType: "",
         firstNameParent: "",
         lastNameParent: "",
         lessonLength: "",
@@ -534,7 +532,7 @@ const AddNewStudent = ({ userData }) => {
                                     <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-3 p">
 
 
-                                        <h5>Note  <span style={{ fontWeight: "400", fontSize: "16px" }}>Optional </span></h5>
+                                        <h5>Note  <span style={{ fontWeight: "400", fontSize: "16px" }}>&lpar;Optional&rpar; </span></h5>
                                         <p>Use this area for any private notes you wish to keep.</p>
                                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
 

@@ -156,23 +156,7 @@ const Student = ({userData}) => {
                                                 </div> */}
 
                                             </Card.Header>
-                                            {/* <Card.Body className='addstutnet1'>
-                                                <img src='./img/addstutent.png' className='addstutnet' />
-                                                <h5 className='text-center ' style={{ marginTop: "-20px" }}>You don't have any students yet</h5>
-                                                <p className='text-center'>Add your students so you can take their attendance, and more.</p>
-                                                <Dropdown>
-                                                    <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg8 addnewdg11'>
-                                                        <span className='adggshnn'>Add New <IoMdArrowDropdown className="IoMdArrowDropdown1" style={{ fontSize: "26px" }} /></span>
-                                                    </Dropdown.Toggle>
-
-                                                    <Dropdown.Menu className='menu87'>
-                                                        <Link to="/AddNewStudent" style={{
-                                                            color: "black", marginLeft: "10px", textDecoration: "none"
-                                                            , fontSize: "16px"
-                                                        }}>Add New Student</Link>
-                                                    </Dropdown.Menu>
-                                                </Dropdown>
-                                            </Card.Body> */}
+                                            
                                             <StudentList/>
                                         </Card>
 
