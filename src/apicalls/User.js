@@ -79,3 +79,19 @@ export const getStudentRouter=async(id)=>{
      }
 }
 
+
+//update student of a particular teacher
+export const updateStudentRouter=async(data)=>{
+     //console.log(id);
+     try{
+          const response=await axios.put(`${baseurl}/student/edit`,
+          data
+          );
+          console.log(response)
+          return response.data;
+
+     }catch(err){
+          return err.response.data
+     }
+}
+

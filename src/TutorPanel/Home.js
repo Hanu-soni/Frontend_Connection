@@ -18,7 +18,7 @@ import TopBar from './SideNavbar/TopBar';
 import MobilemenuNavbar from './SideNavbar/MobilemenuNavbar';
 
 
-const Home = ({ userData }) => {
+const Home = ({userData}) => {
 
   const navigate=useNavigate();
   useEffect(()=>{
@@ -66,6 +66,15 @@ const Home = ({ userData }) => {
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString('en-US');
   //console.log(formattedDate);
+//   const userDataString = sessionStorage.getItem('userData');
+// if (userDataString) {
+//     var userData1 = JSON.parse(userDataString);
+//     console.log(userData1)
+//     // Now you can use userId as needed
+// } 
+// else {
+    
+// }
 
 
 

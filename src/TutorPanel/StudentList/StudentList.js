@@ -4,12 +4,15 @@ import MobilemenuNavbar from '../SideNavbar/MobilemenuNavbar'
 import Sidenavbar from '../SideNavbar/Sidenavbar'
 
 
+
 import { CiSearch } from "react-icons/ci";
 
 
 
 
+
 import { FaRegEdit } from "react-icons/fa";
+
 
 
 import './StudentList.css'
@@ -28,7 +31,7 @@ import Lazyloading from '../../BackendComp/Lazy';
 import { PhoneInput } from 'react-international-phone';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import { getStudentRouter } from '../../apicalls/User';
+import { getStudentRouter, updateStudentRouter } from '../../apicalls/User';
 const StudentList = ({ userData }) => {
 
 
@@ -75,7 +78,13 @@ const StudentList = ({ userData }) => {
     const uniqueCategories = [...new Set(data.map(item => item._id))];
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = (id) => {
+        sessionStorage.setItem('editId',id);
+        let email = sessionStorage.getItem('editId');
+        
+        setFormData({ ...formData, email: email });
+        setShow(true);
+    }
     const [loading, setloading] = useState(false);
 
     const handleItemsPerPageChange = (selectedValue) => {
@@ -110,11 +119,52 @@ const StudentList = ({ userData }) => {
         setShowModalLogout(false);
     };
 
-    useEffect(() => {
-        setloading(true);
+    // useEffect(() => {
+    //     setloading(true);
 
 
-    }, [])
+    // }, [])
+
+
+
+    const initialValues = {
+        price: '',
+        mobileNumber: '',
+        batch: '',
+        lessonCategory: '',
+        managedBy:sessionStorage.getItem('userId'),
+        
+    };
+
+    const [formData, setFormData] = useState(initialValues);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await updateStudentRouter(formData);
+        
+        // Log the updated form data when it's guaranteed to be updated
+        console.log('Form submitted with data:', formData);
+        
+        if (response.success === true) {
+            // Assuming getStudent() fetches updated student data
+            getStudent();
+            //console.log(response);
+            setShow(false);
+        }
+    };
+    
+
+
+
+
+  
+
+
 
 
 
@@ -145,6 +195,7 @@ const StudentList = ({ userData }) => {
             // setShowModalLogout(false)
             setData(response.data);
             setFilter(response.data);
+            console.log(data);
 
         }
         
@@ -159,13 +210,10 @@ const StudentList = ({ userData }) => {
         getStudent();
     }, []);
 
+   
 
-    const handleSubmit = () => {
-        console.log("I will work on it")
-    }
-    const handleChange = () => {
-        console.log("I will work on it")
-    }
+
+    
 
     ///////morning  code
     // const filteredData = data.filter(value => value._id.toLowerCase().includes(searchTitle.toLowerCase()));
@@ -340,7 +388,7 @@ const StudentList = ({ userData }) => {
                                 <td>{value.email}</td>
                                 <td>{value.batch}</td>
                                 <td>
-                                    <button onClick={handleShow} className="btn btn-" >
+                                    <button onClick={()=>handleShow(value.email)} className="btn btn-" >
                                         <FaRegEdit />
                                     </button>
                                     <button onClick={() => handleShowdeleteStudent(value.email)}>
@@ -378,68 +426,63 @@ const StudentList = ({ userData }) => {
                             </Modal.Header>
                             <Modal.Body>
 
-                                <Form>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label>Price</Form.Label>
-                                    <Form.Select
-                                        aria-label="Default select example"
-                                        style={{ borderRadius: "30px" }}
-                                        // value={formData.price}
-                                        name="price"
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="Select from below"
-
-                                    >
-                                        <option value=" 30">Select from below</option>
-                                        <option value="100">₹ 100.00 Per Lesson</option>
-                                        <option value="200">₹ 200.00 Per Lesson</option>
-
-                                    </Form.Select>
+                                {/* <Form onSubmit={handleEditStudent}> */}
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Price</Form.Label>
+                                        <Form.Select
+                                            aria-label="Default select example"
+                                            style={{ borderRadius: "30px" }}
+                                            name="price"
+                                            onChange={handleChange}
+                                            required
+                                        >
+                                            <option value="">Select from below</option>
+                                            <option value="100">₹ 100.00 Per Lesson</option>
+                                            <option value="200">₹ 200.00 Per Lesson</option>
+                                        </Form.Select>
                                     </Form.Group>
+
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label>Mobile Number</Form.Label>
                                         <PhoneInput
                                             defaultCountry="in"
-                                            // value={formData.mobileNumber}
                                             onChange={(value) => handleChange({ target: { name: 'mobileNumber', value } })}
                                             name='mobileNumber'
                                             type='text'
                                             required
                                         />
-
-
                                     </Form.Group>
+
                                     <Form.Group className="mb-4" controlId="formBasicEmail">
                                         <Form.Label>Batch</Form.Label>
-                                        <Form.Select aria-label="Default select example" style={{ borderRadius: "30px" }}
-                                            // value={formData.batch}
+                                        <Form.Select
+                                            aria-label="Default select example"
+                                            style={{ borderRadius: "30px" }}
                                             name="batch"
                                             onChange={handleChange}
-
                                         >
-                                            <option value=" 30">Select from Batch</option>
-
-                                            <option value='Batch-1'  >Batch-1</option>
+                                            <option value="">Select from Batch</option>
+                                            <option value="Batch-1">Batch-1</option>
                                             <option value="Batch-2">Batch-2</option>
                                         </Form.Select>
                                     </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label>Lesson</Form.Label>
-                                            <Form.Select aria-label="Default select example"
-                                                style={{ borderRadius: "30px" }}
-                                                // value={formData.lessonCategory}
-                                                name="lessonCategory"
-                                                onChange={(e) => handleChange(e)}
-                                                required
-                                            >
-                                                <option>Select Lesson</option>
-                                                <option value="Lesson-1">Lesson-1</option>
-                                                <option value="Lesson-2">Lesson-2</option>
-                                                <option value="Lesson-3">Lesson-3</option>
-                                            </Form.Select>
 
-                                        </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Lesson</Form.Label>
+                                        <Form.Select
+                                            aria-label="Default select example"
+                                            style={{ borderRadius: "30px" }}
+                                            name="lessonCategory"
+                                            onChange={handleChange}
+                                            required
+                                        >
+                                            <option value="">Select Lesson</option>
+                                            <option value="Lesson-1">Lesson-1</option>
+                                            <option value="Lesson-2">Lesson-2</option>
+                                            <option value="Lesson-3">Lesson-3</option>
+                                        </Form.Select>
+                                    </Form.Group>
                                         <Button type="submit" color="success" className="grnext8">Save</Button>
                                 </Form>
                             </Modal.Body>

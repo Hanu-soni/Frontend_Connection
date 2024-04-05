@@ -22,6 +22,18 @@ const Announcements = ({ userData }) => {
 
 
 
+    const userDataString = sessionStorage.getItem('userData');
+    if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        const userId = userData.id;
+        // Now you can use userId as needed
+    }
+    else {
+        toast.info('id is not present');
+    }
+
+
+
     const [data, setData] = useState({
         subject: "",
         description: "",
@@ -29,17 +41,19 @@ const Announcements = ({ userData }) => {
     });
 
 
+
+
     const [loading, setloading] = useState(false);
     const navigate = useNavigate();
 
 
-    const[AnnouncementData,setAnnouncementData]=useState({
-        subject:[],
-        description:[]
+    const [AnnouncementData, setAnnouncementData] = useState({
+        subject: [],
+        description: []
     });
 
 
-    const [buttonAnnouncement,setbuttonAnnouncement]=useState(true);
+    const [buttonAnnouncement, setbuttonAnnouncement] = useState(true);
 
 
     const handleChange = (e) => {
@@ -72,9 +86,9 @@ const Announcements = ({ userData }) => {
                 //     subject:response.data.subject,
                 //     description:response.data.description
                 // })
-                 handleGetAnnouncement(event);
+                handleGetAnnouncement(event);
 
-               
+
                 // sessionStorage.setItem('subject',response.data.subject)
                 // sessionStorage.setItem('description',response.data.description)
                 handleClose()
@@ -92,20 +106,20 @@ const Announcements = ({ userData }) => {
 
     }
 
-    const handleGetAnnouncement=async(event)=>{
+    const handleGetAnnouncement = async (event) => {
         event.preventDefault();
         setbuttonAnnouncement(false)
         // let data={id:userData.id}
         const response = await getAnnouncementUser(userData.id);
         console.log(response)
         setAnnouncementData({
-            subject:response.data.subject,
-            description:response.data.description     
+            subject: response.data.subject,
+            description: response.data.description
         })
 
     }
 
-  
+
 
     // useEffect(() => {
     //     handleGetAnnouncement
@@ -154,38 +168,38 @@ const Announcements = ({ userData }) => {
                                     <br></br><br></br>
                                 </Card.Body> */}
 
-                                {buttonAnnouncement===true ?
-                                (<Button style={{width:"15rem"}} className='btnhj' onClick={handleGetAnnouncement}>Show Announcement</Button>):
-                                (
-                                    <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Sl.no</th>
-                                            <th scope="col">Subject</th>
-                                            <th scope="col">Description</th>
-                                            {/* <th scope="col">Handle</th> */}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                        AnnouncementData.subject.map((item,index)=>(
-                                            <tr className=''>
-                                                <td>{index+1}</td>
-                                                <td>{AnnouncementData.subject[index]}</td>
-                                                <td>{AnnouncementData.description[index]}</td>
-                                            </tr>
-                                            
-                                        ))
+                                {buttonAnnouncement === true ?
+                                    (<Button style={{ width: "15rem" }} className='btnhj' onClick={handleGetAnnouncement}>Show Announcement</Button>) :
+                                    (
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Sl.no</th>
+                                                    <th scope="col">Subject</th>
+                                                    <th scope="col">Description</th>
+                                                    {/* <th scope="col">Handle</th> */}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    AnnouncementData.subject.map((item, index) => (
+                                                        <tr className=''>
+                                                            <td>{index + 1}</td>
+                                                            <td>{AnnouncementData.subject[index]}</td>
+                                                            <td>{AnnouncementData.description[index]}</td>
+                                                        </tr>
 
-                                        }
-                                        
-                                        
-                                    </tbody>
-                                </table>
+                                                    ))
 
-                                )
+                                                }
+
+
+                                            </tbody>
+                                        </table>
+
+                                    )
                                 }
-                               
+
                             </Card>
 
 
@@ -234,7 +248,7 @@ const Announcements = ({ userData }) => {
                                         </div>
 
                                     </Form>
-                                    </Modal.Body>
+                                </Modal.Body>
 
                             </Modal>
                         </div>
