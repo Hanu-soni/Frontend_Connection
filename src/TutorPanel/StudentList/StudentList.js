@@ -28,6 +28,7 @@ import Lazyloading from '../../BackendComp/Lazy';
 import { PhoneInput } from 'react-international-phone';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import { getStudentRouter } from '../../apicalls/User';
 const StudentList = ({ userData }) => {
 
 
@@ -91,7 +92,7 @@ const StudentList = ({ userData }) => {
         const response = await DeleteStudentRouter(emaildata);
         if (response.success === true) {
             //alert(response.deletedStudent.email + "  is deleted successfully")
-            getProduct()
+            getStudent()
             setShowModalLogout(false)
         }
         //console.log()
@@ -120,18 +121,42 @@ const StudentList = ({ userData }) => {
 
 
 
-    const getProduct = async () => {
-        try {
-            const req = await fetch("https://tutor-octopus-1.onrender.com/student/read");
-            const res = await req.json();
-            setData(res);
-            setFilter(res);
-        } catch (error) {
-            console.log(error);
+    // const getStudent = async () => {
+    //     try {
+    //         const req = await fetch("https://tutor-octopus-1.onrender.com/student/read");
+    //         const res = await req.json();
+            // setData(res);
+            // setFilter(res);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+
+
+
+    const getStudent = async () => {
+        // let emaildata = { email: recieve }
+        const response = await getStudentRouter(sessionStorage.getItem('userId'));
+        console.log(response);
+        if (response.success === true) {
+            //alert(response.deletedStudent.email + "  is deleted successfully")
+            // getStudentRouter()
+            // setShowModalLogout(false)
+            setData(response.data);
+            setFilter(response.data);
+
         }
+        
     }
+
+
+
+
+
+
     useEffect(() => {
-        getProduct();
+        getStudent();
     }, []);
 
 

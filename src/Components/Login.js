@@ -47,6 +47,7 @@ const Login = ({ onLogin }) => {
                 toast.success(response.message+" "+response.data.role);
                 // navigate('/TutorHome',{state:response.data})
                 sessionStorage.setItem('token', response.data.token);
+                sessionStorage.setItem('userId',response.data.id)
                 onLogin(response.data);
                 navigate('/Home')
 

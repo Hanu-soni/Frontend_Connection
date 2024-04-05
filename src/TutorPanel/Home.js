@@ -92,7 +92,7 @@ const Home = ({ userData }) => {
                   <div className="container bnnbcon scrollb">
                     <div className="progress-container ">
                       <div className="progress" id="progress"></div>
-                      <div ><img src='./img/createaccount.png' className="circle1 active" width={0} /> <span className='create5'>Create Account</span></div>
+                      <div ><img src='./img/createAccount.png' className="circle1 active" width={0} /> <span className='create5'>Create Account</span></div>
 
                       <div ><Link to='/AddNewStudent'><img src='./img/des1.png' className="circle nn" width={90} />  <span className='create5'>Add Student</span> </Link></div>
                       <div ><a href='https://meet.google.com/'><img src='./img/des2.png' className="circle " width={90} /> <span className='create5'>Schedule Event</span> </a></div>
@@ -155,7 +155,7 @@ const Home = ({ userData }) => {
               </div>
               <hr></hr>
               <div>
-                <img src='./img/calendar.png' className='calender5' />
+                <img src='./img/Calendar.png' className='calender5' />
                 <p className='text-center my-4' style={{ color: "black", fontWeight: "700" }}>There's nothing on your schedule for {formattedDate}</p>
               </div>
 

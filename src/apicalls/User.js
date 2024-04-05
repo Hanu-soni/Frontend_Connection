@@ -63,3 +63,19 @@ export const getAnnouncementUser=async (id)=>{
 
 }
 
+
+//get student of particular teacher
+export const getStudentRouter=async(id)=>{
+     console.log(id);
+     try{
+          const response=await axios.get(`${baseurl}/student/read`,{
+               params:{id:id}
+          });
+          console.log(response)
+          return response.data;
+
+     }catch(err){
+          return err.response.data
+     }
+}
+

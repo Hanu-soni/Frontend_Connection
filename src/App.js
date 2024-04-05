@@ -7,7 +7,7 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Subscription from './TutorPanel/Subscription';
 
-import Testings from './TutorPanel/Testings';
+import Testings from './Testings';
 import Home from './TutorPanel/Home';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

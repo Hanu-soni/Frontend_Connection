@@ -32,7 +32,7 @@ const Sidenavbar = () => {
                         <Link to="/Home" className="navlinkjh nav-link"><img src="./img/home.png" className="logoimgy1 " />Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/Student" className="navlinkjh nav-link"><img src="./img/student1.png" className="logoimgy1 " />Student</Link>
+                        <Link to="/Student" className="navlinkjh nav-link"><img src="./img/Student1.png" className="logoimgy1 " />Student</Link>
                     </li>
                     <li class="nav-item">
                         <Link to="/Event_Calendar" className="navlinkjh nav-link"> <img src="./img/Calendar.png" className="logoimgy1 " />Calendar</Link>

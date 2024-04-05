@@ -28,7 +28,7 @@ const AddNewStudent = ({ userData }) => {
         lastName: "",
         email: "",
         mobileNumber: "",
-        smsCapable: "",
+        smsCapable: "false",
         batch: "",
         studentStatus: "",
         //studentType:studentType,
@@ -37,13 +37,13 @@ const AddNewStudent = ({ userData }) => {
         lessonLength: "",
         emailParent: "",
         mobileNumberParent: "",
-        smsCapableParent: "",
+        smsCapableParent: "false",
         preference: "",
         lessonCategory: "",
         billing: "",
         price: "",
         notes: "",
-        managedBy: userData.id
+        managedBy: sessionStorage.getItem('userId')
     });
 
     const [val, setVal] = useState([]);
@@ -83,27 +83,35 @@ const AddNewStudent = ({ userData }) => {
         console.log(formData)
         setloading(true);
         console.log(loading)
-        const response = await AddNewStudentRouter(formData);
-
-        if (response) {
-            //console.log(response.message)
-            setloading(false)
-            if (response.success === false) {
-                //  alert(response.message)
-                toast.info(response.message);
+        if(sessionStorage.getItem('token')){
+            const response = await AddNewStudentRouter(formData);
+            if (response) {
+                //console.log(response.message)
+                setloading(false)
+                if (response.success === false) {
+                    //  alert(response.message)
+                    toast.info(response.message);
+                }
+                else if (response.success === true) {
+                    console.log("coming here")
+                    toast.success(response.message);
+                    // navigate('/TutorHome',{state:response.data})
+                    // sessionStorage.setItem('token', response.data.token);
+                    // onLogin(response.data);
+                    navigate('/Student')
+    
+                    // alert(response.message)
+                }
+    
+    
             }
-            else if (response.success === true) {
-                console.log("coming here")
-                toast.success(response.message);
-                // navigate('/TutorHome',{state:response.data})
-                // sessionStorage.setItem('token', response.data.token);
-                // onLogin(response.data);
-                navigate('/Student')
+        }
+       
+        
 
-                // alert(response.message)
-            }
-
-
+       
+        else {
+            navigate('/Login')
         }
 
 
