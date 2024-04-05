@@ -388,11 +388,11 @@ const StudentList = ({ userData }) => {
                                 <td>{value.email}</td>
                                 <td>{value.batch}</td>
                                 <td>
-                                    <button onClick={()=>handleShow(value.email)} className="btn btn-" >
-                                        <FaRegEdit />
+                                    <button onClick={()=>handleShow(value.email)} className="btn btn- bnnbtn" >
+                                        <FaRegEdit style={{color:"green"}} />
                                     </button>
-                                    <button onClick={() => handleShowdeleteStudent(value.email)}>
-                                        <RiDeleteBin5Line />
+                                    <button onClick={() => handleShowdeleteStudent(value.email)} className="bnnbtn">
+                                        <RiDeleteBin5Line style={{color:"red"}}  />
                                     </button>
                                 </td>
                             </tr>

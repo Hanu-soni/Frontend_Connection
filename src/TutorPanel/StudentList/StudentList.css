@@ -27,11 +27,26 @@ th.th78 {
     width: 100%;
     border: 1px solid #ddd;
   }
- 
+
+
   .bbrow{
     background-color: #1177FE;
     color: white !important;
   }
+  .paginationj {
+    float: right;
+    padding: 10px;
+}
+.bnnbtn{
+  border: none;
+}
+th.th78 {
+  color: rgb(255, 255, 255) !important;
+  font-size: 17px !important;
+  padding: 15px 6px 15px 6px !important;
+  background-color: #1177FE;
+}
+ 
 
 
   .grnext8{

@@ -13,6 +13,40 @@ import TopBar from './SideNavbar/TopBar'
 import StudentList from './StudentList/StudentList'
 
 const Student = ({userData}) => {
+
+    const initialValues = {
+        batchname: "",
+        description1: "",
+    };
+    const [data, setData] = useState(initialValues);
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData({ ...data, [name]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setFormErrors(validate(data));
+        setIsSubmit(true);
+    };
+
+    const validate = (values) => {
+        const errors = {};
+
+        if (!values.batchname) {
+            errors.batchname = "Batch is required!";
+        }
+        if (!values.description1) {
+            errors.description1 = "Description is required!";
+        }
+
+        return errors;
+    };
+
+
     const [key, setKey] = useState('home');
     const [show, setShow] = useState(false);
 
@@ -174,10 +208,9 @@ const Student = ({userData}) => {
                                                         </Dropdown.Toggle>
 
                                                         <Dropdown.Menu className='menu87'>
-                                                            <Link to="/AddNewStudent" style={{
-                                                                color: "black", marginLeft: "10px", textDecoration: "none"
-                                                                , fontSize: "16px"
-                                                            }}>Add New Student</Link>
+                                                        <Button variant="" onClick={handleShow} style={{ border: "none" }}>
+                                                                Add Students Batch
+                                                            </Button>
                                                         </Dropdown.Menu>
                                                     </Dropdown></article>
                                                     {/* <article>   <Dropdown>
@@ -206,10 +239,9 @@ const Student = ({userData}) => {
                                                         <span className='adggsh'>Add New <IoMdArrowDropdown className="IoMdArrowDropdown1" style={{ fontSize: "26px" }} /></span>
                                                     </Dropdown.Toggle>
                                                     <Dropdown.Menu className='menu87'>
-                                                        <Link to="/AddNewStudent" style={{
-                                                            color: "black", marginLeft: "10px", textDecoration: "none"
-                                                            , fontSize: "16px"
-                                                        }}>Add New Student</Link>
+                                                    <Button variant="" onClick={handleShow} style={{ border: "none" }}>
+                                                                Add Students Batch
+                                                            </Button>
 
                                                     </Dropdown.Menu>
                                                 </Dropdown>
@@ -227,27 +259,41 @@ const Student = ({userData}) => {
                                 <Modal.Header closeButton>
                                     <Modal.Title><h5>Add Students Batch</h5></Modal.Title>
                                 </Modal.Header>
-                                <Modal.Body> <Form>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>Batch Name</Form.Label>
-                                        <Form.Control type="text" className='forn89' required maxLength={20} />
+                                <Modal.Body> 
+                                <Form onSubmit={handleSubmit}>
+                                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                                            <Form.Label>Batch Name</Form.Label>
+                                            <Form.Control type="text" className='forn89'
+                                                name='batchname'
+                                                value={data.batchname}
+                                                onChange={handleChange}
+                                            />
+                                            <p className="pform">{formErrors.batchname}</p>
+                                        </Form.Group>
 
-                                    </Form.Group>
+                                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                                            <Form.Label>Assigned Students</Form.Label>
+                                            <Form.Control type="text" className='forn89'
+                                                name='description1'
+                                                value={data.description1}
+                                                onChange={handleChange}
 
-                                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                                        <Form.Label>Assigned Students</Form.Label>
-                                        <Form.Control type="text" className='forn89' required maxLength={20} />
-                                    </Form.Group>
-                                    <div className='floah'>
-                                        <Button variant="" className='btnhj' >
-                                            Save
-                                        </Button>
-                                        <Button variant="secondary" className='btnh1j'>
-                                            Cancel
-                                        </Button>
-                                    </div>
+                                            />
+                                            <p className="pform">{formErrors.description1}</p>
+                                        </Form.Group>
+                                        {/* <Button type="submit" color="success" className="grnext8">Save</Button> */}
+                                        <div className='floah'>
 
-                                </Form></Modal.Body>
+                                            <Button type="submit" className='btnhj' >
+                                                Save
+                                            </Button>
+                                            <Button  className='btnh1j'>
+                                                Cancel
+                                            </Button>
+                                        </div>
+
+                                    </Form>
+                                </Modal.Body>
 
                             </Modal>
                         </div>

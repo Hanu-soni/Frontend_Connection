@@ -1,4 +1,4 @@
-import { Button, Card, Col, Container, Dropdown, Form, Modal } from 'react-bootstrap'
+import { Button, Card, Col, Container, Dropdown, Form, Modal, Pagination } from 'react-bootstrap'
 import { IoMdArrowDropdown } from 'react-icons/io'
 
 import { FaBars } from 'react-icons/fa6'
@@ -22,26 +22,13 @@ const Announcements = ({ userData }) => {
 
 
 
-    const userDataString = sessionStorage.getItem('userData');
-    if (userDataString) {
-        const userData = JSON.parse(userDataString);
-        const userId = userData.id;
-        // Now you can use userId as needed
-    }
-    else {
-        toast.info('id is not present');
-    }
-
-
-
     const [data, setData] = useState({
         subject: "",
         description: "",
         _id: userData.id
     });
-
-
-
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
 
     const [loading, setloading] = useState(false);
     const navigate = useNavigate();
@@ -54,6 +41,15 @@ const Announcements = ({ userData }) => {
 
 
     const [buttonAnnouncement, setbuttonAnnouncement] = useState(true);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10); // Change this value as per your requirement
+
+
+
+
+
+
 
 
     const handleChange = (e) => {
@@ -68,6 +64,8 @@ const Announcements = ({ userData }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setFormErrors(validate(data));
+        setIsSubmit(true);
         console.log(data)
         setloading(true);
         console.log(loading)
@@ -107,17 +105,45 @@ const Announcements = ({ userData }) => {
     }
 
     const handleGetAnnouncement = async (event) => {
+
         event.preventDefault();
         setbuttonAnnouncement(false)
         // let data={id:userData.id}
+        // const response = await getAnnouncementUser(userData.id);
+        // console.log(response)
+        // setAnnouncementData({
+        //     subject:response.data.subject,
+        //     description:response.data.description     
+        // })
         const response = await getAnnouncementUser(userData.id);
-        console.log(response)
-        setAnnouncementData({
-            subject: response.data.subject,
-            description: response.data.description
-        })
+        if (response) {
+            setAnnouncementData({
+                subject: response.data.subject,
+                description: response.data.description
+            });
+        }
 
     }
+
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
+
+    const handlePrevPage = () => {
+        setCurrentPage(currentPage - 1);
+    };
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = AnnouncementData.subject.slice(indexOfFirstItem, indexOfLastItem);
+
+
+
+
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
 
 
@@ -127,6 +153,20 @@ const Announcements = ({ userData }) => {
 
 
 
+    const validate = (values) => {
+        const errors = {};
+
+        if (!values.subject) {
+            errors.subject = "Subjectis is required!";
+        }
+
+        if (!values.description) {
+            errors.description = "Descriptionis is required!";
+        }
+
+
+        return errors;
+    };
 
 
 
@@ -168,38 +208,43 @@ const Announcements = ({ userData }) => {
                                     <br></br><br></br>
                                 </Card.Body> */}
 
-                                {buttonAnnouncement === true ?
-                                    (<Button style={{ width: "15rem" }} className='btnhj' onClick={handleGetAnnouncement}>Show Announcement</Button>) :
-                                    (
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Sl.no</th>
-                                                    <th scope="col">Subject</th>
-                                                    <th scope="col">Description</th>
-                                                    {/* <th scope="col">Handle</th> */}
+
+                                {buttonAnnouncement === true ? (
+                                    <Button style={{ width: "15rem" }} className='btnhj' onClick={handleGetAnnouncement}>
+                                        Show Announcement
+                                    </Button>
+                                ) : (
+                                    <div>
+                                       <table className="table table-striped">
+                                            <thead className='head56'>
+                                                <tr className='head56'>
+                                                
+                                                    <th scope="col" className='th78'>Sl.no</th>
+                                                    <th scope="col" className='th78'>Subject</th>
+                                                    <th scope="col" className='th78'>Description</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {
-                                                    AnnouncementData.subject.map((item, index) => (
-                                                        <tr className=''>
-                                                            <td>{index + 1}</td>
-                                                            <td>{AnnouncementData.subject[index]}</td>
-                                                            <td>{AnnouncementData.description[index]}</td>
-                                                        </tr>
-
-                                                    ))
-
-                                                }
-
-
+                                                {currentItems.map((item, index) => (
+                                                    <tr key={index}>
+                                                        <td>{indexOfFirstItem + index + 1}</td>
+                                                        <td>{AnnouncementData.subject[indexOfFirstItem + index]}</td>
+                                                        <td>{AnnouncementData.description[indexOfFirstItem + index]}</td>
+                                                    </tr>
+                                                ))}
                                             </tbody>
                                         </table>
-
-                                    )
-                                }
-
+                                     <div className='paginationj'>
+                                     <Pagination >
+                                            {Array.from({ length: Math.ceil(AnnouncementData.subject.length / itemsPerPage) }).map((_, index) => (
+                                                <Pagination.Item key={index} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                                                    {index + 1}
+                                                </Pagination.Item>
+                                            ))}
+                                        </Pagination>
+                                     </div>
+                                    </div>
+                                )}
                             </Card>
 
 
@@ -217,11 +262,13 @@ const Announcements = ({ userData }) => {
                                             <Form.Control
                                                 type="text"
                                                 className='forn89'
-                                                required maxLength={40}
+                                                maxLength={40}
                                                 name='subject'
+                                                value={data.subject}
                                                 onChange={handleChange}
                                             />
 
+                                            <p className="pform">{formErrors.subject}</p>
                                         </Form.Group>
 
                                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -230,14 +277,17 @@ const Announcements = ({ userData }) => {
                                                 as="textarea"
                                                 rows={3}
                                                 style={{ borderRadius: "30px" }}
-                                                required
+
                                                 maxLength={90}
                                                 name='description'
+                                                value={data.description}
                                                 onChange={handleChange}
 
 
                                             />
+                                            <p className="pform">{formErrors.description}</p>
                                         </Form.Group>
+
                                         <div className='floah'>
                                             <Button type='submit' variant="" className='btnhj' >
                                                 Save

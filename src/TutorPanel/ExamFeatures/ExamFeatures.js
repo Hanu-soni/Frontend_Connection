@@ -1,82 +1,67 @@
-import React, { useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { CiShare2 } from 'react-icons/ci'
-import { IoIosNotificationsOutline, IoMdArrowDropdown } from 'react-icons/io'
-import { Card, Container, Dropdown, Form, Navbar, Stack } from 'react-bootstrap'
+import React from 'react'
+
+import { Card, Form, Stack } from 'react-bootstrap'
 import '../OnlineResources.css'
 import './ExamFeatures.css'
+
+// import Chart from 'chart.js/auto'
+import { GoDotFill } from 'react-icons/go'
 import MobilemenuNavbar from '../SideNavbar/MobilemenuNavbar'
 import Sidenavbar from '../SideNavbar/Sidenavbar'
 import TopBar from '../SideNavbar/TopBar'
+import PieChart from './PieChart'
+import './Upload.css'
+import Upload from './Upload'
 
-import Chart from 'chart.js/auto'
-import { GoDotFill } from 'react-icons/go'
 const ExamFeatures = ({userData}) => {
-  const chartRef = useRef(null);
-  const chartInstance = useRef(null);
+  // const chartRef = useRef(null);
+  // const chartInstance = useRef(null);
 
-  const navigate=useNavigate();
-  
+  // useEffect(() => {
+  //   if (chartInstance.current) {
+  //     chartInstance.current.destroy();
+  //   }
+  //   const myChartRef = chartRef.current.getContext("2d");
 
-  useEffect(() => {
-    if (chartInstance.current) {
-      chartInstance.current.destroy();
-    }
-    const myChartRef = chartRef.current.getContext("2d");
+  //   chartInstance.current = new Chart(myChartRef, {
+  //     type: 'doughnut',
+  //     data: {
+  //       // labels: [
+  //       //     'Fail',
+  //       //     'Pass'
 
-    chartInstance.current = new Chart(myChartRef, {
-      type: 'doughnut',
-      data: {
-        // labels: [
-        //     'Fail',
-        //     'Pass'
+  //       // ],
 
-        // ],
+  //       datasets: [{
 
-        datasets: [{
+  //         data: [40, 80],
+  //         backgroundColor: [
+  //           '#5CB9B1',
+  //           '#F56954'
 
-          data: [40, 80],
-          backgroundColor: [
-            '#5CB9B1',
-            '#F56954'
+  //         ],
+  //       }
+  //       ]
 
-          ],
-        }
-        ]
+  //     }
 
-      }
+  //   });
+  //   return () => {
+  //     if (chartInstance.current) {
+  //       chartInstance.current.destroy();
 
-    });
-    return () => {
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
-
-      }
-    }
-
-
-  }, [])
-
-
-  
-  // useEffect(()=>{
-  //   if(!sessionStorage.getItem('token')){
-  //     alert('YOU ARE NOT LOGGED IN! KINDLY LOGIN! CLICK OK BUTTON 2 TIMES');
-  //     console.log("check")
-  //     navigate('/Login')
-  //     console.log("check")
-      
+  //     }
   //   }
 
-  // },[])
+
+  // }, [])
   return (
     <div>
-      <MobilemenuNavbar userData={userData} />
-
+          <MobilemenuNavbar userData={userData} />
       <div class="container-fluid">
         <div class="row">
           <nav class="col-md-3 d-none d-md-block bg-light sidebar">
-            <Sidenavbar  />
+            <Sidenavbar/>
           </nav>
           <main role="main" class="col-md-8 col-lg-9 sidebar5">
             <TopBar userData={userData} />
@@ -104,8 +89,8 @@ const ExamFeatures = ({userData}) => {
 
                       <div className="column1">
                         <div className="box2099">
-                          <h4 className='text-center type2'>55</h4>
-                          <p className='text-center type3'>Passing Students</p>
+                          <img src='./img//check1.png' className='imgpy' />
+                          <p className='text-center type3'>Merit list</p>
                         </div>
                       </div>
 
@@ -122,7 +107,7 @@ const ExamFeatures = ({userData}) => {
 
                   </div>
 
-                  <div className="wrapper34">
+                  {/* <div className="wrapper34">
 
 
                     <section className="columns1">
@@ -143,7 +128,7 @@ const ExamFeatures = ({userData}) => {
 
                               <div className="column2 cbn">
                                 <img src='./img/examfinal.png' className='examfinal' />
-                              </div>
+                                 </div>
 
                             </section>
 
@@ -183,7 +168,7 @@ const ExamFeatures = ({userData}) => {
 
 
 
-                  </div>
+                  </div> */}
 
 
                   <div className="wrapper34">
@@ -193,27 +178,51 @@ const ExamFeatures = ({userData}) => {
 
                       <div className="column1">
                         <div className="box20982">
-                          <h5>Result</h5>
-                          <canvas ref={chartRef} style={{ width: "10px", height: "50px" }} />
-
+                          {/* <h5>Result</h5> */}
+                          {/* <canvas ref={chartRef} style={{ width: "10px", height: "50px" }} /> */}
+                          <div className='piechart'>
+                            <PieChart />
+                          </div>
                           <Stack direction="horizontal" gap={3}>
+                            <div className="bnnnui">
+                              <p style={{ fontSize: "18px", margin: "0px" }}><b style={{ fontSize: "25px" }}>55</b> Pass</p>
+                              <p style={{ fontSize: "18px" }}><b style={{ fontSize: "25px" }}>33</b> Fail</p>
+                            </div>
 
-                            <div className="ms-auto bnnnui">
-                              <p style={{ fontSize: "18px", margin: "0px" }}><GoDotFill style={{ fontSize: "30px", color: "#F56954" }} /> Fail</p>
-                              <p style={{ fontSize: "18px" }}><GoDotFill style={{ fontSize: "30px", color: "#5CB9B1" }} /> Pass</p>
+                            <div className="bnnnuib">
+                              <p style={{ fontSize: "18px", margin: "0px" }} ><GoDotFill style={{ fontSize: "30px", color: "#F56954" }} /> Fail</p>
+                              <p style={{ fontSize: "18px", margin: "3px 0px 0px 0px" }}><GoDotFill style={{ fontSize: "30px", color: "#5CB9B1" }} /> Pass</p>
                             </div>
                           </Stack>
 
-                        </div></div>
+                        </div>
+                      </div>
 
                       <div className="column1">
-                        <div className="box20982">
+
+                      
+                        <div className="box209823 my-3">
+                        <Card className='carduploadresult '  >
+                          <div >
+                            <Upload />
+                          </div>
+
+
+                          {/* <img src='./img/sound.png' className='siund4' /> */}
+
+                        </Card>
+                        <Card className='carduploadresult2 my-3'  >
                           <img src='./img/sound.png' className='siund4' />
                           <ul>
                             <li>Results declared on 24th March</li>
                             <li>Marks have been sent to your register E-mail ID</li>
                             <li>Complete results have been shared Via SMS and Mail</li>
                           </ul>
+
+
+                          {/* <img src='./img/sound.png' className='siund4' /> */}
+
+                        </Card>
                         </div>
                       </div>
 
