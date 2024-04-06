@@ -25,7 +25,7 @@ const Announcements = ({ userData }) => {
     const [data, setData] = useState({
         subject: "",
         description: "",
-        _id: userData.id
+        _id: sessionStorage.getItem('userId')
     });
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
@@ -115,7 +115,7 @@ const Announcements = ({ userData }) => {
         //     subject:response.data.subject,
         //     description:response.data.description     
         // })
-        const response = await getAnnouncementUser(userData.id);
+        const response = await getAnnouncementUser(sessionStorage.getItem('userId'));
         if (response) {
             setAnnouncementData({
                 subject: response.data.subject,

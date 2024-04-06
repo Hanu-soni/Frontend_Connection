@@ -30,6 +30,8 @@ import Website from './TutorPanel/Announcements/Website';
 import Business_Report from './TutorPanel/Business_Report/Business_Report';
 import Event_Calendar from './TutorPanel/Event_Calendar/Event_Calendar';
 import StudentList from './TutorPanel/StudentList/StudentList';
+import TermsofService from './Components/TermsOfConditions/TermsofService';
+import PrivacyPolicy from './Components/TermsOfConditions/PrivacyPolicy';
 
 
 function App() {
@@ -84,6 +86,8 @@ function App() {
             {<Route path='/TopBar' element={<TopBar/>}/>}
 
         <Route path='/Testings' element={<Testings />} />
+        <Route path='/TermsofService' element={<TermsofService/>} />
+        <Route path='/PrivacyPolicy' element={<PrivacyPolicy />} />
         {/* <div>
         <topnavbar/>
         <Routes>....</Routes>

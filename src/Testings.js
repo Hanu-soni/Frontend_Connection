@@ -17,7 +17,8 @@ const Testings = () => {
   const initialValues = {
     firstName: "", lastName: "", email: "",
     mobileNumber: "", firstNameParent: "", lastNameParent: "",
-    emailParent: "", mobileNumberParent: "", lessonCategory: "", lessonLength: "", price: ""
+    emailParent: "", mobileNumberParent: "", lessonCategory: "", lessonLength: "", price: "",
+    notes:"",managedBy:sessionStorage.getItem('userId')
   };
   const [formData, setformData] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -27,6 +28,7 @@ const Testings = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setformData({ ...formData, [name]: value });
+    console.log(formData)
   };
 
 
@@ -35,11 +37,21 @@ const Testings = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    setFormErrors(validate(formData));
-    if(Object.keys(formErrors).length === 0 && isSubmit){
-        setloading(true);
+    //setloading(true);
+    let errors=validate(formData);
+    setFormErrors(errors);
+    console.log(formData)
+    console.log(formErrors)
+    if(Object.keys(formErrors).length === 0){
+      return;
+     }
+    
+
+        setIsSubmit(true);
+        //setloading(true);
         console.log(loading)
         if(sessionStorage.getItem('token')){
+            //console.log("reached")
             const response = await AddNewStudentRouter(formData);
             if (response) {
                 //console.log(response.message)
@@ -65,15 +77,15 @@ const Testings = () => {
         else {
             navigate('/Login')
         }
-    }
+    
   };
 
   useEffect(() => {
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      
+        // console.log(data);
     }
-  }, );
+}, [formErrors]);
 
 
   const validate = (values) => {
@@ -81,29 +93,31 @@ const Testings = () => {
     const regex1 = /^[a-zA-Z ]*$/;
     const regex2 = /^[a-zA-Z ]*$/;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    // const regexParent = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
 
     if (!values.firstName) {
-      errors.firstName = "*First Name is a required !";
+      errors.firstName = "*First Name is  required !";
     } else if (!regex1.test(values.firstName)) {
       errors.firstName = "Please enter alphabet characters only";
     }
 
     if (!values.lastName) {
-      errors.lastName = "*Last Name is a required !";
+      errors.lastName = "*Last Name is  required !";
     } else if (!regex2.test(values.lastName)) {
       errors.lastName = "Please enter alphabet characters only";
     }
 
 
     if (!values.email) {
-      errors.email = "*Email is a required !";
-    } else if (!regex.test(values.email)) {
+      errors.email = "*Email is required !";
+    } 
+    else if (!regex.test(values.email)) {
       errors.email = "This is not a valid email format!";
     }
 
     if (!values.mobileNumber) {
-      errors.mobileNumber = "*Mobile No. is a required ! ";
+      errors.mobileNumber = "*Mobile No. is  required ! ";
     }
     // if (!values.mobileNumber) {
     //   errors.mobileNumber = "mobileNumber is ";
@@ -136,7 +150,9 @@ const Testings = () => {
 
     if (!values.emailParent) {
       errors.emailParent = "Email is a required !";
-    } else if (!regex.test(values.emailParent)) {
+    }
+     else if (!regex.test(values.emailParent)) {
+      console.log("check-152")
       errors.emailParent = "This is not a valid email format!";
     }
 
@@ -161,7 +177,7 @@ const Testings = () => {
     if (!values.price) {
       errors.price = "price is a required !";
     }
-
+    console.log(errors)
 
     return errors;
   };
@@ -197,13 +213,13 @@ const Testings = () => {
                             <Lazyloading />
                         ) :
                         ( */}
-          {Object.keys(formErrors).length === 0 && isSubmit ? (
+          {/* {Object.keys(formErrors).length === 0 && isSubmit ? (
             <div className="ui message success">Signed in successfully</div>
           ) : (
             <pre className="preg">
-              {/* {JSON.stringify(formData, undefined, 2)} */}
+              {JSON.stringify(formData, undefined, 2)}
             </pre>
-          )}
+          )} */}
 
 
 
@@ -239,7 +255,7 @@ const Testings = () => {
               <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label><b>Email Address</b></Form.Label>
-                  <Form.Control type="email" name="email" value={formData.email} onChange={handleChange}
+                  <Form.Control type="text" name="email" value={formData.email} onChange={handleChange}
 
                   />
                   <p className="pform">{formErrors.email}</p>
@@ -415,7 +431,7 @@ const Testings = () => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label><b>Email Address</b></Form.Label>
                   <Form.Control
-                    type="email"
+                    type="text"
                     value={formData.emailParent}
                     onChange={handleChange}
                     name="emailParent"

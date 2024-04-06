@@ -59,7 +59,7 @@ const Sidenavbar = () => {
                         <Link to="/Business_Report" className="navlinkjh nav-link"><img src="./img/BusinessReport.png" className="logoimgy1 " />Business Report</Link>
                     </li>
                     <li className="nav-item">
-                  <button onClick={handleLogout} className="navlinkjh nav-link"><img src="./img/BusinessReport.png" className="logoimgy1 " />Log-Out</button>
+                    <Link> <button onClick={handleLogout} className="navlinkjh nav-link"><img src="./img/Logout.png" className="logoimgy1 " />Log-Out</button></Link>
                 </li>
                 <Modal show={showModalLogout} onHide={handleClose}>
                   <Modal.Header closeButton>
