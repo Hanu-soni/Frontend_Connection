@@ -49,42 +49,46 @@ const AddNewStudent = () => {
         
         //setloading(true);
         console.log(loading)
-        if(sessionStorage.getItem('token') && isSubmit===true){
-            //console.log("reached")
-            const response = await AddNewStudentRouter(formData);
-            if (response) {
-                setIsSubmit(false)
-                //console.log(response.message)
-                setloading(false)
-                if (response.success === false) {
-                    //  alert(response.message)
-                    toast.info(response.message);
-                    setIsSubmit(false)
-                }
-                else if (response.success === true) {
-                    console.log("coming here")
-                    toast.success(response.message);
-                    setIsSubmit(false)
-                    // navigate('/TutorHome',{state:response.data})
-                    // sessionStorage.setItem('token', response.data.token);
-                    // onLogin(response.data);
-                    navigate('/Student')
-    
-                    // alert(response.message)
-                }
-    
-    
-            }
-        }
-        else {
-            navigate('/Login')
-        }
+       if(isSubmit===true)
+       {
+        if(sessionStorage.getItem('token')){
+          //console.log("reached")
+          const response = await AddNewStudentRouter(formData);
+          if (response) {
+              setIsSubmit(false)
+              //console.log(response.message)
+              setloading(false)
+              if (response.success === false) {
+                  //  alert(response.message)
+                  toast.info(response.message);
+                  setIsSubmit(false)
+              }
+              else if (response.success === true) {
+                  console.log("coming here")
+                  toast.success(response.message);
+                  setIsSubmit(false)
+                  // navigate('/TutorHome',{state:response.data})
+                  // sessionStorage.setItem('token', response.data.token);
+                  // onLogin(response.data);
+                  navigate('/Student')
+  
+                  // alert(response.message)
+              }
+  
+  
+          }
+      }
+      else {
+        navigate('/Login')
+    }
+       }
+       
     
   };
 
   useEffect(() => {
     console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (Object.keys(formErrors).length === 0 && isSubmit===true) {
         // console.log(data);
     }
 }, [formErrors]);
@@ -651,7 +655,7 @@ const AddNewStudent = () => {
             <div className="mbsc-row">
               <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-3 ">
                 <div className="mbsc-button-group-block">
-                  <Button color="success" className="grnext1">Cancel</Button>
+                  <Button type="button" onClick={()=>navigate('/Student')} color="success" className="grnext1">Cancel</Button>
                   <Button type="submit" color="success" className="grnext" >Save <GrNext
                     style={{ color: "white" }} /></Button>
                 </div>
