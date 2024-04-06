@@ -32,6 +32,9 @@ import Event_Calendar from './TutorPanel/Event_Calendar/Event_Calendar';
 import StudentList from './TutorPanel/StudentList/StudentList';
 import TermsofService from './Components/TermsOfConditions/TermsofService';
 import PrivacyPolicy from './Components/TermsOfConditions/PrivacyPolicy';
+import ForgetPassword from './Components/ForgetPassword/ForgetPassword';
+import OTP from './Components/ForgetPassword/OTP';
+import NewPassword from './Components/ForgetPassword/NewPassword';
 
 
 function App() {
@@ -88,6 +91,9 @@ function App() {
         <Route path='/Testings' element={<Testings />} />
         <Route path='/TermsofService' element={<TermsofService/>} />
         <Route path='/PrivacyPolicy' element={<PrivacyPolicy />} />
+        <Route path='/ForgetPassword' element={<ForgetPassword />} />
+         <Route path='/OTP' element={<OTP />} />
+         <Route path='/NewPassword' element={<NewPassword />} />
         {/* <div>
         <topnavbar/>
         <Routes>....</Routes>

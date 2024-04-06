@@ -3,10 +3,12 @@ import { Button, Card, Col, Container, Form, FormLabel, Row } from 'react-bootst
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import {useNavigate} from 'react-router-dom';
 
 const ForgetPassword = () => {
 
-  const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useState('');
+  const navigate=useNavigate();
 
   const showSwal = () => {
     withReactContent(Swal).fire({
@@ -55,7 +57,7 @@ const ForgetPassword = () => {
 
 
 
-                      <Button className='VOIR_LESPRODUITSbn9 ' type="submit" onClick={showSwal}>Submit</Button>
+                      <Button onClick={()=>navigate('/OTP')}  className='VOIR_LESPRODUITSbn9 ' type="submit" >Submit</Button>
 
                     </Form>
                     {/* {

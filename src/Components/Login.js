@@ -118,7 +118,7 @@ const Login = ({ onLogin }) => {
                                                         name="password"
                                                         required />
                                                     {/* <Button onClick={()=>setModal(true)} className='ForgetPassword'>Forget Password ?</Button> */}
-                                                    <Link  className='ForgetPassword'>Forget Password ?</Link>
+                                                    <Link to='/ForgetPassword'  className='ForgetPassword'>Forget Password ?</Link>
 
 
                                                 </Form.Group>

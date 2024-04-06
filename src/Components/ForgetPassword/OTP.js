@@ -3,21 +3,13 @@ import { Button, Card, Col, Container, Form, FormLabel, Row } from 'react-bootst
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import {useNavigate} from 'react-router-dom';
 
 const OTP= () => {
 
   const [inputValue, setInputValue] = useState('')
 
-  const showSwal = () => {
-    withReactContent(Swal).fire({
-      title:'Success',
-      
-      inputValue,
-      preConfirm: () => {
-        setInputValue(Swal.getInput()?.value || '')
-      },
-    })
-  }
+  const navigate=useNavigate();
   return (
 
     <div>
@@ -55,7 +47,7 @@ const OTP= () => {
 
 
 
-                      <Button className='VOIR_LESPRODUITSbn9 ' type="submit" onClick={showSwal}>Submit</Button>
+                      <Button className='VOIR_LESPRODUITSbn9 ' type="submit" onClick={()=>navigate('/NewPassword')}>Submit</Button>
 
                     </Form>
                     {/* {
