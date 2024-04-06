@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 // import "../Testings.css";
 
+
 import { Button, Card, Col, Container, Form, FormLabel, Modal, Row } from 'react-bootstrap'
 // import '../Login.css'
 import Header from '../Header';
@@ -68,10 +69,11 @@ const Signup = () => {
         event.preventDefault();
         setloading(true);
         setFormErrors(validate(data));
-        if(Object.keys(formErrors).length === 0){
-            return;
-        }
+       if(Object.keys(formErrors).length === 0)
+       {
         setIsSubmit(true);
+       }
+        
 
         //console.log(data)
         if (!isChecked) {
@@ -79,11 +81,13 @@ const Signup = () => {
             return; // Stop further execution
         }
         
-
+        if(isSubmit)
+       {
         const response = await RegisterUser(data);
         if (response) {
             setloading(false);
             if (response.success === false) {
+                setIsSubmit(false);
                 toast.error(response.message);
                 //alert(response.message)
                 // console.log("check_issue_57_signup")
@@ -94,14 +98,17 @@ const Signup = () => {
                 toast.success(response.message);
                 // alert(response.message)
                 navigate('/Login');
+                setIsSubmit(false)
             }
         }
-        console.log(response)
+       }
+       
+        //console.log(response)
     }
     useEffect(() => {
         console.log(formErrors);
-        if (Object.keys(formErrors).length === 0 && isSubmit) {
-            console.log(data);
+        if(Object.keys(formErrors).length === 0){
+            return;
         }
     }, [formErrors]);
     const validate = (values) => {

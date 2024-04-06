@@ -59,8 +59,11 @@ const Sidenavbar = () => {
                         <Link to="/Business_Report" className="navlinkjh nav-link"><img src="./img/BusinessReport.png" className="logoimgy1 " />Business Report</Link>
                     </li>
                     <li className="nav-item">
-                    <Link> <button onClick={handleLogout} className="navlinkjh nav-link"><img src="./img/Logout.png" className="logoimgy1 " />Log-Out</button></Link>
-                </li>
+                     <button onClick={handleLogout} className="navlinkjh nav-link"><img src="./img/Logout.png" className="logoimgy1 " />Log-Out</button>
+                   </li>
+               
+                </ul>
+
                 <Modal show={showModalLogout} onHide={handleClose}>
                   <Modal.Header closeButton>
                     <Modal.Title>Logout</Modal.Title>
@@ -75,7 +78,6 @@ const Sidenavbar = () => {
                     </Button>
                   </Modal.Footer>
                 </Modal>
-                </ul>
             </div>
         </div>
     )
