@@ -35,6 +35,7 @@ import PrivacyPolicy from './Components/TermsOfConditions/PrivacyPolicy';
 import ForgetPassword from './Components/ForgetPassword/ForgetPassword';
 import OTP from './Components/ForgetPassword/OTP';
 import NewPassword from './Components/ForgetPassword/NewPassword';
+import Attendance from './TutorPanel/Attendance/Attendance';
 
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
         {/* <Route path='/Calendar' element={<Calendar/>} /> */}
         {userData && <Route path='/AddNewStudent' element={<AddNewStudent userData={userData}/>} />}
           {userData &&<Route path='/OnlineResources' element={<OnlineResources userData={userData}/>} />}
+          {userData &&  <Route path='/Attendence' element={<Attendance userData={userData}/>} />}
            <Route path='/UploadFiles' element={<UploadFiles/>}/>
             {<Route path='/TopBar' element={<TopBar/>}/>}
 

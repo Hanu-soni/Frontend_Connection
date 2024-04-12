@@ -34,3 +34,23 @@ export const DeleteStudentRouter=async (data)=>{
 
 
 
+
+ export const updateStudentAttendenceRouter=async(data)=>{
+     //console.log(id);
+     try{
+          const response=await axios.put(`${baseurl}/student/Attendenceupdate`,
+          data
+          );
+          console.log(response)
+          return response.data;
+
+     }catch(err){
+          return err.response.data
+     }
+}
+
+
+
+
+
+

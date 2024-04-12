@@ -49,6 +49,9 @@ const MobilemenuNavbar = ({userData}) => {
                                 <Link to="/Student" className="nav-link nav-link1">Student</Link>
                             </li>
                             <li class="nav-item">
+                                <Link to="/Attendence" className="nav-link nav-link1">Attendence</Link>
+                            </li>
+                            <li class="nav-item">
                                 <Link to="/Event_Calendar" className="nav-link nav-link1">Calendar</Link>
                             </li>
                             <li class="nav-item">

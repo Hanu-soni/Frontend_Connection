@@ -95,3 +95,21 @@ export const updateStudentRouter=async(data)=>{
      }
 }
 
+
+
+
+
+export const getStudentBatchRouter=async(data)=>{
+     //console.log(id);
+     try{
+          const response=await axios.get(`${baseurl}/student/read/batch`,{
+               params:{id:data.id,batch:data.batch}
+          });
+          console.log(response)
+          return response.data;
+
+     }catch(err){
+          return err.response.data
+     }
+}
+

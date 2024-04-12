@@ -1,586 +1,525 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
+
+
+
+import { CiSearch } from "react-icons/ci";
+
+
+
+
+
+import { FaRegEdit } from "react-icons/fa";
+
+
+
 import './Testings.css'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
-import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap'
-import { PhoneInput } from 'react-international-phone';
-import 'react-international-phone/style.css';
-import { GrNext } from "react-icons/gr";
-import { IoIosArrowBack } from 'react-icons/io';
-import { AddNewStudentRouter } from './apicalls/Student';
-import Lazyloading from './BackendComp/Lazy'
-import { toast } from 'react-toastify';
 
 
+import Dropdown from 'react-bootstrap/Dropdown';
+
+
+
+import { RiDeleteBin5Line } from 'react-icons/ri';
+
+
+import { Col, Container, Nav, Row, Stack, Pagination, Form, Modal, Button, Card } from 'react-bootstrap'
+import { IoMdArrowDropdown } from 'react-icons/io';
+import { Link } from 'react-router-dom';
+import { getStudentBatchRouter } from './apicalls/User';
 const Testings = ({ userData }) => {
-    // const [phone, setPhone] = useState('');
 
-    // const [showhide, setShowhide] = useState('');
 
-    // const handleshowhide = (event) => {
-    //     const getuser = event.target.value;
-    //     setShowhide(getuser);
+    // const itemsPerPage = 8; // Change this to the desired number of items per page
+    // const [currentPage, setCurrentPage] = useState(1);
+    const [searchTitle, setSearchTitle] = useState('');
 
-    // }
-    //console.log(data)
+    const [data, setData] = useState([]);
+    console.log('data1', data);
+    const [search, SetSearch] = useState('');
+    const [filter, setFilter] = useState([]);
 
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        mobileNumber: "",
-        smsCapable: "false",
-        batch: "",
-        studentStatus: "",
-        //studentType:studentType,
-        firstNameParent: "",
-        lastNameParent: "",
-        lessonLength: "",
-        emailParent: "",
-        mobileNumberParent: "",
-        smsCapableParent: "false",
-        preference: "",
-        lessonCategory: "",
-        billing: "",
-        price: "",
-        notes: "",
-        managedBy: sessionStorage.getItem('userId')
+
+
+
+
+    //------------------------------------
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10); // Number of cards per page
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filterValue, setFilterValue] = useState('');
+    const [priceFilter, setPriceFilter] = useState('');
+    const [emaildata, setEmailData] = useState({
+        email: ""
     });
 
-    const [val, setVal] = useState([]);
-    const handleAdd = () => {
-        const abc = [...val, []]
-        setVal(abc)
-    }
-    // const handleChange = (onChangeValue, i) => {
-    //     const inputdata = [...val]
-    //     inputdata[i] = onChangeValue.target.value;
-    //     setVal(inputdata)
+    // Filter and search logic
+    const filteredData = data.filter((value) =>
+        // value.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        (filterValue === '' || value._id === filterValue)
+    );
+
+    // Pagination logic
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const paginatedData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+    // Change page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const [show, setShow] = useState(false);
+
+    // Unique categories for filter dropdown
+    const uniqueCategories = [...new Set(data.map(item => item._id))];
+
+    const handleClose = () => setShow(false);
+    // const handleShow = (id) => {
+    //     sessionStorage.setItem('editId',id);
+    //     let email = sessionStorage.getItem('editId');
+        
+    //     setFormData({ ...formData, email: email });
+    //     setShow(true);
+    // }
+    const [loading, setloading] = useState(false);
+
+    const handleItemsPerPageChange = (selectedValue) => {
+        setItemsPerPage(selectedValue);
+        setCurrentPage(1); // Reset current page when changing items per page
+    };
+
+    // const handleDeleteStudent = async (recieve) => {
+    //     // setloading(true);
+    //     // console.log(loading)
+    //     //const data=
+
+    //     let emaildata = { email: recieve }
+    //     const response = await DeleteStudentRouter(emaildata);
+    //     if (response.success === true) {
+    //         //alert(response.deletedStudent.email + "  is deleted successfully")
+    //         getStudent()
+    //         setShowModalLogout(false)
+    //     }
+    //     //console.log()
 
     // }
 
-    const handleDelete = (i) => {
-        const deletVal = [...val]
-        deletVal.splice(i, 1)
-        setVal(deletVal)
+
+    const [showModalLogout, setShowModalLogout] = useState(false);
+    
+
+   
+
+    // useEffect(() => {
+    //     setloading(true);
+
+
+    // }, [])
+
+
+
+    // const initialValues = {
+    //     price: '',
+    //     mobileNumber: '',
+    //     batch: '',
+    //     lessonCategory: '',
+    //     managedBy:sessionStorage.getItem('userId'),
+        
+    // };
+
+    // const [formData, setFormData] = useState(initialValues);
+
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFormData({ ...formData, [name]: value });
+    // };
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     const response = await (formData);
+        
+    //     // Log the updated form data when it's guaranteed to be updated
+    //     console.log('Form submitted with data:', formData);
+        
+    //     if (response.success === true) {
+    //         // Assuming getStudent() fetches updated student data
+    //         getStudent();
+    //         //console.log(response);
+    //         setShow(false);
+    //     }
+    // };
+    
+
+
+
+
+  
+
+
+
+
+
+
+
+
+    // const getStudent = async () => {
+    //     try {
+    //         const req = await fetch("https://tutor-octopus-1.onrender.com/student/read");
+    //         const res = await req.json();
+            // setData(res);
+            // setFilter(res);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+
+
+
+    const getStudentBatch = async () => {
+        // let emaildata = { email: recieve }
+        const response = await getStudentBatchRouter({
+            id:sessionStorage.getItem('userId'),batch:"Batch-2"
+        });
+        console.log(response);
+        if (response.success === true) {
+            //alert(response.deletedStudent.email + "  is deleted successfully")
+            // getStudentRouter()
+            // setShowModalLogout(false)
+            setData(response.data);
+            setFilter(response.data);
+            console.log(data);
+
+        }
+        
     }
-    // console.log(val, "data-")
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target || e; // Use e if e.target is undefined
-        const newValue = type === 'checkbox' ? checked : value;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: newValue
-        }));
+
+
+
+
+
+
+    useEffect(() => {
+        getStudentBatch();
+    }, []);
+
+   
+
+
+    
+
+    ///////morning  code
+    // const filteredData = data.filter(value => value._id.toLowerCase().includes(searchTitle.toLowerCase()));
+
+    // Calculate the index range for the current page
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+
+    // Slice the data based on the calculated index range
+    // const paginatedData = filteredData.slice(startIndex, endIndex);
+
+
+
+
+
+    const handleTitleChange = (value) => {
+        setSearchTitle(value);
+        setCurrentPage(1); // Reset to the first page when the title filter changes
     };
 
-    const [loading, setloading] = useState(false);
-    const navigate = useNavigate();
+    // useEffect(() => {
+    //     const result = data.filter((item) => {
+    //         return item.title.toLowerCase().match(search.toLocaleLowerCase());
+    //     });
+    //     setFilter(result);
+    // }, [search]);
 
 
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log(formData)
-        setloading(true);
-        console.log(loading)
-        if(sessionStorage.getItem('token')){
-            const response = await AddNewStudentRouter(formData);
-            if (response) {
-                //console.log(response.message)
-                setloading(false)
-                if (response.success === false) {
-                    //  alert(response.message)
-                    toast.info(response.message);
-                }
-                else if (response.success === true) {
-                    console.log("coming here")
-                    toast.success(response.message);
-                    // navigate('/TutorHome',{state:response.data})
-                    // sessionStorage.setItem('token', response.data.token);
-                    // onLogin(response.data);
-                    navigate('/Student')
-    
-                    // alert(response.message)
-                }
-    
-    
-            }
-        }
-       
-        
 
-       
-        else {
-            navigate('/Login')
-        }
+    const onButtonClick = () => {
+        const pdfUrl = "example.pdf";
+        const link = document.createElement("a");
+        link.href = pdfUrl;
+        link.download = "example.pdf"; // specify the filename
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
 
-    }
 
 
-    //Validation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
     return (
         <div>
-            <div className='backgroundy'>
-                <Container>
-                    <div className='content7'>
-                        <Link to='/Home' style={{ fontSize: "24px", fontWeight: "600" }}><IoIosArrowBack />  Back to Students</Link>
-                        <h3 style={{ fontWeight: "700" }} className="my-4">Add New Student</h3>
-                    </div>
-
-                    {loading ?
-
-                        (
-                            <Lazyloading />
-                        ) :
-                        (
-                            <Form className="formjhu" onSubmit={handleSubmit}>
 
 
-                                <h3 className='mb-5' style={{ fontWeight: "700" }}>Student Details</h3>
-                                <div className="mbsc-row row">
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label><b>First Name</b></Form.Label>
-                                            <Form.Control type="text" name="firstName" value={formData.firstName}
-                                                onChange={handleChange}
+            <Container >
+                <Row>
 
 
-                                            />
+                    <Col sm={12}>
 
-                                        </Form.Group>
-                                    </div>
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label><b>Last Name</b></Form.Label>
-                                            <Form.Control type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
 
-                                        </Form.Group>
-                                    </div>
+
+
+                        <Stack direction="horizontal" gap={3} className='row56'>
+
+                            <div className="p-2 ms-auto">
+                                <div >
+
 
                                 </div>
-
-                                <div className="mbsc-row row">
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label><b>Email Address</b></Form.Label>
-                                            <Form.Control type="email" name="email" value={formData.email} onChange={handleChange}
-                                                required
-                                            />
-
-                                        </Form.Group>
-                                    </div>
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label><b>Mobile Number</b></Form.Label>
-                                            <PhoneInput
-                                                defaultCountry="in"
-                                                value={formData.mobileNumber}
-                                                onChange={(value) => handleChange({ target: { name: 'mobileNumber', value } })}
-                                                name='mobileNumber'
-                                                type='text'
-                                                required
-                                            />
+                            </div>
+                        </Stack>
 
 
-                                        </Form.Group>
-                                        <Form.Group className="" controlId="formBasicCheckbox">
-                                            <Form.Check type="checkbox" label="SMS Capable" name="smsCapable" checked={formData.smsCapable} onChange={handleChange}
+                        {/* <Stack direction="horizontal" gap={3} className='row56 bbrow'  >
+                            <div> <Dropdown className="">
+                                <Dropdown.Toggle variant="" id="dropdown-basic" className='filter45 text-white'>
+                                    Montrer :  {itemsPerPage}
+                                </Dropdown.Toggle>
 
-                                            />
-                                        </Form.Group>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => handleItemsPerPageChange(5)}>5</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => handleItemsPerPageChange(10)}>10</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => handleItemsPerPageChange(15)}>15</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => handleItemsPerPageChange(20)}>20</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => handleItemsPerPageChange(25)}>25</Dropdown.Item>
+                                    Add more options as needed
+                                </Dropdown.Menu>
+                            </Dropdown></div>
 
-                                    </div>
-
-                                </div>
-                                <div className="mbsc-row">
-                                    <div className="mbsc-col-12 mbsc-col-md-6 mbsc-col-lg-3 mb-3">
-
-                                        <div className="col-md- form-group ">
-
-
-                                            <Button onClick={() => handleAdd()} className="addbtn">+ Show additional details</Button>
-
-
-
-
-
-                                            {val.map((data, i) => {
-                                                return (
-                                                    <div>
-                                                        <div className="mbsc-row row my-3">
-                                                            <div className=" mbsc-col-4 col-sm-4 mbsc-col-md-3 mbsc-col-lg-3 ">
-                                                                <Form.Group className="mb-4" controlId="formBasicEmail">
-                                                                    <Form.Label>Batch</Form.Label>
-                                                                    <Form.Select aria-label="Default select example" style={{ borderRadius: "30px" }}
-                                                                        value={formData.batch}
-                                                                        name="batch"
-                                                                        onChange={handleChange}
-
-                                                                    >
-                                                                        <option value=" 30">Select from Batch</option>
-
-                                                                        <option value='Batch-1'  >Batch-1</option>
-                                                                        <option value="Batch-2">Batch-2</option>
-                                                                    </Form.Select>
-                                                                </Form.Group>
-
-                                                            </div>
-
-                                                            <div className=" mbsc-col-4 col-sm-4 mbsc-col-md-3 mbsc-col-lg-3 " style={{ marginTop: "29px" }}>
-                                                                <Button onClick={() => handleDelete(i)} className="rembtn ">Remove</Button>
-                                                            </div>
-
-                                                        </div>
-
-
-
-
-
-                                                    </div>
-                                                )
-                                            })}
-
-
-                                        </div>
-
-
-                                    </div>
-                                    <h5>Student Status</h5>
-                                    <div className="mbsc-col-12 mbsc-col-md-6 mbsc-col-lg-3 chectradisbbtn">
-
-                                        {['Active', 'Trial', 'Waiting', 'Lead', 'Inactive'].map((status) => (
-                                            <div key={status} className="mb-3 ">
-                                                <Form.Check
-                                                    inline
-                                                    label={status}
-                                                    name="studentStatus"
-                                                    type="radio"
-                                                    checked={formData.studentStatus === status}
-                                                    onChange={handleChange}
-                                                    id={`inline-${status}`} // Correct usage of template literal
-                                                    className={`grou${status}`} // Correct usage of template literal
-                                                    value={status}
-                                                />
-                                            </div>
-                                        ))}
-
-                                        <hr />
-                                    </div>
-
-                                </div>
-                                <div className="mbsc-row">
-
-                                    <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-12 bnvdss">
-                                        {/* <h5>Student Type</h5> */}
-
-                                        {/* <Form.Group className="mb-3 p-2" controlId="formBasicCheckbox">
-                                <Form.Check type="radio" label="Adult" />
-                            </Form.Group> */}
-
-                                        {/* <h5>This student’s family is a/an</h5>
-                                        <div className="d-flex flex-row">
-                                            {['New Family', 'Existing Family'].map((type) => (
-                                                <div key={type} className="mb-3 p-2 d-flex">
-                                                    <Row>
-                                                        <Col sm={12} className="nbhgdyfsf">
-                                                            <Form.Check
-                                                                inline
-                                                                label={type}
-                                                                name="familyType"
-                                                                type="radio"
-                                                                checked={formData.familyType === type}
-                                                                onChange={handleChange}
-                                                                id={inline-${type}-2}
-                                                                className={grou${type === 'New Family' ? '6' : '7'}}
-                                                                value={type}
-                                                            />
-
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <p style={{ fontSize: "15px" }}>Creates a new account in Families & invoices</p> */}
-
-
-                                    </div>
-
-                                </div>
-                                <div className="mbsc-row row">
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label><b>Parent First Name</b></Form.Label>
-                                            <Form.Control
+                            <div className="p-2"><Row>
+                                            <Col> <Form.Control
                                                 type="text"
-                                                value={formData.firstNameParent}
-                                                name="firstNameParent"
-                                                onChange={handleChange}
-                                                required />
-
-                                        </Form.Group>
-                                    </div>
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label><b>Parent Last Name</b></Form.Label>
-                                            <Form.Control type="text"
-                                                value={formData.lastNameParent}
-                                                onChange={handleChange}
-                                                required
-                                                name="lastNameParent"
-                                            />
-
-                                        </Form.Group>
-                                    </div>
-
-                                </div>
-                                <div className="mbsc-row row">
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label><b>Email Address</b></Form.Label>
-                                            <Form.Control
-                                                type="email"
-                                                value={formData.emailParent}
-                                                onChange={handleChange}
-                                                name="emailParent"
-                                                required
-
-                                            />
-                                        </Form.Group>
-                                    </div>
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label><b>Mobile Number</b></Form.Label>
+                                                placeholder="Rechercher"
+                                                value={searchTerm}
+                                                onChange={(e) => setSearchTerm(e.target.value)} className='reacherch56'
+                                            /></Col>
+                                            <Col>
+                                                <CiSearch className='reacherch561' style={{ color: "black" }} />
+                                            </Col>
+                                        </Row></div>
 
 
-                                            {/* <Form.Control
-                                                type="number"
-                                                value={formData.mobileNumberParent}
-                                                onChange={handleChange}
-                                                name="mobileNumberParent"
-                                                required
-                                            /> */}
-
-                                            <PhoneInput
-                                                defaultCountry="in"
-                                                value={formData.mobileNumberParent}
-                                                onChange={(value) => handleChange({ target: { name: 'mobileNumberParent', value } })}
-                                                name='mobileNumberParent'
-                                                type='text'
-                                                required
-                                            />
-
-                                        </Form.Group>
-                                        <Form.Group className="" controlId="formBasicCheckbox">
-                                            <Form.Check
-                                                type="checkbox"
-                                                label="SMS Capable"
-                                                name="smsCapableParent"
-                                                checked={formData.smsCapableParent}
-                                                onChange={handleChange}
-                                            />
-                                        </Form.Group>
-
-                                    </div>
-
-                                </div>
-                                <div className="mbsc-row">
-                                    <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-3">
-
-                                        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                <Form.Label> Address  Optional</Form.Label>
-                                <h5>Address <span style={{ color: "gray" }}>Optional</span></h5>
-                                <Form.Control
-                                // onChange={handleChange}
-                                // value={formData.}
-                                
-                                
-                                as="textarea" rows={3} style={{ borderRadius: "30px" }} />
-                            </Form.Group> */}
-
-                                        <h5>Preferences</h5>
-
-                                        {
-                                            ["Send SMS lessons reminders", "Send Email lessons reminders"].map((item) => (
-                                                <Form.Group className="mb-3" controlId="formBasicCheckbox" key={item}>
-                                                    <Form.Check
-                                                        inline
-                                                        type="radio"
-                                                        label={item}
-                                                        checked={formData.preference === item}
-                                                        onChange={handleChange}
-                                                        name="preference"
-                                                        id={`inline-${item}`} // Correct usage of template literal
-                                                        value={item}
-                                                    />
-                                                    <p style={{ fontSize: "14px", marginLeft: "25px" }}>Will only be sent if SMS messaging is allowed</p>
-                                                </Form.Group>
-                                            ))
-
-                                        }
-
-                                        {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                <Form.Check
-                                    type="checkbox"
-                                    label="Send SMS lessons reminders"
-                                    checked={formData.preference}
-                                    onChange={handleChange}
-                                    name="preference"
-                                />
-                                <p style={{ fontSize: "14px", marginLeft: "25px" }}>Will only be sent if SMS messaging is allowed</p>
-                            </Form.Group> */}
-
-                                    </div>
-                                    <hr></hr>
-                                </div>
-                                <div className="mbsc-row row">
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label><b>Default Lesson Category</b></Form.Label>
-                                            <Form.Select aria-label="Default select example"
-                                                style={{ borderRadius: "30px" }}
-                                                value={formData.lessonCategory}
-                                                name="lessonCategory"
-                                                onChange={(e) => handleChange(e)}
-                                                required
-                                            >
-                                                <option>Select Lesson</option>
-                                                <option value="Lesson-1">Lesson-1</option>
-                                                <option value="Lesson-2">Lesson-2</option>
-                                                <option value="Lesson-3">Lesson-3</option>
-                                            </Form.Select>
-
-                                        </Form.Group>
-                                    </div>
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label><b>Default Lesson Length</b></Form.Label>
-
-                                            <Form.Control
-                                                type="text"
-                                                placeholder="enter minutes"
-                                                name="lessonLength"
-                                                value={formData.lessonLength}
-                                                onChange={handleChange}
-                                                required
-
-                                            />
-                                            <span style={{ float: "right", margin: "-30px 40px 0px 0px" }}> minutes</span>
+                        </Stack> */}
 
 
 
 
-                                        </Form.Group>
+
+                        {/* Filter dropdown */}
 
 
-                                    </div>
+                        <div style={{ overflowX: "auto" }}>
+    {
+        data.length === 0 ? (
+            // Rendered when data is empty
+            <Card.Body className='addstutnet1'>
+                <img src='./img/addstutent.png' className='addstutnet' />
+                <h5 className='text-center ' style={{ marginTop: "-20px" }}>You don't have any students yet</h5>
+                <p className='text-center'>Add your students so you can take their attendance, and more.</p>
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic" className='addnewdg8 addnewdg11'>
+                        <span className='adggshnn'>Add New <IoMdArrowDropdown className="IoMdArrowDropdown1" style={{ fontSize: "26px" }} /></span>
+                    </Dropdown.Toggle>
 
-                                </div>
-                                <div className="mbsc-row">
-                                    <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-3 p">
+                    <Dropdown.Menu className='menu87'>
+                        <Link to="/AddNewStudent" style={{
+                            color: "black", marginLeft: "10px", textDecoration: "none"
+                            , fontSize: "16px"
+                        }}>Add New Student</Link>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Card.Body>
+        ) : (
+            // Rendered when data is not empty
+            <table className="table table-striped">
+                <thead className='head56'>
+                    <tr className='head56'>
+                        <th className='th78'>Sl no.</th>
+                        <th className='th78'>FirstName</th>
+                        <th className='th78'>LastName</th>
+                        <th className='th78'>Email</th>
+                        <th className='th78'>status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        paginatedData.map((value, index) => (
+                            <tr key={index}>
+                                <td>{index + 1 + (currentPage - 1) * 10}</td>
+                                <td>{value.firstName}</td>
+                                <td>{value.lastName}</td>
+                                <td>{value.email}</td>
+                                <td>{value.attendenceStatus}</td>
+                                {/* <td>
+                                    <button onClick={()=>handleShow(value.email)} className="btn btn- bnnbtn" >
+                                        <FaRegEdit style={{color:"green"}} />
+                                    </button>
+                                    <button onClick={() => handleShowdeleteStudent(value.email)} className="bnnbtn">
+                                        <RiDeleteBin5Line style={{color:"red"}}  />
+                                    </button>
+                                </td> */}
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        )
+    }
+</div>
 
 
-                                        <h5>Default Billing</h5>
-                                        <div className='p-2'>
-                                            {
-                                                ["Dont automatically create any calender generated changes",
-                                                    "Student Pays based on number of lessons",
-                                                    "Student pays the same amount each month",
-                                                    "Student pays an hourly rate"
-                                                ].map((item) => (
-                                                    <Form.Group className=" "
-                                                        controlId="formBasicCheckbox">
-                                                        <Form.Check
-                                                            inline
-                                                            name="billing"
-                                                            checked={formData.billing === item}
-                                                            onChange={handleChange}
-                                                            id={`inline - ${item}`}
-                                                        value={item}
+                        {/* <Modal show={showModalLogout} onHide={handleClosedeleteStudent}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Delete this student</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Are you sure you want to delete this student?</Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClosedeleteStudent}>
+                                    No
+                                </Button>
+                                <Button variant="primary" onClick={()=>handleDeleteStudent(sessionStorage.getItem('id'))}>
+                                    Yes
+                                </Button>
+                            </Modal.Footer>
+                        </Modal> */}
 
-                                                        type="radio"
-                                                        label={item} />
-                                                    </Form.Group>
-
-                                                ))
-                                            }
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className="mbsc-row row">
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
-                                        <h5>Price</h5>
+                        {/* <Modal show={show} onHide={handleClose} animation={false}>
+                            <Modal.Header closeButton>
+                                <Modal.Title><h5>Edit Student Details</h5></Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Price</Form.Label>
                                         <Form.Select
                                             aria-label="Default select example"
                                             style={{ borderRadius: "30px" }}
-                                            value={formData.price}
                                             name="price"
                                             onChange={handleChange}
                                             required
-                                            placeholder="Select from below"
-
                                         >
-                                            <option value=" 30">Select from below</option>
+                                            <option value="">Select from below</option>
                                             <option value="100">₹ 100.00 Per Lesson</option>
                                             <option value="200">₹ 200.00 Per Lesson</option>
-
                                         </Form.Select>
-                                    </div>
-                                    <div className=" mbsc-col-6 col-sm-6 mbsc-col-md-3 mbsc-col-lg-3">
+                                    </Form.Group>
 
-                                    </div>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Mobile Number</Form.Label>
+                                        <PhoneInput
+                                            defaultCountry="in"
+                                            onChange={(value) => handleChange({ target: { name: 'mobileNumber', value } })}
+                                            name='mobileNumber'
+                                            type='text'
+                                            required
+                                        />
+                                    </Form.Group>
 
-                                </div>
-                                <hr></hr>
-                                <div className="mbsc-row">
-                                    <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-3 p">
+                                    <Form.Group className="mb-4" controlId="formBasicEmail">
+                                        <Form.Label>Batch</Form.Label>
+                                        <Form.Select
+                                            aria-label="Default select example"
+                                            style={{ borderRadius: "30px" }}
+                                            name="batch"
+                                            onChange={handleChange}
+                                        >
+                                            <option value="">Select from Batch</option>
+                                            <option value="Batch-1">Batch-1</option>
+                                            <option value="Batch-2">Batch-2</option>
+                                        </Form.Select>
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Lesson</Form.Label>
+                                        <Form.Select
+                                            aria-label="Default select example"
+                                            style={{ borderRadius: "30px" }}
+                                            name="lessonCategory"
+                                            onChange={handleChange}
+                                            required
+                                        >
+                                            <option value="">Select Lesson</option>
+                                            <option value="Lesson-1">Lesson-1</option>
+                                            <option value="Lesson-2">Lesson-2</option>
+                                            <option value="Lesson-3">Lesson-3</option>
+                                        </Form.Select>
+                                    </Form.Group>
+                                        <Button type="submit" color="success" className="grnext8">Save</Button>
+                                </Form>
+                            </Modal.Body>
+
+                        </Modal> */}
 
 
-                                        <h5>Note  <span style={{ fontWeight: "400", fontSize: "16px" }}>&lpar;Optional&rpar; </span></h5>
-                                        <p>Use this area for any private notes you wish to keep.</p>
-                                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-
-                                            <Form.Control as="textarea" rows={3} style={{ borderRadius: "30px" }}
-                                                onChange={handleChange}
-                                                name="notes"
-                                                value={formData.notes}
-
-
-
-                                            />
-                                        </Form.Group>
-                                    </div>
-
-                                </div>
-                                <div className="mbsc-row">
-                                    <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-3 ">
-                                        <div className="mbsc-button-group-block">
-                                            <Button onClick={() => navigate('/Student')} color="success" className="grnext1">Cancel</Button>
-                                            <Button type="submit" color="success" className="grnext" >Save <GrNext
-                                                style={{ color: "white" }} /></Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Form>
-                        )
+                        <Stack direction="horizontal" gap={3} className='row56'>
+                            <div className="p-2"></div>
+                            <div className="p-2 ms-auto"></div>
+                            <div className="p-2">
+                                {/* Pagination */}
+                                <Pagination>
+                                    {Array.from({ length: Math.ceil(filteredData.length / itemsPerPage) }).map((_, index) => (
+                                        <Pagination.Item key={index} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
+                                            {index + 1}
+                                        </Pagination.Item>
+                                    ))}
+                                </Pagination>
+                            </div>
+                        </Stack>
 
 
 
-                    }
 
-                </Container>
-            </div>
+
+
+
+
+
+
+
+
+
+
+
+                    </Col>
+
+                </Row>
+            </Container>
+
+
+
+
+
+
         </div>
+
     )
 }
-
-
-
-
-
 
 export default Testings

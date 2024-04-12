@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -6,7 +6,13 @@ import MobilemenuNavbar from '../SideNavbar/MobilemenuNavbar';
 import Sidenavbar from '../SideNavbar/Sidenavbar';
 import TopBar from '../SideNavbar/TopBar';
 import './Event_Calendar.css';
+import { toast } from 'react-toastify';
+
+
 import { Card, Form } from 'react-bootstrap';
+import { AddNewCalenderRouter, getCalendertRouter } from '../../apicalls/Calender';
+import Table from '../../BackendComp/Table';
+
 
 const localizer = momentLocalizer(moment);
 
@@ -16,42 +22,78 @@ const Event_Calendar = ({ userData }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [eventTitle, setEventTitle] = useState('');
   const [eventTime, setEventTime] = useState('');
+  const [description, setEventdesciption] = useState('');
+
   const [selectEvent, setSelectEvent] = useState(null);
   const [view, setView] = useState('month'); // Default view is month
 
   const handleSelectSlot = (slotInfo) => {
+    console.log("chekc",slotInfo)
     setShowModal(true);
     setSelectedDate(slotInfo.start);
     setSelectEvent(null);
   };
 
   const handleSelectEvent = (event) => {
+    console.log(event)
     setShowModal(true);
     setSelectEvent(event);
-    setEventTitle(event.title);
+    setEventTitle(event[0].eventTitle);
+    setEventTime(event[0].time.substring(0,5))
   };
 
-  const saveEvent = () => {
-    if (eventTitle && selectedDate && eventTime) {
+  const saveEvent = async() => {
+   // console.log(description,eventTime,eventTitle)
+    if (eventTitle && selectedDate && eventTime && description) {
+      //console.log()
       if (selectEvent) {
-        const updatedEvent = { ...selectEvent, title: eventTitle };
+        const updatedEvent = { time:eventTime, title: eventTitle,eventDescription:description,managedBy:sessionStorage.getItem('userId') };
         const updatedEvents = events.map((event) =>
           event === selectEvent ? updatedEvent : event
         );
+        //console.log(updatedEvent)
         setEvents(updatedEvents);
       } else {
         const newEvent = {
           title: eventTitle,
           start: moment(selectedDate).set({ hour: eventTime.split(':')[0], minute: eventTime.split(':')[1] }).toDate(),
           end: moment(selectedDate).set({ hour: eventTime.split(':')[0], minute: eventTime.split(':')[1] }).add(1, 'hours').toDate(),
+          time: eventTime,
+          date:(selectedDate),
+          eventDescription:description,
+          managedBy:sessionStorage.getItem('userId')
         };
-        setEvents([...events, newEvent]);
+        // const reqdate = new Date(newEvent.time);
+        // newEvent.date = reqdate.getDate();
+        // newEvent.time=reqdate.getTime();
+
+// Set the time property to a formatted string (e.g., "15:30:00")
+       // newEvent.time = `${reqdate.getHours()}:${reqdate.getMinutes()}:${reqdate.getSeconds()}`;
+      //   console.log(newEvent);
+      //   const response = await getCalendertRouter(sessionStorage.getItem('userId'));
+      //  if(response.success===true){
+      //   setEvents(response.data);
+      //  }
+        //console.log(events)
+        const res = await AddNewCalenderRouter(newEvent);
+        if(res.success===true){
+          toast.success('Added event successfully');
+          getCalenders();
+          
+        }
+        console.log(res.data);
+
       }
       setShowModal(false);
       setEventTitle('');
       setEventTime('');
       setSelectEvent(null);
     }
+
+    //console.log("apple");
+
+
+
   };
 
   const deleteEvents = () => {
@@ -62,6 +104,7 @@ const Event_Calendar = ({ userData }) => {
       setEventTitle('');
       setEventTime('');
       setSelectEvent(null);
+      setEventdesciption('');
     }
   };
 
@@ -72,6 +115,37 @@ const Event_Calendar = ({ userData }) => {
 
     setSelectedDate(newDate.toDate());
   };
+
+
+  const getCalenders=async()=>{
+    const response = await getCalendertRouter(sessionStorage.getItem('userId'));
+    console.log(response)
+    if(response.success===true){
+      setEvents(response.data);
+      
+    console.log(events)
+  }
+}
+
+
+
+useEffect(() => {
+  getCalenders();
+}, []);
+
+
+const CustomEvent = ({ event }) => {
+  console.log(event)
+  return (
+    <div>
+      {/* Customize the content as per your requirement */}
+      <strong>done</strong>
+      <p>done</p>
+    </div>
+  );
+};
+
+
 
   return (
     <div>
@@ -91,7 +165,7 @@ const Event_Calendar = ({ userData }) => {
                   <div class="col-xs-12 col-sm-12 p-3">
                     <select aria-label="Default select example " className='selecthh'
                      style={{ border:"none", fontWeight:"600", color:"black", background:"#f5efef",backgroundColor:"#f5efef"}}>
-                      <option>Teacher Attandance</option>
+                      <option>Teacher Attendance</option>
                       <option value="1">One</option>
                       <option value="2">Two</option>
                       <option value="3">Three</option>
@@ -135,7 +209,7 @@ const Event_Calendar = ({ userData }) => {
                         <div class="row broeur8">
                           <div class="col-xs-12 col-sm-4 bnhhcol">
                             <div class="">
-                              <select
+                              {/* <select
                                 id="view"
                                 value={view}
                                 onChange={(e) => setView(e.target.value)}
@@ -144,7 +218,7 @@ const Event_Calendar = ({ userData }) => {
                                 <option value="month">Month</option>
                                 <option value="week">Week</option>
                                 <option value="day">Day</option>
-                              </select>
+                              </select> */}
                             </div>
                           </div>
                           <div class="col-xs-12 col-sm-4 bnhhcol">
@@ -170,7 +244,14 @@ const Event_Calendar = ({ userData }) => {
                       onSelectEvent={handleSelectEvent}
                       view={view} // Set the view dynamically
                       date={selectedDate} // Set the selected date for the calendar
+                      components={{
+                        event: CustomEvent // Use custom Event component
+                      }}
                     />
+                    {
+                      events.length>0 &&
+                      <Table data={events}/>
+                    }
                     {ShowModal && (
                       <div
                         className="modal"
@@ -196,6 +277,7 @@ const Event_Calendar = ({ userData }) => {
                                   setEventTitle('');
                                   setEventTime('');
                                   setSelectEvent(null);
+                                  setEventdesciption('');
                                 }}
                               ></button>
                             </div>
@@ -217,8 +299,15 @@ const Event_Calendar = ({ userData }) => {
                                 onChange={(e) => setEventTime(e.target.value)}
                                 style={{ borderRadius: "30px" }}
                               />
-                              <label>Description</label>
-                              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style={{ borderRadius: "30px" }}></textarea>
+                             <label>Description</label>
+                              <textarea
+                                className="form-control"
+                                name="description"
+                                rows="3"
+                                value={description}
+                                onChange={(e) => setEventdesciption(e.target.value)} 
+                                style={{ borderRadius: "30px" }}
+                              ></textarea>
                             </div>
 
                             <div className="modal-footer">

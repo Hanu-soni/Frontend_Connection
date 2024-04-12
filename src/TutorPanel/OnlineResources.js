@@ -49,10 +49,10 @@ const OnlineResources = ({userData}) => {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu className='menu87'>
-                                            <Link to="/AddNewStudent" style={{
+                                            <Link to="#" style={{
                                                 color: "black", marginLeft: "10px", textDecoration: "none"
                                                 , fontSize: "16px"
-                                            }}>Add New Student</Link>
+                                            }}>Add Online Material</Link>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </Card.Body>

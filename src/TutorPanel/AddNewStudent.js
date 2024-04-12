@@ -8,7 +8,7 @@ import { GrNext } from "react-icons/gr";
 
 import "./Testings.css";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { AddNewStudentRouter } from "../apicalls/Student";
 
@@ -17,7 +17,7 @@ const AddNewStudent = () => {
     firstName: "", lastName: "", email: "",
     mobileNumber: "", firstNameParent: "", lastNameParent: "",
     emailParent: "", mobileNumberParent: "", lessonCategory: "", lessonLength: "", price: "",
-    notes:"",managedBy:sessionStorage.getItem('userId')
+    notes: "",emailReminder:"",smsReminder:"", managedBy: sessionStorage.getItem('userId')
   };
   const [formData, setformData] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -27,71 +27,77 @@ const AddNewStudent = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setformData({ ...formData, [name]: value });
-    console.log(formData)
+    
+    //console.log(formData)
+  };
+
+
+  const handleChangeCheck = (e) => {
+    const { name, checked } = e.target;
+    setformData({ ...formData, [name]: checked });
   };
 
 
   const [loading, setloading] = useState(false);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     //setloading(true);
-    let errors=validate(formData);
+    let errors = validate(formData);
     setFormErrors(errors);
     console.log(formData)
     console.log(formErrors)
-    if(Object.keys(formErrors).length === 0){
-        setIsSubmit(true);
-     }
-    
+    if (Object.keys(formErrors).length === 0) {
+      setIsSubmit(true);
+    }
 
-        
-        //setloading(true);
-        console.log(loading)
-       if(isSubmit===true)
-       {
-        if(sessionStorage.getItem('token')){
-          //console.log("reached")
-          const response = await AddNewStudentRouter(formData);
-          if (response) {
-              setIsSubmit(false)
-              //console.log(response.message)
-              setloading(false)
-              if (response.success === false) {
-                  //  alert(response.message)
-                  toast.info(response.message);
-                  setIsSubmit(false)
-              }
-              else if (response.success === true) {
-                  console.log("coming here")
-                  toast.success(response.message);
-                  setIsSubmit(false)
-                  // navigate('/TutorHome',{state:response.data})
-                  // sessionStorage.setItem('token', response.data.token);
-                  // onLogin(response.data);
-                  navigate('/Student')
-  
-                  // alert(response.message)
-              }
-  
-  
+
+
+    //setloading(true);
+    console.log(loading)
+    if (isSubmit === true) {
+      if (sessionStorage.getItem('token')) {
+        //console.log("reached")
+        const response = await AddNewStudentRouter(formData);
+        if (response) {
+          setIsSubmit(false)
+          //console.log(response.message)
+          setloading(false)
+          if (response.success === false) {
+            //  alert(response.message)
+            toast.info(response.message);
+            setIsSubmit(false)
           }
+          else if (response.success === true) {
+            console.log("coming here")
+            toast.success(response.message);
+            setIsSubmit(false)
+            // navigate('/TutorHome',{state:response.data})
+            // sessionStorage.setItem('token', response.data.token);
+            // onLogin(response.data);
+            navigate('/Student')
+
+            // alert(response.message)
+          }
+
+
+        }
       }
       else {
         navigate('/Login')
+      }
     }
-       }
-       
-    
+
+
   };
 
   useEffect(() => {
     console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit===true) {
-        // console.log(data);
+    if (Object.keys(formErrors).length === 0 && isSubmit === true) {
+      // console.log(data);
     }
-}, [formErrors]);
+  }, [formErrors]);
 
 
   const validate = (values) => {
@@ -117,7 +123,7 @@ const AddNewStudent = () => {
 
     if (!values.email) {
       errors.email = "*Email is required !";
-    } 
+    }
     else if (!regex.test(values.email)) {
       errors.email = "This is not a valid email format!";
     }
@@ -157,7 +163,7 @@ const AddNewStudent = () => {
     if (!values.emailParent) {
       errors.emailParent = "Email is a required !";
     }
-     else if (!regex.test(values.emailParent)) {
+    else if (!regex.test(values.emailParent)) {
       console.log("check-152")
       errors.emailParent = "This is not a valid email format!";
     }
@@ -282,10 +288,9 @@ const AddNewStudent = () => {
 
                 </Form.Group>
                 <Form.Group className="" controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" label="SMS Capable" name="smsCapable" checked={formData.smsCapable} onChange={handleChange}
+                  <Form.Check type="checkbox" label="SMS Capable" name="smsCapable" checked={formData.smsCapable} onChange={handleChangeCheck}
 
                   />
-
                 </Form.Group>
 
               </div>
@@ -476,7 +481,7 @@ const AddNewStudent = () => {
                     label="SMS Capable"
                     name="smsCapableParent"
                     checked={formData.smsCapableParent}
-                    onChange={handleChange}
+                    onChange={handleChangeCheck}
                   />
                 </Form.Group>
 
@@ -499,24 +504,30 @@ const AddNewStudent = () => {
 
                 <h5>Preferences</h5>
 
-                {
-                  ["Send SMS lessons reminders", "Send Email lessons reminders"].map((item) => (
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                
+                    <Form.Group className="" controlId="formBasicCheckbox">
                       <Form.Check
-                        inline
-                        type="radio"
-                        label={item}
-                        checked={formData.preference === item}
-                        onChange={handleChange}
-                        name="preference"
-                        id={`inline-${item}`}
-                        value={item}
+                        type="checkbox"
+                        label="Send SMS lessons reminders"
+                        name="smsReminder"
+                        checked={formData.smsReminder}
+                        onChange={handleChangeCheck}
+
                       />
-                      <p style={{ fontSize: "14px", marginLeft: "25px" }}>Will only be sent if SMS messaging is allowed</p>
                     </Form.Group>
 
-                  ))
-                }
+                <Form.Group className="" controlId="formBasicCheckbox">
+                  <Form.Check
+                    type="checkbox"
+                    label="Send email lessons reminders"
+                    name="emailReminder"
+                    checked={formData.emailReminder}
+                    onChange={handleChangeCheck}
+
+                  />
+                </Form.Group>
+
+                 
 
                 {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check
@@ -655,7 +666,7 @@ const AddNewStudent = () => {
             <div className="mbsc-row">
               <div className="mbsc-col-12 mbsc-col-md-12 mbsc-col-lg-3 ">
                 <div className="mbsc-button-group-block">
-                  <Button type="button" onClick={()=>navigate('/Student')} color="success" className="grnext1">Cancel</Button>
+                  <Button type="button" onClick={() => navigate('/Student')} color="success" className="grnext1">Cancel</Button>
                   <Button type="submit" color="success" className="grnext" >Save <GrNext
                     style={{ color: "white" }} /></Button>
                 </div>
