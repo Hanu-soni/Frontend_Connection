@@ -25,7 +25,8 @@ const Attendencelist = () => {
         status:[],
         trueCount:0,
         falseCount:0
-    })
+    });
+    const[calenderDate,setcalenderDate]=useState('');
     let count = 0;
 
     const handleBatchChange = (event) => {
@@ -42,6 +43,14 @@ const Attendencelist = () => {
         }
         
     };
+
+
+
+    const handleDateChange = (event) => {
+        const newdate=event.target.value;
+        setcalenderDate(newdate);
+        //console.log(calenderDate);
+      };
 
     const toggleStatus = (studentId) => {
         setStatuses(prevStatuses => ({
@@ -79,19 +88,34 @@ const Attendencelist = () => {
 
     const handleResponse = async (event) => {
         event.preventDefault();
-        if (!selectedBatch) {
-            toast.info('Select the batch first');
-        } else {
+       // handleDateChange();
+        if (!selectedBatch || calenderDate==='') {
+            toast.info('Select the batch first and date for which you are taking attendence');
+        } else  
+        {
             let arrayStatus = Object.values(statuses);
             let arrayId = Object.keys(statuses);
             let senddata = {
                 status: arrayStatus,
-                id: arrayId
+                id: arrayId,
+                date:calenderDate
             }
-            const response = await updateStudentAttendenceRouter(senddata)
-            toast.success(`Attendance for ${selectedBatch} batch is taken`);
+            const response = await updateStudentAttendenceRouter(senddata);
+            if(response.status===405 && response.success===false){
+                toast.info('Attendence for the day is already taken');
+                setButtonVisible(false);
+            }
+            else if(response.success===false)
+            {
+                toast.info(response.message)
+            }
+            else if(response.success===true){
+                toast.success(`Attendence for ${selectedBatch} batch is taken`);
             count = 1;
             setButtonVisible(false);
+
+            }
+            
         }
     };
 
@@ -99,11 +123,15 @@ const Attendencelist = () => {
         console.log(selectedBatch);
 
         if (selectedBatch !== "" && selectedBatch !== "Add_New_Batch") {
+
+
+          
         
             console.log("coming")
             setloading(true)
             const response = await getStudentBatchRouter({
-                id: sessionStorage.getItem('userId'), batch: selectedBatch
+                id: sessionStorage.getItem('userId'), batch: selectedBatch,
+                date:calenderDate
             });
               if (response)
               {
@@ -201,6 +229,17 @@ const Attendencelist = () => {
                 
                 <option value="Add_New_Batch" onClick={handleAddNewBatch}>Add New Batch</option>
             </select>
+
+
+            
+            <input
+            type="date"
+            id="calendar"
+            name="calendar"
+            value={calenderDate}
+            onChange={handleDateChange}
+            pattern="\d{4}-\d{2}-\d{2}"
+      />
             <div className='d-flex justify-content-end mt-2 '>
                 {buttonVisible && (
                     <button onClick={handleResponse} style={count === 0 ? { marginBottom: "20px" } : { display: "none" }} className='btn btn-primary'>Save Attendence</button>
