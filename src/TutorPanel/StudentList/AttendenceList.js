@@ -140,7 +140,7 @@ const Attendencelist = () => {
                     setData(response.data);
                     const initialStatuses = {};
                     response.data.forEach(student => {
-                        initialStatuses[student.id] = true;
+                        initialStatuses[student.id] = student.status;
                     });
                     setStatuses(initialStatuses);
                 }
@@ -162,7 +162,7 @@ const Attendencelist = () => {
 
 
         getStudentBatch();
-    }, [selectedBatch]);
+    }, [selectedBatch,calenderDate]);
 
     const [newbatchdata,setnewbatchdata]=useState({
         name:"",
@@ -257,6 +257,7 @@ const Attendencelist = () => {
                     <th className='th78'>FirstName</th>
                     <th className='th78'>LastName</th>
                     <th className='th78'>Email</th>
+                    <th className='th78'>Record</th>
                     <th className='th78'>Status</th>
                 </tr>
             </thead>

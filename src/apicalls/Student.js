@@ -52,7 +52,7 @@ export const DeleteStudentRouter=async (data)=>{
 export const getAttendenceRecordRouter=async(id)=>{
      //console.log(id);
      try{
-          const response=await axios.get(`${baseurl}/student/read/AttendenceRecord`,{
+          const response=await axios.get(`${baseurl}/student/read/AttendenceRecord/AllStudent`,{
                params:{student_id:id}
           });
           //console.log(response)

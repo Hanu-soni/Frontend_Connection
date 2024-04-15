@@ -102,8 +102,8 @@ export const updateStudentRouter=async(data)=>{
 export const getStudentBatchRouter=async(data)=>{
      //console.log(id);
      try{
-          const response=await axios.get(`${baseurl}/student/read/batch`,{
-               params:{id:data.id,batch:data.batch}
+          const response=await axios.get(`${baseurl}/student/read/AttendenceRecord/AllStudent`,{
+               params:{id:data.id,batch:data.batch,date:data.date}
           });
           console.log(response)
           return response.data;
