@@ -8,7 +8,7 @@ const Table=({data})=>{
 
     return(
         <table className="table table-striped">
-        <thead className='head56'>
+        {/* <thead className='head56'>
             <tr className='head56'>
             <th className='th78'>Sl no.</th>
                {
@@ -27,18 +27,18 @@ const Table=({data})=>{
                         <td>{value.desciption}</td>
                         <td>{value.time}</td>
                         <td>{value.time}</td>
-                        {/* <td>
+                        <td>
                             <button onClick={()=>handleShow(value.email)} className="btn btn- bnnbtn" >
                                 <FaRegEdit style={{color:"green"}} />
                             </button>
                             <button onClick={() => handleShowdeleteStudent(value.email)} className="bnnbtn">
                                 <RiDeleteBin5Line style={{color:"red"}}  />
                             </button>
-                        </td> */}
+                        </td>
                     </tr>
                 ))
             }
-        </tbody>
+        </tbody> */}
     </table>
     )
 

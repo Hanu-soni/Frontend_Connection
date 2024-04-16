@@ -49,19 +49,20 @@ export const DeleteStudentRouter=async (data)=>{
      }
 }
 
-export const getAttendenceRecordRouter=async(id)=>{
+export const getStudentRecordBatchRouter=async(data)=>{
      //console.log(id);
      try{
-          const response=await axios.get(`${baseurl}/student/read/AttendenceRecord/AllStudent`,{
-               params:{student_id:id}
+          const response=await axios.get(`${baseurl}/student/read/AttendenceRecord/AllStudent/RecordButton`,{
+               params:{id:data.id,batch:data.batch,date:data.date}
           });
-          //console.log(response)
+          console.log(response)
           return response.data;
 
      }catch(err){
           return err.response.data
      }
 }
+
 
 
 

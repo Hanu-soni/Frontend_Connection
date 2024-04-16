@@ -25,7 +25,8 @@ const Announcements = ({ userData }) => {
     const [data, setData] = useState({
         subject: "",
         description: "",
-        _id: sessionStorage.getItem('userId')
+        _id: sessionStorage.getItem('userId'),
+        batch:""
     });
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
@@ -34,19 +35,23 @@ const Announcements = ({ userData }) => {
     const navigate = useNavigate();
 
 
-    const [AnnouncementData, setAnnouncementData] = useState({
-        subject: [],
-        description: []
-    });
+    const [AnnouncementData, setAnnouncementData] = useState([]);
 
 
     const [buttonAnnouncement, setbuttonAnnouncement] = useState(true);
+    const [selectedBatch, setSelectedBatch] = useState('');
 
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10); // Change this value as per your requirement
 
 
 
+
+
+    const handleBatchChange = (event) => {
+        setSelectedBatch(event.target.value);
+
+    };
 
 
 
@@ -115,12 +120,13 @@ const Announcements = ({ userData }) => {
         //     subject:response.data.subject,
         //     description:response.data.description     
         // })
-        const response = await getAnnouncementUser(sessionStorage.getItem('userId'));
-        if (response) {
-            setAnnouncementData({
-                subject: response.data.subject,
-                description: response.data.description
-            });
+        const data={
+            id:sessionStorage.getItem('userId'),
+            // batch:selectedBatch
+        }
+        const response = await getAnnouncementUser(data);
+        if (response.success===true) {
+            setAnnouncementData(response.data);
         }
 
     }
@@ -135,7 +141,7 @@ const Announcements = ({ userData }) => {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = AnnouncementData.subject.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = AnnouncementData.slice(indexOfFirstItem, indexOfLastItem);
 
 
 
@@ -213,6 +219,8 @@ const Announcements = ({ userData }) => {
                                     <Button style={{ width: "15rem" }} className='btnhj' onClick={handleGetAnnouncement}>
                                         Show Announcement
                                     </Button>
+
+                                    
                                 ) : (
                                     <div>
                                        <table className="table table-striped">
@@ -222,30 +230,45 @@ const Announcements = ({ userData }) => {
                                                     <th scope="col" className='th78'>Sl.no</th>
                                                     <th scope="col" className='th78'>Subject</th>
                                                     <th scope="col" className='th78'>Description</th>
+                                                    <th scope="col" className='th78'>Batch</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {currentItems.map((item, index) => (
-                                                    <tr key={index}>
-                                                        <td>{indexOfFirstItem + index + 1}</td>
-                                                        <td>{AnnouncementData.subject[indexOfFirstItem + index]}</td>
-                                                        <td>{AnnouncementData.description[indexOfFirstItem + index]}</td>
-                                                    </tr>
+                                                {AnnouncementData.map((item, index) => (
+                                                    <tr key={item._id}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{item.subject}</td>
+                                                    <td>{item.description}</td>
+                                                    <td>{item.batch}</td>
+                                                </tr>
                                                 ))}
                                             </tbody>
                                         </table>
                                      <div className='paginationj'>
-                                     <Pagination >
+                                     {/* <Pagination >
                                             {Array.from({ length: Math.ceil(AnnouncementData.subject.length / itemsPerPage) }).map((_, index) => (
                                                 <Pagination.Item key={index} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
                                                     {index + 1}
                                                 </Pagination.Item>
                                             ))}
-                                        </Pagination>
+                                        </Pagination> */}
                                      </div>
                                     </div>
                                 )}
                             </Card>
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {/* <Form.Select aria-label="Default select example" style={{ borderRadius: "30px" }}
+                                value={selectedBatch}
+                               
+                                onChange={handleBatchChange}
+
+                              >
+                                <option>Select from Batch</option>
+
+                                <option value='Batch-1'  >Batch-1</option>
+                                <option value="Batch-2">Batch-2</option>
+                              </Form.Select> */}
 
 
 
@@ -287,6 +310,16 @@ const Announcements = ({ userData }) => {
                                             />
                                             <p className="pform">{formErrors.description}</p>
                                         </Form.Group>
+
+                                        <Form.Select aria-label="Default select example" style={{ borderRadius: "30px" }}
+                                            value={data.batch}
+                                            name="batch"
+                                            onChange={handleChange}
+                                        >
+                                            <option>Select from Batch</option>
+                                            <option value='Batch-1'  >Batch-1</option>
+                                            <option value="Batch-2">Batch-2</option>
+                                        </Form.Select>
 
                                         <div className='floah'>
                                             <Button type='submit' variant="" className='btnhj' >

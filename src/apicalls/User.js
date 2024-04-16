@@ -48,11 +48,14 @@ export const RegisterUser=async (user)=>{
   };
 
 
-export const getAnnouncementUser=async (id)=>{
+export const getAnnouncementUser=async (data)=>{
      try{
           //console.log(id)
           const response = await axios.get(`${baseurl}/announcement/read`, {
-               params: { id: id }
+                    params:{id:data.id,
+                         
+                         // batch:data.batch
+                    }
            });
           return response.data;
      }
