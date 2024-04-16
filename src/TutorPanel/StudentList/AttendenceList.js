@@ -111,8 +111,8 @@ const Attendencelist = () => {
             }
             else if(response.success===true){
                 toast.success(`Attendence for ${selectedBatch} batch is taken`);
-            count = 1;
-            setButtonVisible(false);
+            // count = 1;
+            // setButtonVisible(false);
 
             }
             
@@ -123,32 +123,40 @@ const Attendencelist = () => {
         console.log(selectedBatch);
 
         if (selectedBatch !== "" && selectedBatch !== "Add_New_Batch") {
+            const today=new Date();
+            const compareCalenderDate=new Date(calenderDate);
+            if(compareCalenderDate>today)
+            {
+                toast.info('Cannot take attendence of upcoming days')
+                setData([]);
+            }
+            else {
 
+                console.log("coming")
+                setloading(true)
+                const response = await getStudentBatchRouter({
+                    id: sessionStorage.getItem('userId'), batch: selectedBatch,
+                    date: calenderDate
+                });
+                if (response) {
+                    setloading(false)
+                    if (response.success === true && response.data.length > 0) {
+                        setData(response.data);
+                        const initialStatuses = {};
+                        response.data.forEach(student => {
+                            initialStatuses[student.id] = student.status;
+                        });
+                        setStatuses(initialStatuses);
+                    }
+                    else if (response.data.length === 0) {
+                        alert("There are currently no student in this batch")
+                    }
 
+                }
+            }
           
         
-            console.log("coming")
-            setloading(true)
-            const response = await getStudentBatchRouter({
-                id: sessionStorage.getItem('userId'), batch: selectedBatch,
-                date:calenderDate
-            });
-              if (response)
-              {
-                setloading(false)
-                if (response.success === true && response.data.length>0) {
-                    setData(response.data);
-                    const initialStatuses = {};
-                    response.data.forEach(student => {
-                        initialStatuses[student.id] = student.status;
-                    });
-                    setStatuses(initialStatuses);
-                }
-                else if(response.data.length===0) {
-                    alert("There are currently no student in this batch")
-                }
-                
-              }
+           
             //   else{
             //     setloading(true);
             //   }
@@ -230,7 +238,7 @@ const Attendencelist = () => {
                 <option value="Add_New_Batch" onClick={handleAddNewBatch}>Add New Batch</option>
             </select>
 
-
+            &nbsp;&nbsp;&nbsp;&nbsp;
             
             <input
             type="date"
@@ -241,11 +249,14 @@ const Attendencelist = () => {
             pattern="\d{4}-\d{2}-\d{2}"
       />
             <div className='d-flex justify-content-end mt-2 '>
-                {buttonVisible && (
-                    <button onClick={handleResponse} style={count === 0 ? { marginBottom: "20px" } : { display: "none" }} className='btn btn-primary'>Save Attendence</button>
-                )}
-                {!buttonVisible && <p className='fw-bold'>Attendence for {selectedBatch} batch is taken</p>}
+                <button onClick={handleResponse}  className='btn btn-primary'>Save Attendence</button>
+                
             </div>
+
+
+
+            <br></br>
+                <br></br>
 
            {loading===true?(
             <Lazyloading/>
@@ -257,11 +268,13 @@ const Attendencelist = () => {
                     <th className='th78'>FirstName</th>
                     <th className='th78'>LastName</th>
                     <th className='th78'>Email</th>
-                    <th className='th78'>Record</th>
+                    {/* <th className='th78'>Record</th> */}
                     <th className='th78'>Status</th>
                 </tr>
             </thead>
-            <tbody>
+            {
+            data.length>0?(
+             <tbody>
                 {data.map((student, index) => (
                     <tr key={index+1}>
                         <td>{index+1}</td>
@@ -272,10 +285,10 @@ const Attendencelist = () => {
                             {/* I want to add a button here so that whenever user hits this button a Modal
                             is opened showing details in a table having 2 columns and 2 inputs of numbers 
                             which is not editable. */}
-                            <button className='btn btn-primary' onClick={()=>openDetailsModal(student.id)}>Show record</button>
+                            {/* <button className='btn btn-primary' onClick={()=>openDetailsModal(student.id)}>Show record</button> */}
                         </td>
                         <td>
-                            <button onClick={() => toggleStatus(student.id)} disabled={!buttonVisible} style={{
+                            <button onClick={() => toggleStatus(student.id)} style={{
                                 border: "none",
                                 color: statuses[student.id] ? "#23954A" : "red",
                                 background: statuses[student.id] ? "#23954a2b" : "#E9D7D7"
@@ -286,6 +299,16 @@ const Attendencelist = () => {
                     </tr>
                 ))}
             </tbody>
+
+            ):
+            (
+            <div style={{height:"40%"}} className='d-flex justify-content-center'>
+                    <h1> No Records to Show</h1>
+            </div>
+            
+            )
+            }
+           
         </table>
            )}
 
