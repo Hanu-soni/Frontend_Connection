@@ -17,7 +17,9 @@ const AddNewStudent = () => {
     firstName: "", lastName: "", email: "",
     mobileNumber: "", firstNameParent: "", lastNameParent: "",
     emailParent: "", mobileNumberParent: "", lessonCategory: "", lessonLength: "", price: "",
-    notes: "",emailReminder:"",smsReminder:"", managedBy: sessionStorage.getItem('userId')
+    notes: "",emailReminder:false,smsReminder:false, managedBy: sessionStorage.getItem('userId'),
+    smsCapableParent:false,smsCapable:false
+    
   };
   const [formData, setformData] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -57,9 +59,10 @@ const AddNewStudent = () => {
     //setloading(true);
     console.log(loading)
     if (isSubmit === true) {
-      if (sessionStorage.getItem('token')) {
+      
         //console.log("reached")
         const response = await AddNewStudentRouter(formData);
+        //console.log(response)
         if (response) {
           setIsSubmit(false)
           //console.log(response.message)
@@ -80,13 +83,18 @@ const AddNewStudent = () => {
 
             // alert(response.message)
           }
+          else if(response.status===502){
+            toast.info('User is not authorized')
+            navigate('/login')
+          }
 
 
         }
-      }
+      
       else {
         navigate('/Login')
       }
+      console.log(response)
     }
 
 

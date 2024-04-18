@@ -17,10 +17,7 @@ const Sidenavbar = () => {
       const handleConfirmLogout = () => {
         // Handle logout here
         setShowModalLogout(false);
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('userId');
-        sessionStorage.removeItem('firstName');
-        sessionStorage.removeItem('lastName');
+        sessionStorage.clear();
         navigate('/Login')
     
       };
