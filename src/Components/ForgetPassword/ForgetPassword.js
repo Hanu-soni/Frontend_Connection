@@ -93,14 +93,14 @@ const ForgetPassword = () => {
                     <Form onSubmit={handleSubmit} className='form9180'  >
 
                       <Form.Group className="mb-4" controlId="formBasicEmail">
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>Email </FormLabel>
                         <Form.Control 
                         onChange={handleChange}
                         value={inputValue}
                         className=" FormControl3" 
                           type="email"
                           name="email" 
-                          placeholder='Enter Your Email' 
+                          placeholder='Enter Your Gmail to recieve otp' 
                           required
 
 
