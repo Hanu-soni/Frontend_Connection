@@ -21,6 +21,13 @@ const Sidenavbar = () => {
         navigate('/Login')
     
       };
+
+      // useEffect(()=>{
+      //   if(!sessionStorage.getItem('token')){
+      //     navigate('/Login')
+      //   }
+    
+      // },[])
     return (
         <div>
             <div class="sidebar-sticky">
