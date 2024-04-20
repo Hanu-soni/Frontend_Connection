@@ -36,7 +36,7 @@ const ForgetPassword = () => {
     setloading(true);
     // console.log(loading)
    
-    const response = await OtpUser({email:inputValue});
+    const response = await OtpUser({email:inputValue,subject:"Your otp for password verification"});
 
     if (response) {
         console.log(response.message)
