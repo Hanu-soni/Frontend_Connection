@@ -39,7 +39,7 @@ const Signup = () => {
 
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
-    const [otp, setOtp] = useState('');
+    const [otp, setOtp] = useState(0);
     const [otpModalOpen, setOtpModalOpen] = useState(false);
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -73,19 +73,16 @@ const Signup = () => {
         // const verified=false;
             const otpsent=0;
         setFormErrors(validate(data));
-        if (Object.keys(formErrors).length === 0) {
-            setOtpModalOpen(true);
-            const response = await OtpUser({ email: data.email,subject:"verify your email" }); 
-            if(response.data){
-                setotprelease(response.data);
-            }
-            
-
+        if (Object.keys(formErrors).length === 0 ) {
             if (!isChecked) {
                 setShowModal(true); 
                 return;      
             }
-            
+            setOtpModalOpen(true);
+            const response = await OtpUser({ email: data.email,subject:"verify your email" }); 
+            if(response.data){
+                setotprelease(response.data);
+            }        
         }
     }
 
@@ -95,7 +92,7 @@ const Signup = () => {
        
             console.log(otp);
             console.log(otprelease);
-            if(otp==otprelease){
+            if(otp===otprelease){
                 console.log("check-99");
                 setloading(true);
                 const response = await RegisterUser(data);
