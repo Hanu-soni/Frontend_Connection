@@ -80,8 +80,8 @@ const Signup = () => {
             }
             setOtpModalOpen(true);
             const response = await OtpUser({ email: data.email,subject:"verify your email" }); 
-            if(response.data){
-                setotprelease(response.data.otp);
+            if(response.success===true){
+                setotprelease(response.data);
             }        
         }
     }
@@ -92,7 +92,7 @@ const Signup = () => {
        
             console.log(otp);
             console.log(otprelease);
-            if(otp===otprelease){
+            if(otp==otprelease){
                 console.log("check-99");
                 setloading(true);
                 const response = await RegisterUser(data);
@@ -103,9 +103,6 @@ const Signup = () => {
                     if (response.success === false) {
                         setIsSubmit(false);
                         toast.error(response.message);
-                        //alert(response.message)
-                        // console.log("check_issue_57_signup")
-                        // navigate('/signup')
                     }
                     else if (response.success === true) {
                         //console.log(response);
