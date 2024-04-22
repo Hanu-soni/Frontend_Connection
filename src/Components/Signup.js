@@ -81,7 +81,7 @@ const Signup = () => {
             setOtpModalOpen(true);
             const response = await OtpUser({ email: data.email,subject:"verify your email" }); 
             if(response.data){
-                setotprelease(response.data);
+                setotprelease(response.data.otp);
             }        
         }
     }
